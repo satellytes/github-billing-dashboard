@@ -1,9 +1,22 @@
 import React from "react";
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
+interface RechartProps {
+    csvData: {
+        [key: string]: {
+            date: string;
+            notes: string;
+            product: string;
+            repository: string;
+            unit: string;
+            value: number;
+            workflow: string
+        }[]
+    } | null
+}
 
-// @ts-ignore
-const Rechart = ({csvData, ...restProps}) => {
+
+const Rechart = ({csvData}: RechartProps): JSX.Element =>  {
     let colors = ["#233666", "#96ADEA", "#4F79E6", "#414C66", "#3D5EB3", "#233666", "#96ADEA", "#4F79E6", "#414C66", "#3D5EB3" ]
     let repositoryNames: (string | number)[] = []
 
@@ -13,6 +26,8 @@ const Rechart = ({csvData, ...restProps}) => {
 
         for(let date in csvData){
             let finalObj = {}
+
+
             csvData[date].forEach((obj: { repository: string | number; value: any; })=>{
                 // @ts-ignore
                 (obj.repository in finalObj) ? finalObj[obj.repository] = finalObj[obj.repository] + obj.value : finalObj[obj.repository] = obj.value

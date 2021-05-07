@@ -1,9 +1,10 @@
 import React, {useRef} from "react";
 
 // @ts-ignore
-const FileInput = ({callback, ...restProps}) => {
+const FileInput = ({callback}) => {
+
     const fileInput = useRef(null);
-    const handleSubmit= (event: { preventDefault: () => void; }) => {
+    const handleSubmit= (event: React.FormEvent) => {
         event.preventDefault()
         // @ts-ignore
         callback(fileInput.current.files[0])
