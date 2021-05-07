@@ -25,9 +25,7 @@ const Rechart = ({csvData}: RechartProps): JSX.Element =>  {
         let tempSortedDataArr = []
 
         for(let date in csvData){
-            let finalObj = {}
-
-
+            let finalObj= {}
             csvData[date].forEach((obj: { repository: string | number; value: any; })=>{
                 // @ts-ignore
                 (obj.repository in finalObj) ? finalObj[obj.repository] = finalObj[obj.repository] + obj.value : finalObj[obj.repository] = obj.value

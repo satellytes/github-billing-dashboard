@@ -1,34 +1,40 @@
 import React, {useState} from "react"
 import Rechart from "./rechart";
 import FileInput from "./file-input"
-import { parse } from 'papaparse'
+import {parse} from 'papaparse'
 import {ParseResult} from "papaparse";
 
+interface DailyEntry {
+    date: string,
+    product: string,
+    repository: string,
+    value: number,
+    unit: string,
+    workflow: string,
+    notes: string
+}
 
 function App() {
     const [csvData, setCsvData] = useState(null);
 
     const getCsvFile = (file: string | File | NodeJS.ReadableStream) => {
-        let csvArr: { date: any; product: any; repository: any; value: number; unit: any; workflow: any; notes: any; }[] | React.SetStateAction<null> | unknown[][] = []
+        let csvArr: string[][] = []
 
-      parse(file, {
+
+        parse(file, {
             worker: true,
-            step: (result:ParseResult<any>) => {
-                // @ts-ignore
+            step: (result: ParseResult<any>) => {
                 csvArr.push(result.data)
             },
             complete: () => {
 
-                //remove last element of the CSV-Array (empty string)
-                // @ts-ignore
+                //last element is an empty string
                 csvArr.pop()
-                //remove first element of the CSV-Array (table headers)
-                // @ts-ignore
+                //first element is an array with the headlines and no relevant data
                 csvArr.shift()
 
                 //transform CSV Arr into objects
-                // @ts-ignore
-                const csvDataStructuredAsObjects = csvArr.map((value) => {
+                const csvDataStructuredAsObjects: DailyEntry[] = csvArr.map((value) => {
                     return {
                         date: value[0],
                         product: value[1],
@@ -41,17 +47,17 @@ function App() {
                 })
 
                 //structure CSV-Data by date
-                // @ts-ignore
-                const csvDataStructuredByDate = csvDataStructuredAsObjects.reduce((acc, obj) => {
-                    const key = obj.date;
+                const csvDataStructuredByDate: { [key: string]: DailyEntry[] }
+                    = csvDataStructuredAsObjects.reduce((acc: { [key: string]: DailyEntry[] }, obj: DailyEntry) => {
+                    const key: string = obj.date;
                     if (!acc[key]) {
                         acc[key] = [];
                     }
                     acc[key].push(obj);
                     return acc;
                 }, {})
-                console.log(csvDataStructuredByDate)
-                // @ts-ignore
+
+                //@ts-ignore
                 setCsvData(csvDataStructuredByDate)
 
             }
