@@ -1,17 +1,10 @@
 import React from "react";
+import {DailyEntry} from "./App";
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 interface RechartProps {
     csvData: {
-        [key: string]: {
-            date: string;
-            notes: string;
-            product: string;
-            repository: string;
-            unit: string;
-            value: number;
-            workflow: string
-        }[]
+        [key: string]: DailyEntry[]
     } | null
 }
 

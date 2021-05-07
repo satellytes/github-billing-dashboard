@@ -4,7 +4,7 @@ import FileInput from "./file-input"
 import {parse} from 'papaparse'
 import {ParseResult} from "papaparse";
 
-interface DailyEntry {
+export interface DailyEntry {
     date: string,
     product: string,
     repository: string,
