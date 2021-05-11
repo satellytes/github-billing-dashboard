@@ -1,18 +1,18 @@
 import React, {useRef} from "react";
 
 interface FileInputProp {
-    callback:  (file: string | File | NodeJS.ReadableStream) => void
+    onSubmit:  (file: File) => void
 }
 
-const FileInput = ({callback}: FileInputProp): JSX.Element => {
+const FileInput = ({onSubmit}: FileInputProp): JSX.Element => {
 
-    const fileInput = useRef(null);
+    const fileInput = useRef<HTMLInputElement>(null);
     const handleSubmit= (event: React.FormEvent) => {
         event.preventDefault()
 
-        // @ts-ignore
-        callback(fileInput.current.files[0])
-        ;
+        if(fileInput && fileInput.current && fileInput.current.files ) {
+            onSubmit(fileInput.current.files[0])
+        }
     }
 
     return (
