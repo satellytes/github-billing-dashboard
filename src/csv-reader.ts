@@ -1,51 +1,34 @@
-import {parse, ParseResult} from 'papaparse'
+import {parse} from 'papaparse'
 
-export interface DailyEntry {
+export interface UsageReportCsvEntry {
     date: string,
     product: string,
-    repository: string,
+    repositorySlug: string,
     quantity: string,
     unitType: string,
     pricePerUnit: string,
-    workflow: string,
+    actionsWorkflow: string,
     notes: string,
-
 }
 
-export interface GithubDailyEntry extends DailyEntry {
+export interface UsageReportEntry extends UsageReportCsvEntry {
     totalPrice: number
 }
 
-export const getCsvFile = (file: File): Promise</*{ [key: string]: GithubDailyEntry[] }*/GithubDailyEntry[]> => {
+const camalize = (str: string): string => {
+    return str.toLowerCase().replace(/[^a-zA-Z0-0]+(.)/g, (m, chr) => chr.toUpperCase());
+}
+export const getCsvFile = (file: File): Promise<UsageReportEntry[]> => {
     return new Promise((resolve, reject) => {
-        const csvArray: string[][] = []
 
-        parse(file, {
-            worker: true,
-            step: (result: ParseResult<any>) => {
-                csvArray.push(result.data)
+        parse<UsageReportCsvEntry>(file, {
+            header: true,
+            skipEmptyLines: true,
+            transformHeader: (header: string): string => {
+                return camalize(header)
             },
-            complete: () => {
-
-                //last element is an empty string
-                csvArray.pop()
-                //first element is an array with the headlines and no relevant data
-                csvArray.shift()
-
-                const csvDataStructuredAsObjects: DailyEntry[] = csvArray.map((value) => {
-                    return {
-                        date: value[0],
-                        product: value[1],
-                        repository: value[2],
-                        quantity: value[3],
-                        unitType: value[4],
-                        pricePerUnit: value[5],
-                        workflow: value[6],
-                        notes: value[7],
-                    }
-                })
-
-                const githubBillingEntries: GithubDailyEntry[] = csvDataStructuredAsObjects.map((dailyEntry) => {
+            complete: (result) => {
+                const githubBillingEntries: UsageReportEntry[] = result.data.map((dailyEntry) => {
                     // remove dollar sign
                     const price = dailyEntry.pricePerUnit.substring(1)
                     return {
@@ -53,7 +36,6 @@ export const getCsvFile = (file: File): Promise</*{ [key: string]: GithubDailyEn
                         totalPrice: (parseFloat(dailyEntry.quantity) * parseFloat(price)),
                     }
                 });
-
                 resolve(githubBillingEntries)
             }
         });
