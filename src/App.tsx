@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react"
+import FileInput from "./components/file-input"
+import ChartContainer from "./components/chart-container";
+import MonthlyWidgetContainer from "./components/monthly-widget-container";
+import {getCsvFile, UsageReportEntry} from "./csv-reader";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App = (): JSX.Element => {
+    const [csvData, setCsvData] = useState<UsageReportEntry[] | null>(null);
+
+    const handleFileSubmit = (file: File) => {
+        getCsvFile(file).then(res  => setCsvData(res))
+    }
+
+    return (
+        <div className="App">
+            <FileInput onSubmit={handleFileSubmit}/>
+            {csvData && <MonthlyWidgetContainer csvData={csvData}/>}
+            {csvData && <ChartContainer csvData={csvData}/>}
+
+        </div>
+    );
 }
 
 export default App;
