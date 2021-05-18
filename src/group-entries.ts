@@ -1,5 +1,15 @@
 import {UsageReportEntry} from "./csv-reader";
-import {getISOWeek, lastDayOfWeek, lightFormat, startOfWeek} from 'date-fns'
+import {
+    getISOWeek,
+    lastDayOfWeek,
+    lightFormat,
+    startOfWeek,
+    format,
+    getMonth,
+    lastDayOfMonth,
+    startOfMonth,
+    getYear
+} from 'date-fns'
 
 interface UsageReportDay {
     day: string; // iso date
@@ -46,12 +56,12 @@ export const groupEntriesPerWeek = (csvData: UsageReportEntry[]): UsageReportWee
     return csvData.reduce((acc: UsageReportWeek[], obj) => {
         let indexOfEntryForCurrentDate: number = 0;
         const currentDate = new Date(obj.date)
-        const currentWeekNumber = getISOWeek(currentDate)
+        const currentFirstDayOfTheWeek = startOfWeek(currentDate)
 
         //Is the current date already in acc?
         if (!(acc.find((objectsInAcc: UsageReportWeek, index) => {
             indexOfEntryForCurrentDate = index
-            return objectsInAcc.weekNumber === currentWeekNumber
+            return objectsInAcc.from === currentFirstDayOfTheWeek.toISOString()
         }))) {
             const firstDayOfTheWeek = startOfWeek(currentDate)
             const lastDayOfTheWeek = lastDayOfWeek(currentDate)
@@ -60,7 +70,49 @@ export const groupEntriesPerWeek = (csvData: UsageReportEntry[]): UsageReportWee
                 week: `${lightFormat(firstDayOfTheWeek, 'dd.MM.')} - ${lightFormat(lastDayOfTheWeek, 'dd.MM.')}`,
                 from: firstDayOfTheWeek.toISOString(),
                 to: lastDayOfTheWeek.toISOString(),
-                weekNumber: currentWeekNumber,
+                weekNumber: getISOWeek(currentDate),
+                totalPrice: obj.totalPrice,
+                entries: [obj]
+            }
+            acc.push(newEntry)
+        }else {
+            acc[indexOfEntryForCurrentDate].entries.push(obj)
+            acc[indexOfEntryForCurrentDate].totalPrice = acc[indexOfEntryForCurrentDate].totalPrice + obj.totalPrice
+        }
+        return acc;
+    }, []);
+}
+
+export interface UsageReportMonth{
+    monthName: string; // a.e.: "April 2020"
+    month: number; // a.e. 4
+    from: string; // iso date
+    to: string; // iso date
+    totalPrice: number; // for the charts total value
+    entries: UsageReportEntry[];
+}
+
+
+export const groupEntriesPerMonth = (csvData: UsageReportEntry[]): UsageReportMonth[] => {
+    // @ts-ignore
+    return csvData.reduce((acc: UsageReportMonth[], obj) => {
+        let indexOfEntryForCurrentDate: number = 0;
+        const currentDate = new Date(obj.date)
+        const currentStartOfMonth = startOfMonth(currentDate).toISOString()
+
+        //Is the current date already in acc?
+        if (!(acc.find((objectsInAcc: UsageReportMonth, index) => {
+            indexOfEntryForCurrentDate = index
+            return objectsInAcc.from === currentStartOfMonth
+        }))) {
+            const firstDayOfMonth = startOfMonth(currentDate)
+            const lastDayOfTheMonth = lastDayOfMonth(currentDate)
+
+            const newEntry: UsageReportMonth = {
+                monthName: `${format(currentDate, 'LLLL')} ${getYear(currentDate)}`,
+                month: getMonth(currentDate) + 1,
+                from: firstDayOfMonth.toISOString(),
+                to: lastDayOfTheMonth.toISOString(),
                 totalPrice: obj.totalPrice,
                 entries: [obj]
             }
@@ -72,4 +124,15 @@ export const groupEntriesPerWeek = (csvData: UsageReportEntry[]): UsageReportWee
         }
         return acc;
     }, []);
+}
+
+
+export const getPriceByRepositoryName = (repositoryName: string, currentEntries: UsageReportEntry[]) => {
+    let priceByRepositoryName = 0
+    currentEntries.forEach((entry) => {
+        if(entry.repositorySlug === repositoryName){
+            priceByRepositoryName += entry.totalPrice
+        }
+    })
+    return Math.round(priceByRepositoryName * 100) / 100
 }
