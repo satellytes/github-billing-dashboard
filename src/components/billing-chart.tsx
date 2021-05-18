@@ -12,15 +12,24 @@ interface BillingChartProps {
 const BillingChart = ({csvData}: BillingChartProps): JSX.Element => {
     const [groupedBy, setGroupedBy] = useState<"daily" | "weekly">("daily")
 
-
     const dropdownMenuOptions = ['daily', 'weekly'];
     const entriesGroupedPerDay = groupEntriesPerDay(csvData)
     const entriesGroupedPerWeek = groupEntriesPerWeek(csvData)
-/*    // @ts-ignore
+
+    // @ts-ignore
     const repositoryNames = [...new Set(csvData.map((entry) => entry.repositorySlug))]
-    const colors = ["#233666", "#96ADEA", "#4F79E6", "#414C66", "#3D5EB3", "#233666", "#96ADEA", "#4F79E6", "#414C66", "#3D5EB3"]*/
+    const colors = ["#233666", "#96ADEA", "#4F79E6", "#414C66", "#3D5EB3", "#233666", "#96ADEA", "#4F79E6", "#414C66", "#3D5EB3"]
 
 
+    const getPriceByRepositoryName = (repositoryName: string, currentEntries: UsageReportEntry[]) => {
+        let priceByRepositoryName = 0
+        currentEntries.forEach((entry) => {
+            if(entry.repositorySlug === repositoryName){
+                priceByRepositoryName += entry.totalPrice
+            }
+        })
+        return Math.round(priceByRepositoryName * 100) / 100
+    }
 
     return (
         <>
@@ -38,11 +47,20 @@ const BillingChart = ({csvData}: BillingChartProps): JSX.Element => {
                 <YAxis/>
                 <Tooltip/>
                 <Legend/>
-                {/*TODO: Split up each bar by repository name*/}
-                <Bar dataKey={"totalPrice"} />
+                {repositoryNames.map(((repositoryName, index) => {
+                    return <Bar
+                        dataKey={(currentEntry) => getPriceByRepositoryName(repositoryName, currentEntry.entries) }
+                        stackId="a" fill={colors[index]}
+                        key={index}
+                        name={repositoryName}
+                        unit={"$"}
+                    />
+                }))}
+
             </BarChart>
         </>
     )
 }
 
 export default BillingChart
+
