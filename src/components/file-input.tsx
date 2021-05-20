@@ -4,7 +4,7 @@ interface FileInputProp {
     onSubmit:  (file: File) => void
 }
 
-const FileInput = ({onSubmit}: FileInputProp): JSX.Element => {
+export const FileInput = ({onSubmit}: FileInputProp): JSX.Element => {
 
     const fileInput = useRef<HTMLInputElement>(null);
     const handleSubmit= (event: React.FormEvent) => {
@@ -29,4 +29,3 @@ const FileInput = ({onSubmit}: FileInputProp): JSX.Element => {
     )
 }
 
-export default FileInput

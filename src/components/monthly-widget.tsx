@@ -1,16 +1,22 @@
-import React from "react";
+import React, {useState} from "react";
 import {UsageReportMonth} from "../group-entries";
-import {LineChart, Line} from 'recharts';
+import {LineChart, Line, YAxis} from 'recharts';
 import {groupEntriesPerDay} from "../group-entries";
 
-interface MonthlyWidgetProps{
-    monthlyEntry: UsageReportMonth
+
+interface MonthlyWidgetProps {
+    monthlyEntry: UsageReportMonth;
+    maxValueOfYAxis: number
 }
 
-const MonthlyWidget = ({monthlyEntry}: MonthlyWidgetProps): JSX.Element => {
+export const MonthlyWidget = ({monthlyEntry, maxValueOfYAxis}: MonthlyWidgetProps): JSX.Element => {
+    const [isActive, setIsActive] = useState<boolean>(false)
+
     const entriesGroupedPerDay = groupEntriesPerDay(monthlyEntry.entries)
-    return(
-        <div style={{margin: "10px"}}>
+
+    return (
+        <div style={isActive ? {margin: "10px", border: "1px solid black"} : {margin: "10px", border: "none"}}
+             onClick={() => setIsActive(!isActive)}>
             <div>
                 <h4>{monthlyEntry.monthName}</h4>
                 <p>{`${Math.round(monthlyEntry.totalPrice * 100) / 100} $`}</p>
@@ -26,10 +32,13 @@ const MonthlyWidget = ({monthlyEntry}: MonthlyWidgetProps): JSX.Element => {
                     bottom: 5,
                 }}
             >
-                <Line type="monotone" dataKey="totalPrice" stroke="#82ca9d" dot={false} />
+                <YAxis hide={true} domain={[0, maxValueOfYAxis]}/>
+                <Line type="monotone" dataKey="totalPrice" stroke="#82ca9d" dot={false}/>
+
             </LineChart>
         </div>
     )
 }
 
-export default MonthlyWidget
+
+

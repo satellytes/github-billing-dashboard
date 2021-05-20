@@ -36,6 +36,7 @@ export const getCsvFile = (file: File): Promise<UsageReportEntry[]> => {
                         totalPrice: (parseFloat(dailyEntry.quantity) * parseFloat(price)),
                     }
                 });
+
                 resolve(githubBillingEntries)
             }
         });

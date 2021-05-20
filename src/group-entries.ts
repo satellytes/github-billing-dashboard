@@ -136,3 +136,7 @@ export const getPriceByRepositoryName = (repositoryName: string, currentEntries:
     })
     return Math.round(priceByRepositoryName * 100) / 100
 }
+
+export const getMaximumTotalPriceOfAllDays = (data: UsageReportEntry[]) => {
+    return Math.max.apply(Math, data.map((entry) => entry.totalPrice))
+}

@@ -7,6 +7,7 @@ import {
     getPriceByRepositoryName
 } from "../group-entries";
 import 'react-dropdown/style.css';
+import {lightFormat} from "date-fns";
 
 interface TestLineChartProps {
     csvData: UsageReportEntry[],
@@ -14,7 +15,7 @@ interface TestLineChartProps {
 }
 
 
-const BillingLineChart = ({csvData, groupedBy}: TestLineChartProps): JSX.Element => {
+export const BillingLineChart = ({csvData, groupedBy}: TestLineChartProps): JSX.Element => {
 
     const entriesGroupedPerDay = groupEntriesPerDay(csvData)
     const entriesGroupedPerWeek = groupEntriesPerWeek(csvData)
@@ -39,9 +40,10 @@ const BillingLineChart = ({csvData, groupedBy}: TestLineChartProps): JSX.Element
                 }}
             >
 
-                <XAxis dataKey={(groupedBy === "daily")? "day" : "week"}/>
+                <XAxis dataKey={(groupedBy === "daily")? "day" : "week"} tickFormatter={(tick) => Date.parse(tick) ? lightFormat(new Date(tick), "dd.MM.") : tick} interval="preserveStart"/>
                 <YAxis/>
-                <Tooltip/>
+                {/*labelFormatter checks if the given label has the right format*/}
+                <Tooltip labelFormatter={(label) => Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label}/>
                 <Legend/>
                 {repositoryNames.map((repositoryName, index) => {
                     return <Line
@@ -60,4 +62,3 @@ const BillingLineChart = ({csvData, groupedBy}: TestLineChartProps): JSX.Element
     )
 }
 
-export default BillingLineChart
