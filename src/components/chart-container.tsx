@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {UsageReportEntry} from "../csv-reader";
 import {BillingBarChart} from "./billing-bar-chart";
 import {BillingLineChart} from "./billing-line-chart";
 import "./chart-container.css"
+import {WidgetContext} from "./widget-context";
+import {getMaximumTotalPriceOfAllDays, getMaximumTotalPriceOfAllWeeks} from "../group-entries";
 
 interface ChartContainerProps {
     csvData: UsageReportEntry[]
@@ -12,10 +14,17 @@ export const ChartContainer = ({csvData}: ChartContainerProps): JSX.Element => {
     const [diagramType, setDiagramType] = useState<"Bar" | "Line">("Bar")
     const [groupedBy, setGroupedBy] = useState<"daily" | "weekly">("daily")
 
+
+    // Selected month from the mini widgets
+    const {activeMonth} = useContext(WidgetContext)
+
+    const maxDailyValueOfYAxis = getMaximumTotalPriceOfAllDays(csvData)
+    const maxWeeklyValueOfYAxis = getMaximumTotalPriceOfAllWeeks(csvData)
+
     return (
         <>
             <h2>Angezeigter Zeitraum</h2>
-            <p>{`${csvData[0].date} bis ${csvData[csvData.length - 1].date}`}</p>
+            <p>{activeMonth.monthName === "" ? `${csvData[0].date} bis ${csvData[csvData.length - 1].date} (kompletter Datensatz)` : activeMonth.monthName}</p>
             <div className={"toggleButtonDiv"}>
                 <div>
                     <button
@@ -41,12 +50,8 @@ export const ChartContainer = ({csvData}: ChartContainerProps): JSX.Element => {
                     </button>
                 </div>
             </div>
-
-
-            {diagramType === "Bar" ? <BillingBarChart csvData={csvData} groupedBy={groupedBy}/> :
-                <BillingLineChart csvData={csvData} groupedBy={groupedBy}/>}
-
-
+            {diagramType === "Bar" ? <BillingBarChart maxValueOfYAxis={groupedBy === "daily" ? maxDailyValueOfYAxis : maxWeeklyValueOfYAxis} csvData={activeMonth.monthName === "" ? csvData : activeMonth.data} groupedBy={groupedBy}/> :
+                <BillingLineChart maxValueOfYAxis={groupedBy === "daily" ? maxDailyValueOfYAxis : maxWeeklyValueOfYAxis} csvData={activeMonth.monthName === "" ? csvData : activeMonth.data} groupedBy={groupedBy}/>}
         </>
     )
 }

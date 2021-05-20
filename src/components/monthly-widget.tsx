@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useContext} from "react";
 import {UsageReportMonth} from "../group-entries";
 import {LineChart, Line, YAxis} from 'recharts';
 import {groupEntriesPerDay} from "../group-entries";
-
+import {WidgetContext} from "./widget-context";
 
 interface MonthlyWidgetProps {
     monthlyEntry: UsageReportMonth;
@@ -10,13 +10,12 @@ interface MonthlyWidgetProps {
 }
 
 export const MonthlyWidget = ({monthlyEntry, maxValueOfYAxis}: MonthlyWidgetProps): JSX.Element => {
-    const [isActive, setIsActive] = useState<boolean>(false)
-
+    const {activeMonth, setActiveMonth} = useContext(WidgetContext)
     const entriesGroupedPerDay = groupEntriesPerDay(monthlyEntry.entries)
 
     return (
-        <div style={isActive ? {margin: "10px", border: "1px solid black"} : {margin: "10px", border: "none"}}
-             onClick={() => setIsActive(!isActive)}>
+        <div style={activeMonth.monthName === monthlyEntry.monthName? {margin: "10px", border: "1px solid black"} : {margin: "10px", border: "none"}}
+             onClick={() => setActiveMonth(monthlyEntry.monthName, monthlyEntry.entries)}>
             <div>
                 <h4>{monthlyEntry.monthName}</h4>
                 <p>{`${Math.round(monthlyEntry.totalPrice * 100) / 100} $`}</p>

@@ -11,11 +11,12 @@ import {lightFormat} from "date-fns";
 
 interface TestLineChartProps {
     csvData: UsageReportEntry[],
-    groupedBy: ("daily" | "weekly")
+    groupedBy: ("daily" | "weekly"),
+    maxValueOfYAxis: number
 }
 
 
-export const BillingLineChart = ({csvData, groupedBy}: TestLineChartProps): JSX.Element => {
+export const BillingLineChart = ({csvData, groupedBy, maxValueOfYAxis}: TestLineChartProps): JSX.Element => {
 
     const entriesGroupedPerDay = groupEntriesPerDay(csvData)
     const entriesGroupedPerWeek = groupEntriesPerWeek(csvData)
@@ -41,7 +42,7 @@ export const BillingLineChart = ({csvData, groupedBy}: TestLineChartProps): JSX.
             >
 
                 <XAxis dataKey={(groupedBy === "daily")? "day" : "week"} tickFormatter={(tick) => Date.parse(tick) ? lightFormat(new Date(tick), "dd.MM.") : tick} interval="preserveStart"/>
-                <YAxis/>
+                <YAxis domain={[0, maxValueOfYAxis]} unit=" $"/>
                 {/*labelFormatter checks if the given label has the right format*/}
                 <Tooltip labelFormatter={(label) => Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label}/>
                 <Legend/>

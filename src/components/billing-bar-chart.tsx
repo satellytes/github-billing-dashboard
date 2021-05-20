@@ -7,10 +7,11 @@ import 'react-dropdown/style.css';
 
 interface BillingChartProps {
     csvData: UsageReportEntry[],
-    groupedBy: ("daily" | "weekly")
+    groupedBy: ("daily" | "weekly"),
+    maxValueOfYAxis: number
 }
 
-export const BillingBarChart = ({csvData, groupedBy}: BillingChartProps): JSX.Element => {
+export const BillingBarChart = ({csvData, groupedBy, maxValueOfYAxis}: BillingChartProps): JSX.Element => {
     const entriesGroupedPerDay = groupEntriesPerDay(csvData)
     const entriesGroupedPerWeek = groupEntriesPerWeek(csvData)
     // @ts-ignore
@@ -23,7 +24,7 @@ export const BillingBarChart = ({csvData, groupedBy}: BillingChartProps): JSX.El
             <BarChart width={1000} height={600} data={(groupedBy === "daily")? entriesGroupedPerDay : entriesGroupedPerWeek}>
                 <CartesianGrid strokeDasharray="2 2"/>
                 <XAxis dataKey={(groupedBy === "daily")? "day" : "week"} tickFormatter={(tick) => Date.parse(tick) ? lightFormat(new Date(tick), "dd.MM.") : tick} interval="preserveStart" />
-                <YAxis/>
+                <YAxis domain={[0, maxValueOfYAxis]} unit=" $"/>
                {/*labelFormatter checks if the given label has the right format*/}
                 <Tooltip labelFormatter={(label) => Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label} />
                 <Legend/>

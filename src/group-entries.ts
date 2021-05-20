@@ -138,5 +138,11 @@ export const getPriceByRepositoryName = (repositoryName: string, currentEntries:
 }
 
 export const getMaximumTotalPriceOfAllDays = (data: UsageReportEntry[]) => {
-    return Math.max.apply(Math, data.map((entry) => entry.totalPrice))
+    const entriesGroupedPerDay = groupEntriesPerDay(data)
+    return Math.ceil(Math.max.apply(Math, entriesGroupedPerDay.map((entry) => entry.totalPrice)))
+}
+
+export const getMaximumTotalPriceOfAllWeeks = (data: UsageReportEntry[]) => {
+    const entriesGroupedPerWeek = groupEntriesPerWeek(data)
+    return Math.ceil(Math.max.apply(Math, entriesGroupedPerWeek.map((entry) => entry.totalPrice)))
 }
