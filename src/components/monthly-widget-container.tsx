@@ -5,6 +5,7 @@ import {
   getMaximumTotalPriceOfAllDays,
   groupEntriesPerMonth,
 } from "../group-entries";
+import "./monthly-widget-container.css";
 
 interface MonthlyWidgetProps {
   csvData: UsageReportEntry[];
@@ -16,7 +17,7 @@ export const MonthlyWidgetContainer = ({
   const maxValueOfYAxis = getMaximumTotalPriceOfAllDays(csvData);
   const entriesGroupedPerMonth = groupEntriesPerMonth(csvData);
   return (
-    <div style={{ display: "flex" }}>
+    <div className={"widget-container"}>
       {entriesGroupedPerMonth.map((monthlyEntry) => (
         <MonthlyWidget
           key={monthlyEntry.month}
