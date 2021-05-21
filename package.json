@@ -1,4 +1,5 @@
 {
+  "homepage": "https://satellytes.github.io/github-billing-dashboard",
   "name": "github-billing-dashboard",
   "version": "0.1.0",
   "private": true,
@@ -24,21 +25,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "lint-staged": {
-    "*.js": "eslint --cache --fix"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && pretty-quick --staged"
-    }
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "prepare": "husky install"
   },
   "browserslist": {
     "production": [
@@ -54,15 +44,13 @@
   },
   "devDependencies": {
     "@types/papaparse": "^5.2.5",
-    "@typescript-eslint/eslint-plugin": "^4.24.0",
-    "@typescript-eslint/parser": "^4.24.0",
-    "eslint": "^7.26.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.23.2",
+    "gh-pages": "^3.1.0",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
-    "prettier": "^2.3.0",
+    "prettier": "2.3.0",
     "pretty-quick": "^3.1.0"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write --ignore-unknown"
   }
 }
