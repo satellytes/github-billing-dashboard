@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/github-billing-dashboard/static/css/main.ade8dbfa.chunk.css",
+    "main.js": "/github-billing-dashboard/static/js/main.ad5aa1f4.chunk.js",
+    "main.js.map": "/github-billing-dashboard/static/js/main.ad5aa1f4.chunk.js.map",
+    "runtime-main.js": "/github-billing-dashboard/static/js/runtime-main.78e55d83.js",
+    "runtime-main.js.map": "/github-billing-dashboard/static/js/runtime-main.78e55d83.js.map",
+    "static/css/2.fe708519.chunk.css": "/github-billing-dashboard/static/css/2.fe708519.chunk.css",
+    "static/js/2.4e036391.chunk.js": "/github-billing-dashboard/static/js/2.4e036391.chunk.js",
+    "static/js/2.4e036391.chunk.js.map": "/github-billing-dashboard/static/js/2.4e036391.chunk.js.map",
+    "index.html": "/github-billing-dashboard/index.html",
+    "static/css/2.fe708519.chunk.css.map": "/github-billing-dashboard/static/css/2.fe708519.chunk.css.map",
+    "static/css/main.ade8dbfa.chunk.css.map": "/github-billing-dashboard/static/css/main.ade8dbfa.chunk.css.map",
+    "static/js/2.4e036391.chunk.js.LICENSE.txt": "/github-billing-dashboard/static/js/2.4e036391.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.78e55d83.js",
+    "static/css/2.fe708519.chunk.css",
+    "static/js/2.4e036391.chunk.js",
+    "static/css/main.ade8dbfa.chunk.css",
+    "static/js/main.ad5aa1f4.chunk.js"
+  ]
+}
