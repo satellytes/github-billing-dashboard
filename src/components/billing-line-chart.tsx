@@ -23,8 +23,8 @@ export const BillingLineChart = ({
   const entriesGroupedPerDay = groupEntriesPerDay(csvData);
   const entriesGroupedPerWeek = groupEntriesPerWeek(csvData);
 
-  // @ts-ignore
   const repositoryNames = [
+    // @ts-ignore
     ...new Set(csvData.map((entry) => entry.repositorySlug)),
   ];
   const colors = [
