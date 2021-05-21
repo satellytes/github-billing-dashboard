@@ -67,6 +67,7 @@ export const groupEntriesPerWeek = (csvData: UsageReportEntry[]): UsageReportWee
             const lastDayOfTheWeek = lastDayOfWeek(currentDate)
 
             const newEntry: UsageReportWeek = {
+                //TODO from, to und week enthalten in der widget Ansicht Daten, die gar nicht angezeigt werden
                 week: `${lightFormat(firstDayOfTheWeek, 'dd.MM.')} - ${lightFormat(lastDayOfTheWeek, 'dd.MM.')}`,
                 from: firstDayOfTheWeek.toISOString(),
                 to: lastDayOfTheWeek.toISOString(),
@@ -94,7 +95,7 @@ export interface UsageReportMonth{
 
 
 export const groupEntriesPerMonth = (csvData: UsageReportEntry[]): UsageReportMonth[] => {
-    // @ts-ignore
+
     return csvData.reduce((acc: UsageReportMonth[], obj) => {
         let indexOfEntryForCurrentDate: number = 0;
         const currentDate = new Date(obj.date)

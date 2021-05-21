@@ -14,7 +14,7 @@ export const MonthlyWidget = ({monthlyEntry, maxValueOfYAxis}: MonthlyWidgetProp
     const entriesGroupedPerDay = groupEntriesPerDay(monthlyEntry.entries)
 
     return (
-        <div style={activeMonth.monthName === monthlyEntry.monthName? {margin: "10px", border: "1px solid black"} : {margin: "10px", border: "none"}}
+        <div style={activeMonth.monthName === monthlyEntry.monthName? {margin: "10px", border: "1px solid black"} : {margin: "10px", border: "1px solid white"}}
              onClick={() => setActiveMonth(monthlyEntry.monthName, monthlyEntry.entries)}>
             <div>
                 <h4>{monthlyEntry.monthName}</h4>
@@ -38,6 +38,3 @@ export const MonthlyWidget = ({monthlyEntry, maxValueOfYAxis}: MonthlyWidgetProp
         </div>
     )
 }
-
-
-

@@ -14,6 +14,7 @@ interface BillingChartProps {
 export const BillingBarChart = ({csvData, groupedBy, maxValueOfYAxis}: BillingChartProps): JSX.Element => {
     const entriesGroupedPerDay = groupEntriesPerDay(csvData)
     const entriesGroupedPerWeek = groupEntriesPerWeek(csvData)
+
     // @ts-ignore
     const repositoryNames = [...new Set(csvData.map((entry) => entry.repositorySlug))]
     const colors = ["#233666", "#96ADEA", "#4F79E6", "#414C66", "#3D5EB3", "#233666", "#96ADEA", "#4F79E6", "#414C66", "#3D5EB3"]

@@ -15,16 +15,17 @@ export const ChartContainer = ({csvData}: ChartContainerProps): JSX.Element => {
     const [groupedBy, setGroupedBy] = useState<"daily" | "weekly">("daily")
 
 
-    // Selected month from the mini widgets
+    // Selected month from mini widgets
     const {activeMonth} = useContext(WidgetContext)
 
     const maxDailyValueOfYAxis = getMaximumTotalPriceOfAllDays(csvData)
     const maxWeeklyValueOfYAxis = getMaximumTotalPriceOfAllWeeks(csvData)
 
+
     return (
         <>
             <h2>Angezeigter Zeitraum</h2>
-            <p>{activeMonth.monthName === "" ? `${csvData[0].date} bis ${csvData[csvData.length - 1].date} (kompletter Datensatz)` : activeMonth.monthName}</p>
+            <p>{activeMonth.monthName || `${csvData[0].date} bis ${csvData[csvData.length - 1].date} (kompletter Datensatz)`}</p>
             <div className={"toggleButtonDiv"}>
                 <div>
                     <button

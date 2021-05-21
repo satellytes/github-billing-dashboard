@@ -28,8 +28,8 @@ const App = (): JSX.Element => {
     const [selectedMonthFromWidget, setSelectedMonthFromWidget] = useState<{monthName: string, data: (UsageReportEntry[])}>({monthName: "", data: []})
 
 
+
     return (
-        // @ts-ignore
         <WidgetContext.Provider value={{activeMonth: selectedMonthFromWidget, setActiveMonth: (month:string, data: UsageReportEntry[]) => handleWidgetClick(month, data)}}>
             <div className="App" >
                 <FileInput onSubmit={handleFileSubmit}/>
