@@ -1,6 +1,7 @@
 .monthly-widget {
   margin: 10px;
   border: 1px solid white;
+  cursor: pointer;
 }
 
 .monthly-widget-active {

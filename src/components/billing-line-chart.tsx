@@ -1,6 +1,14 @@
 import React from "react";
 import { UsageReportEntry } from "../csv-reader";
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import {
   groupEntriesPerDay,
   groupEntriesPerWeek,
@@ -41,10 +49,8 @@ export const BillingLineChart = ({
   ];
 
   return (
-    <>
+    <ResponsiveContainer width="100%" height={1000}>
       <LineChart
-        width={1000}
-        height={600}
         data={
           groupedBy === "daily" ? entriesGroupedPerDay : entriesGroupedPerWeek
         }
@@ -68,6 +74,8 @@ export const BillingLineChart = ({
           labelFormatter={(label) =>
             Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label
           }
+          //@ts-ignore
+          itemSorter={(item) => item.value}
         />
         <Legend />
         {repositoryNames.map((repositoryName, index) => {
@@ -87,6 +95,6 @@ export const BillingLineChart = ({
           );
         })}
       </LineChart>
-    </>
+    </ResponsiveContainer>
   );
 };
