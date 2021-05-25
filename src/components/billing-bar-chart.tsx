@@ -49,6 +49,8 @@ export const BillingBarChart = ({
     "#3D5EB3",
   ];
 
+  class CustomTooltip extends Tooltip<number, string> {}
+
   return (
     <ResponsiveContainer width="100%" height={600}>
       <BarChart
@@ -66,12 +68,11 @@ export const BillingBarChart = ({
         />
         <YAxis domain={[0, maxValueOfYAxis]} unit=" $" />
         {/*labelFormatter checks if the given label has the right format*/}
-        <Tooltip
+        <CustomTooltip
           labelFormatter={(label) =>
             Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label
           }
-          //@ts-ignore
-          itemSorter={(item) => item.value}
+          itemSorter={(item) => (item.value ? item.value * -1 : 0)}
         />
         <Legend />
         {repositoryNames.map((repositoryName, index) => {

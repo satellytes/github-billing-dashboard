@@ -23,6 +23,8 @@ interface TestLineChartProps {
   maxValueOfYAxis: number;
 }
 
+class CustomTooltip extends Tooltip<number, string> {}
+
 export const BillingLineChart = ({
   csvData,
   groupedBy,
@@ -48,6 +50,7 @@ export const BillingLineChart = ({
     "#3D5EB3",
   ];
 
+  // @ts-ignore
   return (
     <ResponsiveContainer width="100%" height={1000}>
       <LineChart
@@ -70,12 +73,11 @@ export const BillingLineChart = ({
         />
         <YAxis domain={[0, maxValueOfYAxis]} unit=" $" />
         {/*labelFormatter checks if the given label has the right format*/}
-        <Tooltip
+        <CustomTooltip
           labelFormatter={(label) =>
             Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label
           }
-          //@ts-ignore
-          itemSorter={(item) => item.value}
+          itemSorter={(item) => (item.value ? item.value * -1 : 0)}
         />
         <Legend />
         {repositoryNames.map((repositoryName, index) => {
