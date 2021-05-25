@@ -1,32 +1,27 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 
 interface FileInputProp {
-    onSubmit:  (file: File) => void
+  onInput: (file: File) => void;
 }
 
-const FileInput = ({onSubmit}: FileInputProp): JSX.Element => {
+export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
+  const fileInput = useRef<HTMLInputElement>(null);
+  const handleInput = (event: React.FormEvent) => {
+    event.preventDefault();
 
-    const fileInput = useRef<HTMLInputElement>(null);
-    const handleSubmit= (event: React.FormEvent) => {
-        event.preventDefault()
-
-        if(fileInput && fileInput.current && fileInput.current.files ) {
-            onSubmit(fileInput.current.files[0])
-        }
+    if (fileInput && fileInput.current && fileInput.current.files) {
+      onInput(fileInput.current.files[0]);
     }
+  };
 
-    return (
-        <div className="file-uploader">
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Upload file:
-                    <input type="file" ref={fileInput} />
-                </label>
-                <br />
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    )
-}
-
-export default FileInput
+  return (
+    <div className="file-uploader">
+      <form onSubmit={handleInput}>
+        <label>
+          Upload file:
+          <input type="file" ref={fileInput} onInput={handleInput} />
+        </label>
+      </form>
+    </div>
+  );
+};

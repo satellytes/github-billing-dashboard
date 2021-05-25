@@ -1,0 +1,8 @@
+.monthly-widget {
+  margin: 10px;
+  border: 1px solid white;
+}
+
+.monthly-widget-active {
+  border-color: black;
+}
