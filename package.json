@@ -27,8 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "prepare": "husky install"
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [
@@ -52,5 +51,10 @@
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write --ignore-unknown"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
