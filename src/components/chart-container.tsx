@@ -29,10 +29,15 @@ export const ChartContainer = ({
   //currentData changes when a mini-widget is selected
   const currentData = activeMonth.monthName === "" ? csvData : activeMonth.data;
 
-  const repositoryNames = [
-    // @ts-ignore
-    ...new Set(csvData.map((entry) => entry.repositorySlug)),
-  ];
+  const repositoryNames = () => {
+    const repositoryNamesWithDuplicates = csvData.map(
+      (entry) => entry.repositorySlug
+    );
+    return repositoryNamesWithDuplicates.filter(
+      (value, index) => repositoryNamesWithDuplicates.indexOf(value) === index
+    );
+    //...new Set(csvData.map((entry) => entry.repositorySlug)),
+  };
 
   return (
     <>
@@ -87,14 +92,14 @@ export const ChartContainer = ({
           maxValueOfYAxis={currentMaxValueOfYAxis}
           csvData={currentData}
           groupedBy={groupedBy}
-          repositoryNames={repositoryNames}
+          repositoryNames={repositoryNames()}
         />
       ) : (
         <BillingLineChart
           maxValueOfYAxis={currentMaxValueOfYAxis}
           csvData={currentData}
           groupedBy={groupedBy}
-          repositoryNames={repositoryNames}
+          repositoryNames={repositoryNames()}
         />
       )}
     </>

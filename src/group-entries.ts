@@ -21,7 +21,7 @@ export const groupEntriesPerDay = (
   csvData: UsageReportEntry[]
 ): UsageReportDay[] => {
   return csvData.reduce((acc: UsageReportDay[], obj) => {
-    let indexOfEntryForCurrentDate: number = 0;
+    let indexOfEntryForCurrentDate = 0;
     const currentDate = new Date(obj.date).toISOString();
 
     //Is the current date already in acc?
@@ -59,7 +59,7 @@ export const groupEntriesPerWeek = (
   csvData: UsageReportEntry[]
 ): UsageReportWeek[] => {
   return csvData.reduce((acc: UsageReportWeek[], obj) => {
-    let indexOfEntryForCurrentDate: number = 0;
+    let indexOfEntryForCurrentDate = 0;
     const currentDate = new Date(obj.date);
     const currentFirstDayOfTheWeek = startOfWeek(currentDate);
 
@@ -108,7 +108,7 @@ export const groupEntriesPerMonth = (
   csvData: UsageReportEntry[]
 ): UsageReportMonth[] => {
   return csvData.reduce((acc: UsageReportMonth[], obj) => {
-    let indexOfEntryForCurrentDate: number = 0;
+    let indexOfEntryForCurrentDate = 0;
     const currentDate = new Date(obj.date);
     const currentStartOfMonth = startOfMonth(currentDate).toISOString();
 
@@ -144,7 +144,7 @@ export const groupEntriesPerMonth = (
 export const getPriceByRepositoryName = (
   repositoryName: string,
   currentEntries: UsageReportEntry[]
-) => {
+): number => {
   let priceByRepositoryName = 0;
   currentEntries.forEach((entry) => {
     if (entry.repositorySlug === repositoryName) {
@@ -154,22 +154,20 @@ export const getPriceByRepositoryName = (
   return Math.round(priceByRepositoryName * 100) / 100;
 };
 
-export const getMaximumTotalPriceOfAllDays = (data: UsageReportEntry[]) => {
+export const getMaximumTotalPriceOfAllDays = (
+  data: UsageReportEntry[]
+): number => {
   const entriesGroupedPerDay = groupEntriesPerDay(data);
   return Math.ceil(
-    Math.max.apply(
-      Math,
-      entriesGroupedPerDay.map((entry) => entry.totalPrice)
-    )
+    Math.max(...entriesGroupedPerDay.map((entry) => entry.totalPrice))
   );
 };
 
-export const getMaximumTotalPriceOfAllWeeks = (data: UsageReportEntry[]) => {
+export const getMaximumTotalPriceOfAllWeeks = (
+  data: UsageReportEntry[]
+): number => {
   const entriesGroupedPerWeek = groupEntriesPerWeek(data);
   return Math.ceil(
-    Math.max.apply(
-      Math,
-      entriesGroupedPerWeek.map((entry) => entry.totalPrice)
-    )
+    Math.max(...entriesGroupedPerWeek.map((entry) => entry.totalPrice))
   );
 };

@@ -8,5 +8,5 @@ interface WidgetContextType {
 
 export const WidgetContext = createContext<WidgetContextType>({
   activeMonth: { monthName: "", data: [] },
-  setActiveMonth: (month: string, data: UsageReportEntry[]) => {},
+  setActiveMonth: () => undefined,
 });

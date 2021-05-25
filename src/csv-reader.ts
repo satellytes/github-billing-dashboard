@@ -21,7 +21,7 @@ const camalize = (str: string): string => {
     .replace(/[^a-zA-Z0-0]+(.)/g, (m, chr) => chr.toUpperCase());
 };
 export const getCsvFile = (file: File): Promise<UsageReportEntry[]> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     parse<UsageReportCsvEntry>(file, {
       header: true,
       skipEmptyLines: true,
@@ -39,7 +39,6 @@ export const getCsvFile = (file: File): Promise<UsageReportEntry[]> => {
             };
           }
         );
-
         resolve(githubBillingEntries);
       },
     });
