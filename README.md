@@ -17,4 +17,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Preview
 
-You can use this app at [https://satellytes.github.io/github-billing-dashboard/](https://satellytes.github.io/github-billing-dashboard/).
+You can try this app at [https://satellytes.github.io/github-billing-dashboard/](https://satellytes.github.io/github-billing-dashboard/).
