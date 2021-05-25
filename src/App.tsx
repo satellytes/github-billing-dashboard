@@ -8,7 +8,7 @@ import { WidgetContext } from "./components/widget-context";
 const App = (): JSX.Element => {
   const [csvData, setCsvData] = useState<UsageReportEntry[] | null>(null);
 
-  const handleFileSubmit = (file: File) => {
+  const handleInput = (file: File) => {
     getCsvFile(file).then((res) => {
       setCsvData(res);
     });
@@ -35,7 +35,7 @@ const App = (): JSX.Element => {
       }}
     >
       <div className="App">
-        <FileInput onSubmit={handleFileSubmit} />
+        <FileInput onInput={handleInput} />
         {csvData && <MonthlyWidgetContainer csvData={csvData} />}
         {csvData && <ChartContainer csvData={csvData} />}
       </div>
