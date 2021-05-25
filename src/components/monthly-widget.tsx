@@ -35,7 +35,7 @@ export const MonthlyWidget = ({
       </div>
       <LineChart
         //@ts-ignore
-        cursor="pointer"
+
         width={100}
         height={50}
         data={entriesGroupedPerDay}
