@@ -34,6 +34,8 @@ export const MonthlyWidget = ({
         <p>{`${Math.round(monthlyEntry.totalPrice * 100) / 100} $`}</p>
       </div>
       <LineChart
+        //@ts-ignore
+        cursor="pointer"
         width={100}
         height={50}
         data={entriesGroupedPerDay}
