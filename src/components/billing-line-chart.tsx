@@ -48,6 +48,7 @@ export const BillingLineChart = ({
     "#3D5EB3",
   ];
 
+  // @ts-ignore
   return (
     <ResponsiveContainer width="100%" height={1000}>
       <LineChart
