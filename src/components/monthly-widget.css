@@ -7,3 +7,7 @@
 .monthly-widget-active {
   border-color: black;
 }
+
+.mini-chart {
+  cursor: pointer !important;
+}

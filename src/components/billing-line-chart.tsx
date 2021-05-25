@@ -21,6 +21,7 @@ interface TestLineChartProps {
   csvData: UsageReportEntry[];
   groupedBy: "daily" | "weekly";
   maxValueOfYAxis: number;
+  repositoryNames: string[];
 }
 
 class CustomTooltip extends Tooltip<number, string> {}
@@ -29,14 +30,11 @@ export const BillingLineChart = ({
   csvData,
   groupedBy,
   maxValueOfYAxis,
+  repositoryNames,
 }: TestLineChartProps): JSX.Element => {
   const entriesGroupedPerDay = groupEntriesPerDay(csvData);
   const entriesGroupedPerWeek = groupEntriesPerWeek(csvData);
 
-  const repositoryNames = [
-    // @ts-ignore
-    ...new Set(csvData.map((entry) => entry.repositorySlug)),
-  ];
   const colors = [
     "#233666",
     "#96ADEA",

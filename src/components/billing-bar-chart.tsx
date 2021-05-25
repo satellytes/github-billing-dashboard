@@ -22,20 +22,18 @@ interface BillingChartProps {
   csvData: UsageReportEntry[];
   groupedBy: "daily" | "weekly";
   maxValueOfYAxis: number;
+  repositoryNames: string[];
 }
 
 export const BillingBarChart = ({
   csvData,
   groupedBy,
   maxValueOfYAxis,
+  repositoryNames,
 }: BillingChartProps): JSX.Element => {
   const entriesGroupedPerDay = groupEntriesPerDay(csvData);
   const entriesGroupedPerWeek = groupEntriesPerWeek(csvData);
 
-  const repositoryNames = [
-    // @ts-ignore
-    ...new Set(csvData.map((entry) => entry.repositorySlug)),
-  ];
   const colors = [
     "#233666",
     "#96ADEA",

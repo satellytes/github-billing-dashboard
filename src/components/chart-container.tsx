@@ -29,6 +29,11 @@ export const ChartContainer = ({
   //currentData changes when a mini-widget is selected
   const currentData = activeMonth.monthName === "" ? csvData : activeMonth.data;
 
+  const repositoryNames = [
+    // @ts-ignore
+    ...new Set(csvData.map((entry) => entry.repositorySlug)),
+  ];
+
   return (
     <>
       <h2>Angezeigter Zeitraum</h2>
@@ -82,12 +87,14 @@ export const ChartContainer = ({
           maxValueOfYAxis={currentMaxValueOfYAxis}
           csvData={currentData}
           groupedBy={groupedBy}
+          repositoryNames={repositoryNames}
         />
       ) : (
         <BillingLineChart
           maxValueOfYAxis={currentMaxValueOfYAxis}
           csvData={currentData}
           groupedBy={groupedBy}
+          repositoryNames={repositoryNames}
         />
       )}
     </>
