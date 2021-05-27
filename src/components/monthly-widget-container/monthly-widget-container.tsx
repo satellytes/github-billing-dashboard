@@ -1,10 +1,10 @@
 import React from "react";
-import { UsageReportEntry } from "../csv-reader";
-import { MonthlyWidget } from "./monthly-widget";
+import { UsageReportEntry } from "../../csv-reader";
+import { MonthlyWidget } from "../monthly-widget/monthly-widget";
 import {
   getMaximumTotalPriceOfAllDays,
   groupEntriesPerMonth,
-} from "../group-entries";
+} from "../../group-entries";
 import "./monthly-widget-container.css";
 
 interface MonthlyWidgetProps {

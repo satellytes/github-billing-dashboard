@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
-import { UsageReportEntry } from "../csv-reader";
-import { BillingBarChart } from "./billing-bar-chart";
-import { BillingLineChart } from "./billing-line-chart";
+import { UsageReportEntry } from "../../csv-reader";
+import { BillingBarChart } from "../billing-chart/billing-bar-chart";
+import { BillingLineChart } from "../billing-chart/billing-line-chart";
 import "./chart-container.css";
-import { WidgetContext } from "./widget-context";
+import { WidgetContext } from "../context/widget-context";
 import {
   getMaximumTotalPriceOfAllDays,
   getMaximumTotalPriceOfAllWeeks,
-} from "../group-entries";
+} from "../../group-entries";
 
 interface ChartContainerProps {
   csvData: UsageReportEntry[];
