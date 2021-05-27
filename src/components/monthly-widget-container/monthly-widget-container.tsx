@@ -5,26 +5,45 @@ import {
   getMaximumTotalPriceOfAllDays,
   groupEntriesPerMonth,
 } from "../../group-entries";
-import "./monthly-widget-container.css";
+import { StyledContainer } from "./style";
 
 interface MonthlyWidgetProps {
   csvData: UsageReportEntry[];
 }
+
+let totalPriceOfPreviousMonth = 0;
 
 export const MonthlyWidgetContainer = ({
   csvData,
 }: MonthlyWidgetProps): JSX.Element => {
   const maxValueOfYAxis = getMaximumTotalPriceOfAllDays(csvData);
   const entriesGroupedPerMonth = groupEntriesPerMonth(csvData);
+
   return (
-    <div className={"widget-container"}>
-      {entriesGroupedPerMonth.map((monthlyEntry) => (
-        <MonthlyWidget
-          key={monthlyEntry.month}
-          monthlyEntry={monthlyEntry}
-          maxValueOfYAxis={maxValueOfYAxis}
-        />
-      ))}
-    </div>
+    <StyledContainer className={"widget-container"}>
+      {entriesGroupedPerMonth.map((monthlyEntry, index) => {
+        let isMoreExpensiveThanPreviousMonth = true;
+        if (
+          index === 0 ||
+          totalPriceOfPreviousMonth > monthlyEntry.totalPrice
+        ) {
+          isMoreExpensiveThanPreviousMonth = false;
+        }
+
+        const differenceToPreviousMonth =
+          index === 0 ? 0 : monthlyEntry.totalPrice - totalPriceOfPreviousMonth;
+        totalPriceOfPreviousMonth = monthlyEntry.totalPrice;
+
+        return (
+          <MonthlyWidget
+            key={monthlyEntry.month}
+            monthlyEntry={monthlyEntry}
+            maxValueOfYAxis={maxValueOfYAxis}
+            isMoreExpensiveThanPreviousMonth={isMoreExpensiveThanPreviousMonth}
+            differenceToPreviousMonth={differenceToPreviousMonth}
+          />
+        );
+      })}
+    </StyledContainer>
   );
 };
