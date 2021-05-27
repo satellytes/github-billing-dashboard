@@ -7,6 +7,7 @@ export const IntroductionSentence = styled.h2`
   font-weight: normal;
   font-size: 32px;
   line-height: 110%;
+  width: 66%;
 `;
 
 export const Explenation = styled.p`
@@ -14,4 +15,5 @@ export const Explenation = styled.p`
   font-weight: normal;
   font-size: 16px;
   line-height: 150%;
+  width: 66%;
 `;

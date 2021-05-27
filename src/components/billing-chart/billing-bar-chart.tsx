@@ -23,6 +23,7 @@ interface BillingChartProps {
   groupedBy: "daily" | "weekly";
   maxValueOfYAxis: number;
   repositoryNames: string[];
+  isDataFromWidget: boolean;
 }
 
 export const BillingBarChart = ({
@@ -30,6 +31,7 @@ export const BillingBarChart = ({
   groupedBy,
   maxValueOfYAxis,
   repositoryNames,
+  isDataFromWidget,
 }: BillingChartProps): JSX.Element => {
   const entriesGroupedPerDay = groupEntriesPerDay(csvData);
   const entriesGroupedPerWeek = groupEntriesPerWeek(csvData);
@@ -47,6 +49,7 @@ export const BillingBarChart = ({
     "#3D5EB3",
   ];
 
+  //Setting the generics for Tooltip
   class CustomTooltip extends Tooltip<number, string> {}
 
   return (
@@ -56,7 +59,7 @@ export const BillingBarChart = ({
           groupedBy === "daily" ? entriesGroupedPerDay : entriesGroupedPerWeek
         }
       >
-        <CartesianGrid strokeDasharray="2 2" />
+        <CartesianGrid />
         <XAxis
           dataKey={groupedBy === "daily" ? "day" : "week"}
           tickFormatter={(tick) =>

@@ -8,17 +8,20 @@ export const StyledWidget = styled.div`
   margin-right: 10px;
   cursor: pointer;
   background: rgba(122, 143, 204, 0.3);
-  border: 1px solid rgba(122, 143, 204, 0.3);
+
+  border: ${(props: { isActive: boolean }) =>
+    props.isActive ? "1px solid white" : "1px solid rgba(122, 143, 204, 0.3)"};
   padding: 8px 4px;
   border-radius: 4px;
-  border-color: ${(props: { isActive: boolean }) => props.isActive && "white"};
 
   &:hover {
     border-color: white;
   }
 `;
 
-export const WidgetDescription = styled.div``;
+export const WidgetDescription = styled.div`
+  margin-right: 8px;
+`;
 
 export const WidgetMonth = styled.h2`
   margin-top: 0;
