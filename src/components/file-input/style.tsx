@@ -19,4 +19,6 @@ export const Description = styled.p`
 export const StyledFileInput = styled.div`
   background: rgba(122, 143, 204, 0.3);
   border-radius: 4px;
+  padding: 30px 0;
+  text-align: center;
 `;

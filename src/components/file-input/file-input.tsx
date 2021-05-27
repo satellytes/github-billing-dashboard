@@ -1,19 +1,21 @@
-import React, { useRef } from "react";
+import React, { useCallback } from "react";
 import { Description, StyledFileInput, Title } from "./style";
+import { useDropzone } from "react-dropzone";
 
 interface FileInputProp {
   onInput: (file: File) => void;
 }
 
 export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
-  const fileInput = useRef<HTMLInputElement>(null);
-  const handleInput = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (fileInput && fileInput.current && fileInput.current.files) {
-      onInput(fileInput.current.files[0]);
+  const onDrop = useCallback((acceptedFiles) => {
+    if (acceptedFiles.length > 0) {
+      onInput(acceptedFiles[0]);
     }
-  };
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: ".csv",
+  });
 
   return (
     <>
@@ -23,13 +25,13 @@ export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
         Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas
         sed diam eget risus varius blandit sit amet non magna.
       </Description>
-      <StyledFileInput className="file-uploader">
-        <form onSubmit={handleInput}>
-          <label>
-            Upload file:
-            <input type="file" ref={fileInput} onInput={handleInput} />
-          </label>
-        </form>
+      <StyledFileInput {...getRootProps()}>
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the file here ...</p>
+        ) : (
+          <p>Drop a csv file here, or click to select a file</p>
+        )}
       </StyledFileInput>
     </>
   );

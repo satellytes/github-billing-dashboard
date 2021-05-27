@@ -38,7 +38,8 @@ const App = (): JSX.Element => {
     >
       <div className="App">
         <Headline />
-        {!csvData && <StartScreen /> && <FileInput onInput={handleInput} />}
+        {!csvData && <StartScreen />}
+        {!csvData && <FileInput onInput={handleInput} />}
         {csvData && <MonthlyWidgetContainer csvData={csvData} />}
         {csvData && <ChartContainer csvData={csvData} />}
       </div>
