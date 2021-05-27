@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { UsageReportEntry } from "../csv-reader";
+import { UsageReportEntry } from "../../csv-reader";
 
 interface WidgetContextType {
   activeMonth: { monthName: string; data: UsageReportEntry[] };

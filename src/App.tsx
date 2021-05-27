@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { FileInput } from "./components/file-input";
-import { ChartContainer } from "./components/chart-container";
-import { MonthlyWidgetContainer } from "./components/monthly-widget-container";
+import { FileInput } from "./components/file-input/file-input";
+import { ChartContainer } from "./components/chart-container/chart-container";
+import { MonthlyWidgetContainer } from "./components/monthly-widget-container/monthly-widget-container";
 import { getCsvFile, UsageReportEntry } from "./csv-reader";
-import { WidgetContext } from "./components/widget-context";
+import { WidgetContext } from "./components/context/widget-context";
 
 const App = (): JSX.Element => {
   const [csvData, setCsvData] = useState<UsageReportEntry[] | null>(null);

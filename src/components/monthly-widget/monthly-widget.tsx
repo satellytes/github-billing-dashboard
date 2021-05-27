@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { UsageReportMonth } from "../group-entries";
+import { UsageReportMonth } from "../../group-entries";
 import { LineChart, Line, YAxis } from "recharts";
-import { groupEntriesPerDay } from "../group-entries";
-import { WidgetContext } from "./widget-context";
+import { groupEntriesPerDay } from "../../group-entries";
+import { WidgetContext } from "../context/widget-context";
 import "./monthly-widget.css";
 
 interface MonthlyWidgetProps {

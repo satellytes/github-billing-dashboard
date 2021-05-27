@@ -1,5 +1,5 @@
 import React from "react";
-import { UsageReportEntry } from "../csv-reader";
+import { UsageReportEntry } from "../../csv-reader";
 import {
   BarChart,
   Bar,
@@ -14,7 +14,7 @@ import {
   groupEntriesPerDay,
   groupEntriesPerWeek,
   getPriceByRepositoryName,
-} from "../group-entries";
+} from "../../group-entries";
 import { lightFormat } from "date-fns";
 import "react-dropdown/style.css";
 
