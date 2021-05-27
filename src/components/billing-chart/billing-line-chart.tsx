@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 import {
   groupEntriesPerDay,
@@ -17,21 +18,21 @@ import {
 import "react-dropdown/style.css";
 import { lightFormat } from "date-fns";
 
-interface TestLineChartProps {
+interface BillingLineChartProps {
   csvData: UsageReportEntry[];
   groupedBy: "daily" | "weekly";
   maxValueOfYAxis: number;
   repositoryNames: string[];
+  isDataFromWidget: boolean;
 }
-
-class CustomTooltip extends Tooltip<number, string> {}
 
 export const BillingLineChart = ({
   csvData,
   groupedBy,
   maxValueOfYAxis,
   repositoryNames,
-}: TestLineChartProps): JSX.Element => {
+  isDataFromWidget,
+}: BillingLineChartProps): JSX.Element => {
   const entriesGroupedPerDay = groupEntriesPerDay(csvData);
   const entriesGroupedPerWeek = groupEntriesPerWeek(csvData);
 
@@ -48,19 +49,17 @@ export const BillingLineChart = ({
     "#3D5EB3",
   ];
 
+  //Setting the generics for Tooltip
+  class CustomTooltip extends Tooltip<number, string> {}
+
   return (
-    <ResponsiveContainer width="100%" height={1000}>
+    <ResponsiveContainer width="100%" height={600}>
       <LineChart
         data={
           groupedBy === "daily" ? entriesGroupedPerDay : entriesGroupedPerWeek
         }
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
       >
+        <CartesianGrid />
         <XAxis
           dataKey={groupedBy === "daily" ? "day" : "week"}
           tickFormatter={(tick) =>

@@ -29,6 +29,7 @@ export const MonthlyWidget = ({
   const formattedDifferenceToPreviousMonth = `${
     differenceToPreviousMonth >= 0 ? "+" : ""
   }${Math.round(differenceToPreviousMonth * 100) / 100} $`;
+  //"\u2191" = Arrow-Up-Symbol, "\u2193" = Arrow-Down-Symbol
   const arrowSymbol = isMoreExpensiveThanPreviousMonth ? " \u2191" : " \u2193";
 
   return (
@@ -56,12 +57,6 @@ export const MonthlyWidget = ({
         width={100}
         height={50}
         data={entriesGroupedPerDay}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
         cursor="pointer"

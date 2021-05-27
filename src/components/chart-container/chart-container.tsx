@@ -2,12 +2,18 @@ import React, { useContext, useState } from "react";
 import { UsageReportEntry } from "../../csv-reader";
 import { BillingBarChart } from "../billing-chart/billing-bar-chart";
 import { BillingLineChart } from "../billing-chart/billing-line-chart";
-import "./chart-container.css";
 import { WidgetContext } from "../context/widget-context";
 import {
   getMaximumTotalPriceOfAllDays,
   getMaximumTotalPriceOfAllWeeks,
 } from "../../group-entries";
+import {
+  ButtonDiv,
+  ChartDiv,
+  LeftToggleButton,
+  RightToggleButton,
+} from "./style";
+import { lightFormat } from "date-fns";
 
 interface ChartContainerProps {
   csvData: UsageReportEntry[];
@@ -26,17 +32,18 @@ export const ChartContainer = ({
   const maxWeeklyValueOfYAxis = getMaximumTotalPriceOfAllWeeks(csvData);
   const currentMaxValueOfYAxis =
     groupedBy === "daily" ? maxDailyValueOfYAxis : maxWeeklyValueOfYAxis;
-  //currentData changes when a mini-widget is selected
-  const currentData = activeMonth.monthName === "" ? csvData : activeMonth.data;
 
-  const repositoryNames = () => {
+  //currentData changes when a mini-widget is selected
+  const isDataFromWidget = !(activeMonth.monthName === "");
+  const currentData = isDataFromWidget ? activeMonth.data : csvData;
+
+  const repositoryNames = (): string[] => {
     const repositoryNamesWithDuplicates = csvData.map(
       (entry) => entry.repositorySlug
     );
     return repositoryNamesWithDuplicates.filter(
       (value, index) => repositoryNamesWithDuplicates.indexOf(value) === index
     );
-    //...new Set(csvData.map((entry) => entry.repositorySlug)),
   };
 
   return (
@@ -44,64 +51,64 @@ export const ChartContainer = ({
       <h2>Angezeigter Zeitraum</h2>
       <p>
         {activeMonth.monthName ||
-          `${csvData[0].date} bis ${
-            csvData[csvData.length - 1].date
-          } (kompletter Datensatz)`}
+          `${lightFormat(
+            new Date(csvData[0].date),
+            "dd.MM.yyyy"
+          )} bis ${lightFormat(
+            new Date(csvData[csvData.length - 1].date),
+            "dd.MM.yyyy"
+          )}`}
       </p>
-      <div className={"toggle-button-div"}>
-        <div>
-          <button
-            className={`toggle-button left-toggle-button ${
-              groupedBy === "daily" ? "selected-button" : null
-            }`}
-            onClick={() => setGroupedBy("daily")}
-          >
-            Daily
-          </button>
-          <button
-            className={`toggle-button right-toggle-button ${
-              groupedBy === "weekly" ? "selected-button" : null
-            }`}
-            onClick={() => setGroupedBy("weekly")}
-          >
-            Weekly
-          </button>
-        </div>
+      <ChartDiv>
+        <ButtonDiv>
+          <div>
+            <LeftToggleButton
+              isActive={groupedBy === "daily"}
+              onClick={() => setGroupedBy("daily")}
+            >
+              Daily
+            </LeftToggleButton>
+            <RightToggleButton
+              isActive={groupedBy === "weekly"}
+              onClick={() => setGroupedBy("weekly")}
+            >
+              Weekly
+            </RightToggleButton>
+          </div>
 
-        <div>
-          <button
-            className={`toggle-button left-toggle-button ${
-              diagramType === "Bar" ? "selected-button" : null
-            }`}
-            onClick={() => setDiagramType("Bar")}
-          >
-            Bar
-          </button>
-          <button
-            className={`toggle-button right-toggle-button ${
-              diagramType === "Line" ? "selected-button" : null
-            }`}
-            onClick={() => setDiagramType("Line")}
-          >
-            Line
-          </button>
-        </div>
-      </div>
-      {diagramType === "Bar" ? (
-        <BillingBarChart
-          maxValueOfYAxis={currentMaxValueOfYAxis}
-          csvData={currentData}
-          groupedBy={groupedBy}
-          repositoryNames={repositoryNames()}
-        />
-      ) : (
-        <BillingLineChart
-          maxValueOfYAxis={currentMaxValueOfYAxis}
-          csvData={currentData}
-          groupedBy={groupedBy}
-          repositoryNames={repositoryNames()}
-        />
-      )}
+          <div>
+            <LeftToggleButton
+              isActive={diagramType === "Bar"}
+              onClick={() => setDiagramType("Bar")}
+            >
+              Bar
+            </LeftToggleButton>
+            <RightToggleButton
+              isActive={diagramType === "Line"}
+              onClick={() => setDiagramType("Line")}
+            >
+              Line
+            </RightToggleButton>
+          </div>
+        </ButtonDiv>
+        {diagramType === "Bar" ? (
+          <BillingBarChart
+            maxValueOfYAxis={currentMaxValueOfYAxis}
+            csvData={currentData}
+            groupedBy={groupedBy}
+            repositoryNames={repositoryNames()}
+            isDataFromWidget={isDataFromWidget}
+          />
+        ) : (
+          <BillingLineChart
+            maxValueOfYAxis={currentMaxValueOfYAxis}
+            csvData={currentData}
+            groupedBy={groupedBy}
+            repositoryNames={repositoryNames()}
+            isDataFromWidget={isDataFromWidget}
+          />
+        )}
+      </ChartDiv>
     </>
   );
 };

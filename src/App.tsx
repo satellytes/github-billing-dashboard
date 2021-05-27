@@ -23,6 +23,7 @@ const App = (): JSX.Element => {
       setSelectedMonthFromWidget({ monthName: month, data: data });
     }
   };
+
   const [selectedMonthFromWidget, setSelectedMonthFromWidget] = useState<{
     monthName: string;
     data: UsageReportEntry[];
