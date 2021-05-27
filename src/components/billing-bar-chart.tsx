@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 import {
   groupEntriesPerDay,
@@ -21,20 +22,18 @@ interface BillingChartProps {
   csvData: UsageReportEntry[];
   groupedBy: "daily" | "weekly";
   maxValueOfYAxis: number;
+  repositoryNames: string[];
 }
 
 export const BillingBarChart = ({
   csvData,
   groupedBy,
   maxValueOfYAxis,
+  repositoryNames,
 }: BillingChartProps): JSX.Element => {
   const entriesGroupedPerDay = groupEntriesPerDay(csvData);
   const entriesGroupedPerWeek = groupEntriesPerWeek(csvData);
 
-  const repositoryNames = [
-    // @ts-ignore
-    ...new Set(csvData.map((entry) => entry.repositorySlug)),
-  ];
   const colors = [
     "#233666",
     "#96ADEA",
@@ -48,11 +47,11 @@ export const BillingBarChart = ({
     "#3D5EB3",
   ];
 
+  class CustomTooltip extends Tooltip<number, string> {}
+
   return (
-    <>
+    <ResponsiveContainer width="100%" height={600}>
       <BarChart
-        width={1000}
-        height={600}
         data={
           groupedBy === "daily" ? entriesGroupedPerDay : entriesGroupedPerWeek
         }
@@ -67,10 +66,11 @@ export const BillingBarChart = ({
         />
         <YAxis domain={[0, maxValueOfYAxis]} unit=" $" />
         {/*labelFormatter checks if the given label has the right format*/}
-        <Tooltip
+        <CustomTooltip
           labelFormatter={(label) =>
             Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label
           }
+          itemSorter={(item) => (item.value ? item.value * -1 : 0)}
         />
         <Legend />
         {repositoryNames.map((repositoryName, index) => {
@@ -88,6 +88,6 @@ export const BillingBarChart = ({
           );
         })}
       </BarChart>
-    </>
+    </ResponsiveContainer>
   );
 };

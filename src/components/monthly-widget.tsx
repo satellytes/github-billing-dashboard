@@ -43,6 +43,7 @@ export const MonthlyWidget = ({
           left: 20,
           bottom: 5,
         }}
+        className={"mini-chart"}
       >
         <YAxis hide={true} domain={[0, maxValueOfYAxis]} />
         <Line
