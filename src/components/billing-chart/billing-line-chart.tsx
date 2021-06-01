@@ -1,11 +1,14 @@
 import React from "react";
-import { UsageReportEntry } from "../../csv-reader";
+import {
+  BillingChartProps,
+  colors,
+  CustomTooltip,
+} from "./billing-chart-components";
 import {
   LineChart,
   Line,
   XAxis,
   YAxis,
-  Tooltip,
   Legend,
   ResponsiveContainer,
   CartesianGrid,
@@ -15,16 +18,8 @@ import {
   groupEntriesPerWeek,
   getPriceByRepositoryName,
 } from "../../group-entries";
-import "react-dropdown/style.css";
-import { lightFormat } from "date-fns";
 
-interface BillingLineChartProps {
-  csvData: UsageReportEntry[];
-  groupedBy: "daily" | "weekly";
-  maxValueOfYAxis: number;
-  repositoryNames: string[];
-  isDataFromWidget: boolean;
-}
+import { lightFormat } from "date-fns";
 
 export const BillingLineChart = ({
   csvData,
@@ -32,25 +27,9 @@ export const BillingLineChart = ({
   maxValueOfYAxis,
   repositoryNames,
   isDataFromWidget,
-}: BillingLineChartProps): JSX.Element => {
+}: BillingChartProps): JSX.Element => {
   const entriesGroupedPerDay = groupEntriesPerDay(csvData);
   const entriesGroupedPerWeek = groupEntriesPerWeek(csvData);
-
-  const colors = [
-    "#233666",
-    "#96ADEA",
-    "#4F79E6",
-    "#414C66",
-    "#3D5EB3",
-    "#233666",
-    "#96ADEA",
-    "#4F79E6",
-    "#414C66",
-    "#3D5EB3",
-  ];
-
-  //Setting the generics for Tooltip
-  class CustomTooltip extends Tooltip<number, string> {}
 
   return (
     <ResponsiveContainer width="100%" height={600}>
@@ -83,7 +62,9 @@ export const BillingLineChart = ({
           labelFormatter={(label) =>
             Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label
           }
-          itemSorter={(item) => (item.value ? item.value * -1 : 0)}
+          itemSorter={(repository) =>
+            repository.value ? repository.value * -1 : 0
+          }
           labelStyle={{
             color: "black",
             fontStyle: "normal",

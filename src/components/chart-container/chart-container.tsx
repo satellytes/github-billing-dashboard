@@ -13,7 +13,7 @@ import {
   LeftToggleButton,
   RightToggleButton,
 } from "./style";
-import { lightFormat } from "date-fns";
+import { getPeriodOfTimeString } from "../../date-util";
 
 interface ChartContainerProps {
   csvData: UsageReportEntry[];
@@ -49,16 +49,7 @@ export const ChartContainer = ({
   return (
     <>
       <h2>Angezeigter Zeitraum</h2>
-      <p>
-        {activeMonth.monthName ||
-          `${lightFormat(
-            new Date(csvData[0].date),
-            "dd.MM.yyyy"
-          )} bis ${lightFormat(
-            new Date(csvData[csvData.length - 1].date),
-            "dd.MM.yyyy"
-          )}`}
-      </p>
+      <p>{activeMonth.monthName || getPeriodOfTimeString(csvData)}</p>
       <ChartDiv>
         <ButtonDiv>
           <div>

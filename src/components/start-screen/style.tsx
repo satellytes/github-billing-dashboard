@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import styled from "styled-components";
 
 export const IntroductionSentence = styled.h2`
@@ -10,7 +8,7 @@ export const IntroductionSentence = styled.h2`
   width: 66%;
 `;
 
-export const Explenation = styled.p`
+export const Explanation = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
