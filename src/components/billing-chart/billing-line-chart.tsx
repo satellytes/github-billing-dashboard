@@ -31,76 +31,73 @@ export const BillingLineChart = ({
   const entriesGroupedPerWeek = groupEntriesPerWeek(csvData);
 
   return (
-    <>
-      <p className={"Gobble"}>HALLO</p>
-      <ResponsiveContainer width="100%" height={600}>
-        <LineChart
-          data={
-            groupedBy === "daily" ? entriesGroupedPerDay : entriesGroupedPerWeek
+    <ResponsiveContainer width="100%" height={600}>
+      <LineChart
+        data={
+          groupedBy === "daily" ? entriesGroupedPerDay : entriesGroupedPerWeek
+        }
+      >
+        <CartesianGrid stroke={"rgba(255, 255, 255, 0.1)"} />
+        <XAxis
+          dataKey={groupedBy === "daily" ? "day" : "week"}
+          tick={{ fill: "white" }}
+          axisLine={false}
+          tickLine={false}
+          tickFormatter={(tick) =>
+            Date.parse(tick) ? lightFormat(new Date(tick), "dd.MM.") : tick
           }
-        >
-          <CartesianGrid stroke={"rgba(255, 255, 255, 0.1)"} />
-          <XAxis
-            dataKey={groupedBy === "daily" ? "day" : "week"}
-            tick={{ fill: "white" }}
-            axisLine={false}
-            tickLine={false}
-            tickFormatter={(tick) =>
-              Date.parse(tick) ? lightFormat(new Date(tick), "dd.MM.") : tick
-            }
-            interval="preserveStart"
-          />
-          <YAxis
-            domain={[0, maxValueOfYAxis]}
-            unit=" $"
-            tickCount={maxValueOfYAxis + 1}
-            tick={{ fill: "white" }}
-            axisLine={false}
-            tickLine={false}
-          />
-          {/*labelFormatter checks if the given label has the right format*/}
-          <CustomTooltip
-            labelFormatter={(label) =>
-              Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label
-            }
-            itemSorter={(repository) =>
-              repository.value ? repository.value * -1 : 0
-            }
-            labelStyle={{
-              color: "black",
-              fontStyle: "normal",
-              fontWeight: "normal",
-              fontSize: "12px",
-              lineHeight: "110%",
-              marginBottom: "4px",
-            }}
-            itemStyle={{
-              fontStyle: "normal",
-              fontWeight: "normal",
-              fontSize: "12px",
-              lineHeight: "110%",
-            }}
-            contentStyle={{ borderRadius: "4px", borderBlockColor: "white" }}
-          />
-          <Legend />
-          {repositoryNames.map((repositoryName, index) => {
-            return (
-              <Line
-                type="monotone"
-                stroke={colors[index]}
-                dataKey={(currentEntry) =>
-                  getPriceByRepositoryName(repositoryName, currentEntry.entries)
-                }
-                key={index}
-                name={repositoryName}
-                unit={"$"}
-                strokeWidth={4}
-                dot={false}
-              />
-            );
-          })}
-        </LineChart>
-      </ResponsiveContainer>
-    </>
+          interval="preserveStart"
+        />
+        <YAxis
+          domain={[0, maxValueOfYAxis]}
+          unit=" $"
+          tickCount={maxValueOfYAxis + 1}
+          tick={{ fill: "white" }}
+          axisLine={false}
+          tickLine={false}
+        />
+        {/*labelFormatter checks if the given label has the right format*/}
+        <CustomTooltip
+          labelFormatter={(label) =>
+            Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label
+          }
+          itemSorter={(repository) =>
+            repository.value ? repository.value * -1 : 0
+          }
+          labelStyle={{
+            color: "black",
+            fontStyle: "normal",
+            fontWeight: "normal",
+            fontSize: "12px",
+            lineHeight: "110%",
+            marginBottom: "4px",
+          }}
+          itemStyle={{
+            fontStyle: "normal",
+            fontWeight: "normal",
+            fontSize: "12px",
+            lineHeight: "110%",
+          }}
+          contentStyle={{ borderRadius: "4px", borderBlockColor: "white" }}
+        />
+        <Legend />
+        {repositoryNames.map((repositoryName, index) => {
+          return (
+            <Line
+              type="monotone"
+              stroke={colors[index]}
+              dataKey={(currentEntry) =>
+                getPriceByRepositoryName(repositoryName, currentEntry.entries)
+              }
+              key={index}
+              name={repositoryName}
+              unit={"$"}
+              strokeWidth={4}
+              dot={false}
+            />
+          );
+        })}
+      </LineChart>
+    </ResponsiveContainer>
   );
 };
