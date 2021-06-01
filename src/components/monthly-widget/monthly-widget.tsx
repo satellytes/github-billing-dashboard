@@ -3,13 +3,7 @@ import { UsageReportMonth } from "../../group-entries";
 import { LineChart, Line, YAxis } from "recharts";
 import { groupEntriesPerDay } from "../../group-entries";
 import { WidgetContext } from "../context/widget-context";
-import {
-  Arrow,
-  StyledWidget,
-  WidgetDescription,
-  WidgetMonth,
-  WidgetValue,
-} from "./style";
+import styled from "styled-components";
 
 interface MonthlyWidgetProps {
   monthlyEntry: UsageReportMonth;
@@ -17,6 +11,54 @@ interface MonthlyWidgetProps {
   isMoreExpensiveThanPreviousMonth: boolean;
   differenceToPreviousMonth: number;
 }
+
+const StyledWidget = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 10px;
+  cursor: pointer;
+  background: rgba(122, 143, 204, 0.3);
+  min-width: 220px;
+  border: ${(props: { isActive: boolean }) =>
+    props.isActive ? "1px solid white" : "1px solid rgba(122, 143, 204, 0.3)"};
+  padding: 8px 4px;
+  border-radius: 4px;
+
+  &:hover {
+    border-color: white;
+  }
+
+  @media (max-width: 576px) {
+    margin-bottom: 4px;
+  }
+`;
+
+const WidgetDescription = styled.div`
+  margin-right: 8px;
+`;
+
+const WidgetMonth = styled.h2`
+  margin-top: 0;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 12px;
+  line-height: 150%;
+  text-transform: uppercase;
+`;
+
+const WidgetValue = styled.p`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  margin: 0;
+  text-transform: uppercase;
+`;
+
+const Arrow = styled.span`
+  color: ${(props: { isMoreExpensiveThanPreviousMonth: boolean }) =>
+    props.isMoreExpensiveThanPreviousMonth ? "#DC052D" : "#75F0C7"};
+`;
 
 export const MonthlyWidget = ({
   monthlyEntry,

@@ -5,13 +5,22 @@ import {
   getMaximumTotalPriceOfAllDays,
   groupEntriesPerMonth,
 } from "../../group-entries";
-import { StyledContainer } from "./style";
+import styled from "styled-components";
 
 interface MonthlyWidgetProps {
   csvData: UsageReportEntry[];
 }
 
 let totalPriceOfPreviousMonth = 0;
+
+const StyledContainer = styled.div`
+  display: flex;
+  margin-bottom: 96px;
+  overflow: auto;
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
+`;
 
 export const MonthlyWidgetContainer = ({
   csvData,
