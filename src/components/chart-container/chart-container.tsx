@@ -6,6 +6,8 @@ import { WidgetContext } from "../context/widget-context";
 import {
   getMaximumTotalPriceOfAllDays,
   getMaximumTotalPriceOfAllWeeks,
+  groupEntriesPerDay,
+  groupEntriesPerWeek,
 } from "../../group-entries";
 import { getPeriodOfTimeString } from "../../date-util";
 import styled from "styled-components";
@@ -67,6 +69,9 @@ export const ChartContainer = ({
   const isDataFromWidget = !(activeMonth.monthName === "");
   const currentData = isDataFromWidget ? activeMonth.data : csvData;
 
+  const entriesGroupedPerDay = groupEntriesPerDay(currentData);
+  const entriesGroupedPerWeek = groupEntriesPerWeek(currentData);
+
   const repositoryNames = (): string[] => {
     const repositoryNamesWithDuplicates = csvData.map(
       (entry) => entry.repositorySlug
@@ -115,18 +120,20 @@ export const ChartContainer = ({
         {diagramType === "Bar" ? (
           <BillingBarChart
             maxValueOfYAxis={currentMaxValueOfYAxis}
-            csvData={currentData}
             groupedBy={groupedBy}
             repositoryNames={repositoryNames()}
             isDataFromWidget={isDataFromWidget}
+            entriesGroupedPerDay={entriesGroupedPerDay}
+            entriesGroupedPerWeek={entriesGroupedPerWeek}
           />
         ) : (
           <BillingLineChart
             maxValueOfYAxis={currentMaxValueOfYAxis}
-            csvData={currentData}
             groupedBy={groupedBy}
             repositoryNames={repositoryNames()}
             isDataFromWidget={isDataFromWidget}
+            entriesGroupedPerDay={entriesGroupedPerDay}
+            entriesGroupedPerWeek={entriesGroupedPerWeek}
           />
         )}
       </ChartDiv>

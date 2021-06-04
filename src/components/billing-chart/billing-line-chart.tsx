@@ -3,6 +3,9 @@ import {
   BillingChartProps,
   colors,
   CustomTooltip,
+  tooltipContentStyle,
+  tooltipItemStyle,
+  tooltipLabelStyle,
 } from "./billing-chart-components";
 import {
   LineChart,
@@ -13,23 +16,18 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import {
-  groupEntriesPerDay,
-  groupEntriesPerWeek,
-  getPriceByRepositoryName,
-} from "../../group-entries";
+import { getPriceByRepositoryName } from "../../group-entries";
 import { lightFormat } from "date-fns";
+import { isStringDateValue } from "../../date-util";
 
 export const BillingLineChart = ({
-  csvData,
   groupedBy,
   maxValueOfYAxis,
   repositoryNames,
   isDataFromWidget,
+  entriesGroupedPerDay,
+  entriesGroupedPerWeek,
 }: BillingChartProps): JSX.Element => {
-  const entriesGroupedPerDay = groupEntriesPerDay(csvData);
-  const entriesGroupedPerWeek = groupEntriesPerWeek(csvData);
-
   return (
     <ResponsiveContainer width="100%" height={600}>
       <LineChart
@@ -44,7 +42,9 @@ export const BillingLineChart = ({
           axisLine={false}
           tickLine={false}
           tickFormatter={(tick) =>
-            Date.parse(tick) ? lightFormat(new Date(tick), "dd.MM.") : tick
+            isStringDateValue(tick)
+              ? lightFormat(new Date(tick), "dd.MM.")
+              : tick
           }
           interval="preserveStart"
         />
@@ -59,26 +59,16 @@ export const BillingLineChart = ({
         {/*labelFormatter checks if the given label has the right format*/}
         <CustomTooltip
           labelFormatter={(label) =>
-            Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label
+            isStringDateValue(label)
+              ? lightFormat(new Date(label), "dd.MM.")
+              : label
           }
           itemSorter={(repositoryGroupedByDay) =>
             repositoryGroupedByDay.value ? repositoryGroupedByDay.value * -1 : 0
           }
-          labelStyle={{
-            color: "black",
-            fontStyle: "normal",
-            fontWeight: "normal",
-            fontSize: "12px",
-            lineHeight: "110%",
-            marginBottom: "4px",
-          }}
-          itemStyle={{
-            fontStyle: "normal",
-            fontWeight: "normal",
-            fontSize: "12px",
-            lineHeight: "110%",
-          }}
-          contentStyle={{ borderRadius: "4px", borderBlockColor: "white" }}
+          labelStyle={tooltipLabelStyle}
+          itemStyle={tooltipItemStyle}
+          contentStyle={tooltipContentStyle}
         />
         <Legend />
         {repositoryNames.map((repositoryName, index) => {
