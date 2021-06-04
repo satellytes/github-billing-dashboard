@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 interface FileInputProp {
   onInput: (file: File) => void;
@@ -35,9 +36,12 @@ const StyledFileInput = styled.div`
 `;
 
 export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
+  const history = useHistory();
+
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       onInput(acceptedFiles[0]);
+      history.push("/acitve");
     }
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

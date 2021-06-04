@@ -6,13 +6,7 @@ import { getCsvFile, UsageReportEntry } from "./csv-reader";
 import { WidgetContext } from "./components/context/widget-context";
 import { Headline } from "./components/headline/headline";
 import { StartScreen } from "./components/start-screen/start-screen";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useHistory,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 
 const MainContent = styled.div`
@@ -54,8 +48,10 @@ const App = (): JSX.Element => {
             <Headline />
             <Switch>
               <Route path="/github-billing-dashboard">
-                {!csvData && <StartScreen />}
-                {!csvData && <FileInput onInput={handleInput} />}
+                <StartScreen />
+                <FileInput onInput={handleInput} />
+              </Route>
+              <Route path="/acitve">
                 {csvData && <MonthlyWidgetContainer csvData={csvData} />}
                 {csvData && <ChartContainer csvData={csvData} />}
               </Route>
