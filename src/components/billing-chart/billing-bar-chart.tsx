@@ -61,9 +61,12 @@ export const BillingBarChart = ({
           labelFormatter={(label) =>
             Date.parse(label) ? lightFormat(new Date(label), "dd.MM.") : label
           }
-          itemSorter={(repository) =>
-            repository.value ? repository.value * -1 : 0
-          }
+          itemSorter={(repositoryGroupedByDay) => {
+            console.log(repositoryGroupedByDay);
+            return repositoryGroupedByDay.value
+              ? repositoryGroupedByDay.value * -1
+              : 0;
+          }}
           labelStyle={{
             color: "black",
             fontStyle: "normal",
