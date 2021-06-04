@@ -10,3 +10,7 @@ export const getPeriodOfTimeString = (csvData: UsageReportEntry[]): string => {
     "dd.MM.yyyy"
   )}`;
 };
+
+export const isStringDateValue = (possibleDateValue: string): boolean => {
+  return !!Date.parse(possibleDateValue);
+};

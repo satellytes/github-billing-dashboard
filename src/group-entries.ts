@@ -11,7 +11,7 @@ import {
   getYear,
 } from "date-fns";
 
-interface UsageReportDay {
+export interface UsageReportDay {
   day: string; // iso date
   totalPrice: number; // for the charts total value
   entries: UsageReportEntry[];
@@ -46,7 +46,7 @@ export const groupEntriesPerDay = (
   }, []);
 };
 
-interface UsageReportWeek {
+export interface UsageReportWeek {
   week: string; // a.e.: "12.5. - 19.5."
   from: string; // iso date
   to: string; // iso date
