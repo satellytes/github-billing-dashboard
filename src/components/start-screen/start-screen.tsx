@@ -1,16 +1,24 @@
 import React from "react";
-import rectangleSVG from "./rectangle.svg";
 import styled from "styled-components";
+
+//TODO Remove Placeholder
+const PlaceholderForImage = styled.div`
+  background: rgba(122, 143, 204, 0.3);
+  height: 142px;
+  margin: 16px 40px 20px 20px;
+`;
+
+const EmptyDiv = styled.div`
+  grid-column-start: span 4;
+`;
 
 const IntroductionSentence = styled.h2`
   font-style: normal;
   font-weight: normal;
   font-size: 32px;
   line-height: 110%;
-  width: 66%;
-  @media (max-width: 576px) {
-    width: 100%;
-  }
+  margin: 40px 0 0 0;
+  grid-column: 1 / 9;
 `;
 
 const Explanation = styled.p`
@@ -18,45 +26,20 @@ const Explanation = styled.p`
   font-weight: normal;
   font-size: 16px;
   line-height: 150%;
-  width: 66%;
-
-  @media (max-width: 576px) {
-    width: 100%;
-  }
-`;
-
-const FlowChart = styled.div`
-  display: flex;
-
-  @media (max-width: 576px) {
-    flex-direction: column;
-  }
+  margin: 32px 0 0 0;
+  grid-column: 1 / 9;
 `;
 
 const FlowChartRectangle = styled.div`
-  margin-right: 8px;
+  margin: 40px 24px 0 0;
   padding: 0;
-  @media (max-width: 576px) {
-    width: 80%;
-  }
-`;
-
-const FlowChartRectangleSVG = styled.img`
-  width: 100%;
-`;
-
-const InnerFlowChartDiv = styled.div`
-  position: absolute;
-  padding: 8px;
-  width: 22%;
-
-  @media (max-width: 576px) {
-    width: 70%;
-  }
+  clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%);
+  background: rgba(122, 143, 204, 0.3);
+  grid-column-start: span 4;
 `;
 
 const FlowChartHeadline = styled.h1`
-  margin: 0;
+  margin: 20px 0 0 20px;
   font-style: normal;
   font-weight: normal;
   font-size: 32px;
@@ -68,6 +51,7 @@ const FlowChartDescription = styled.p`
   font-weight: normal;
   font-size: 14px;
   line-height: 150%;
+  margin: 8px 40px 0 20px;
 `;
 
 export const StartScreen = (): JSX.Element => {
@@ -82,40 +66,30 @@ export const StartScreen = (): JSX.Element => {
         Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas
         sed diam eget risus varius blandit sit amet non magna.
       </Explanation>
-      <FlowChart>
-        <FlowChartRectangle>
-          <InnerFlowChartDiv>
-            <FlowChartHeadline>1</FlowChartHeadline>
-            <FlowChartDescription>
-              Integer posuere erat a ante venenatis dapibus posuere velit
-              aliquet.{" "}
-            </FlowChartDescription>
-          </InnerFlowChartDiv>
-          <FlowChartRectangleSVG src={rectangleSVG} />
-        </FlowChartRectangle>
+      <EmptyDiv />
+      <FlowChartRectangle>
+        <FlowChartHeadline>1</FlowChartHeadline>
+        <FlowChartDescription>
+          Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+        </FlowChartDescription>
+        <PlaceholderForImage />
+      </FlowChartRectangle>
 
-        <FlowChartRectangle>
-          <InnerFlowChartDiv>
-            <FlowChartHeadline>2</FlowChartHeadline>
-            <FlowChartDescription>
-              Integer posuere erat a ante venenatis dapibus posuere velit
-              aliquet.{" "}
-            </FlowChartDescription>
-          </InnerFlowChartDiv>
-          <FlowChartRectangleSVG src={rectangleSVG} />
-        </FlowChartRectangle>
+      <FlowChartRectangle>
+        <FlowChartHeadline>2</FlowChartHeadline>
+        <FlowChartDescription>
+          Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+        </FlowChartDescription>
+        <PlaceholderForImage />
+      </FlowChartRectangle>
 
-        <FlowChartRectangle>
-          <InnerFlowChartDiv>
-            <FlowChartHeadline>3</FlowChartHeadline>
-            <FlowChartDescription>
-              Integer posuere erat a ante venenatis dapibus posuere velit
-              aliquet.{" "}
-            </FlowChartDescription>
-          </InnerFlowChartDiv>
-          <FlowChartRectangleSVG src={rectangleSVG} />
-        </FlowChartRectangle>
-      </FlowChart>
+      <FlowChartRectangle>
+        <FlowChartHeadline>3</FlowChartHeadline>
+        <FlowChartDescription>
+          Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+        </FlowChartDescription>
+        <PlaceholderForImage />
+      </FlowChartRectangle>
     </>
   );
 };

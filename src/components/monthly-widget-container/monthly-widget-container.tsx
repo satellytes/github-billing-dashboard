@@ -15,6 +15,7 @@ let totalPriceOfPreviousMonth = 0;
 
 const StyledContainer = styled.div`
   display: flex;
+  grid-column: 1/13;
   margin-bottom: 96px;
   overflow: auto;
   @media (max-width: 576px) {

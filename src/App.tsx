@@ -11,6 +11,10 @@ import styled from "styled-components";
 
 const MainContent = styled.div`
   max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
 `;
 
 const App = (): JSX.Element => {
@@ -44,19 +48,17 @@ const App = (): JSX.Element => {
               handleWidgetClick(month, data),
           }}
         >
-          <div className="App">
-            <Headline />
-            <Switch>
-              <Route path="/github-billing-dashboard">
-                <StartScreen />
-                <FileInput onInput={handleInput} />
-              </Route>
-              <Route path="/acitve">
-                {csvData && <MonthlyWidgetContainer csvData={csvData} />}
-                {csvData && <ChartContainer csvData={csvData} />}
-              </Route>
-            </Switch>
-          </div>
+          <Headline />
+          <Switch>
+            <Route path="/github-billing-dashboard">
+              <StartScreen />
+              <FileInput onInput={handleInput} />
+            </Route>
+            <Route path="/acitve">
+              {csvData && <MonthlyWidgetContainer csvData={csvData} />}
+              {csvData && <ChartContainer csvData={csvData} />}
+            </Route>
+          </Switch>
         </WidgetContext.Provider>
       </MainContent>
     </Router>

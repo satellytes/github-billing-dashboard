@@ -12,6 +12,8 @@ const Title = styled.h2`
   font-weight: bold;
   font-size: 32px;
   line-height: 110%;
+  margin: 120px 0 0 0;
+  grid-column: 1/13;
 `;
 
 const Description = styled.p`
@@ -19,17 +21,19 @@ const Description = styled.p`
   font-weight: normal;
   font-size: 16px;
   line-height: 150%;
-  width: 66%;
+  grid-column: 1/9;
+  margin: 24px 0 0 0;
 `;
 
 const StyledFileInput = styled.div`
+  margin: 32px 0 397px 0;
   background: rgba(122, 143, 204, 0.3);
   border: 1px solid rgba(122, 143, 204, 0.3);
   border-radius: 4px;
   padding: 30px 0;
   text-align: center;
   cursor: pointer;
-
+  grid-column: 1/13;
   &:hover {
     border-color: white;
   }

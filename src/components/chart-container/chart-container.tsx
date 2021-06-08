@@ -23,13 +23,16 @@ const ChartDiv = styled.div`
     rgba(122, 143, 204, 0.3) 100%
   );
   border-radius: 4px;
-  margin: 32px 16px;
+  margin: 24px 0 437px 0;
+  padding-right: 24px;
+  grid-column: 1/13;
 `;
 
 const ButtonDiv = styled.div`
+  grid-column: 1/13;
   display: flex;
   justify-content: space-between;
-  margin: 8px;
+  margin: 40px 0 0 0;
 `;
 
 const Button = styled.button`
@@ -49,6 +52,24 @@ const LeftToggleButton = styled(Button)`
 const RightToggleButton = styled(Button)`
   border-bottom-right-radius: 4px;
   border-top-right-radius: 4px;
+`;
+
+const ChartHeadline = styled.h2`
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 130%;
+  grid-column: 1/13;
+  margin: 120px 0 0 0;
+`;
+
+const ChartDescription = styled.p`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 130%;
+  grid-column: 1/13;
+  margin: 16px 0 0 0;
 `;
 
 export const ChartContainer = ({
@@ -86,40 +107,42 @@ export const ChartContainer = ({
 
   return (
     <>
-      <h2>Angezeigter Zeitraum</h2>
-      <p>{activeMonth.monthName || getPeriodOfTimeString(csvData)}</p>
-      <ChartDiv>
-        <ButtonDiv>
-          <div>
-            <LeftToggleButton
-              isActive={groupedBy === "daily"}
-              onClick={() => setGroupedBy("daily")}
-            >
-              Daily
-            </LeftToggleButton>
-            <RightToggleButton
-              isActive={groupedBy === "weekly"}
-              onClick={() => setGroupedBy("weekly")}
-            >
-              Weekly
-            </RightToggleButton>
-          </div>
+      <ChartHeadline>Angezeigter Zeitraum</ChartHeadline>
+      <ChartDescription>
+        {activeMonth.monthName || getPeriodOfTimeString(csvData)}
+      </ChartDescription>
+      <ButtonDiv>
+        <div>
+          <LeftToggleButton
+            isActive={groupedBy === "daily"}
+            onClick={() => setGroupedBy("daily")}
+          >
+            Daily
+          </LeftToggleButton>
+          <RightToggleButton
+            isActive={groupedBy === "weekly"}
+            onClick={() => setGroupedBy("weekly")}
+          >
+            Weekly
+          </RightToggleButton>
+        </div>
 
-          <div>
-            <LeftToggleButton
-              isActive={diagramType === "Bar"}
-              onClick={() => setDiagramType("Bar")}
-            >
-              Bar
-            </LeftToggleButton>
-            <RightToggleButton
-              isActive={diagramType === "Line"}
-              onClick={() => setDiagramType("Line")}
-            >
-              Line
-            </RightToggleButton>
-          </div>
-        </ButtonDiv>
+        <div>
+          <LeftToggleButton
+            isActive={diagramType === "Bar"}
+            onClick={() => setDiagramType("Bar")}
+          >
+            Bar
+          </LeftToggleButton>
+          <RightToggleButton
+            isActive={diagramType === "Line"}
+            onClick={() => setDiagramType("Line")}
+          >
+            Line
+          </RightToggleButton>
+        </div>
+      </ButtonDiv>
+      <ChartDiv>
         {diagramType === "Bar" ? (
           <BillingBarChart
             maxValueOfYAxis={currentMaxValueOfYAxis}
