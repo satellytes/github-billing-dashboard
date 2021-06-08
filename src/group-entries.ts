@@ -88,7 +88,6 @@ export const groupEntriesPerWeek = (
       }
 
       const newEntry: UsageReportWeek = {
-        //TODO from, to und week enthalten in der widget Ansicht Daten, die gar nicht angezeigt werden
         week: `${lightFormat(firstDayOfTheWeekRange, "dd.MM.")} - ${lightFormat(
           lastDayOfTheWeekRange,
           "dd.MM."
