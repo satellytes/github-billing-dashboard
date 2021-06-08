@@ -24,12 +24,9 @@ export const BillingLineChart = ({
   groupedBy,
   maxValueOfYAxis,
   repositoryNames,
-  isDataFromWidget,
   entriesGroupedPerDay,
   entriesGroupedPerWeek,
 }: BillingChartProps): JSX.Element => {
-  console.log(isDataFromWidget);
-
   return (
     <ResponsiveContainer width="100%" height={600}>
       <LineChart

@@ -6,7 +6,6 @@ export interface BillingChartProps {
   groupedBy: "daily" | "weekly";
   maxValueOfYAxis: number;
   repositoryNames: string[];
-  isDataFromWidget: boolean;
   entriesGroupedPerDay: UsageReportDay[];
   entriesGroupedPerWeek: UsageReportWeek[];
 }

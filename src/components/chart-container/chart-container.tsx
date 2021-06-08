@@ -122,7 +122,6 @@ export const ChartContainer = ({
             maxValueOfYAxis={currentMaxValueOfYAxis}
             groupedBy={groupedBy}
             repositoryNames={repositoryNames()}
-            isDataFromWidget={isDataFromWidget}
             entriesGroupedPerDay={entriesGroupedPerDay}
             entriesGroupedPerWeek={entriesGroupedPerWeek}
           />
@@ -131,7 +130,6 @@ export const ChartContainer = ({
             maxValueOfYAxis={currentMaxValueOfYAxis}
             groupedBy={groupedBy}
             repositoryNames={repositoryNames()}
-            isDataFromWidget={isDataFromWidget}
             entriesGroupedPerDay={entriesGroupedPerDay}
             entriesGroupedPerWeek={entriesGroupedPerWeek}
           />
