@@ -56,7 +56,7 @@ export const BillingLineChart = ({
           axisLine={false}
           tickLine={false}
         />
-        {/*labelFormatter checks if the given label has the right format*/}
+
         <CustomTooltip
           labelFormatter={(label) =>
             isStringDateValue(label)
