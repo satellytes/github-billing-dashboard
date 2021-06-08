@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { UsageReportEntry } from "../../csv-reader";
+import { UsageReportEntry } from "../../util/csv-reader";
 import { BillingBarChart } from "../billing-chart/billing-bar-chart";
 import { BillingLineChart } from "../billing-chart/billing-line-chart";
 import { WidgetContext } from "../context/widget-context";
@@ -8,8 +8,8 @@ import {
   getMaximumTotalPriceOfAllWeeks,
   groupEntriesPerDay,
   groupEntriesPerWeek,
-} from "../../group-entries";
-import { getPeriodOfTimeString } from "../../date-util";
+} from "../../util/group-entries";
+import { getPeriodOfTimeString } from "../../util/date-util";
 import styled from "styled-components";
 
 interface ChartContainerProps {
@@ -58,7 +58,7 @@ const ChartHeadline = styled.h2`
   font-style: normal;
   font-weight: bold;
   font-size: 32px;
-  line-height: 130%;
+  line-height: 42px;
   grid-column: 1/13;
   margin: 120px 0 0 0;
 `;
@@ -67,7 +67,7 @@ const ChartDescription = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  line-height: 130%;
+  line-height: 21px;
   grid-column: 1/13;
   margin: 16px 0 0 0;
 `;

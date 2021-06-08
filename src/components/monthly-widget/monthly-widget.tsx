@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { UsageReportMonth } from "../../group-entries";
+import { UsageReportMonth } from "../../util/group-entries";
 import { LineChart, Line, YAxis } from "recharts";
-import { groupEntriesPerDay } from "../../group-entries";
+import { groupEntriesPerDay } from "../../util/group-entries";
 import { WidgetContext } from "../context/widget-context";
 import styled from "styled-components";
 
@@ -13,6 +13,7 @@ interface MonthlyWidgetProps {
 }
 
 const StyledWidget = styled.div`
+  grid-column: 3 span;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -43,7 +44,7 @@ const WidgetMonth = styled.h2`
   font-style: normal;
   font-weight: 900;
   font-size: 12px;
-  line-height: 150%;
+  line-height: 18px;
   text-transform: uppercase;
 `;
 

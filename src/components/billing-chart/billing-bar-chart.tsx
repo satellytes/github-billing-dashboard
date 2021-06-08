@@ -8,7 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { getPriceByRepositoryName } from "../../group-entries";
+import { getPriceByRepositoryName } from "../../util/group-entries";
 import { lightFormat } from "date-fns";
 import {
   BillingChartProps,
@@ -18,7 +18,7 @@ import {
   tooltipItemStyle,
   tooltipLabelStyle,
 } from "./billing-chart-components";
-import { isStringDateValue } from "../../date-util";
+import { isStringDateValue } from "../../util/date-util";
 
 export const BillingBarChart = ({
   groupedBy,

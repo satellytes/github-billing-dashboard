@@ -5,7 +5,7 @@ const StyledHeadline = styled.h1`
   font-style: normal;
   font-weight: bold;
   font-size: 72px;
-  line-height: 110%;
+  line-height: 79px;
   margin: 254px 0 0 0;
   grid-column: 1/13;
 `;
