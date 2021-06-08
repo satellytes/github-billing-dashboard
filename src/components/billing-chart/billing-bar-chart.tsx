@@ -24,18 +24,9 @@ export const BillingBarChart = ({
   groupedBy,
   maxValueOfYAxis,
   repositoryNames,
-  isDataFromWidget,
   entriesGroupedPerDay,
   entriesGroupedPerWeek,
 }: BillingChartProps): JSX.Element => {
-  function formatLabelFromWidget(label: string): string {
-    // const dates = label.split(" - ")
-    // co
-    // console.log(dates)
-    // if
-    return label;
-  }
-
   return (
     <ResponsiveContainer width="100%" height={600}>
       <BarChart
@@ -66,15 +57,11 @@ export const BillingBarChart = ({
         />
 
         <CustomTooltip
-          labelFormatter={(label) => {
-            if (isStringDateValue(label)) {
-              return lightFormat(new Date(label), "dd.MM.");
-            } else if (isDataFromWidget) {
-              return formatLabelFromWidget(label);
-            } else {
-              return label;
-            }
-          }}
+          labelFormatter={(label) =>
+            isStringDateValue(label)
+              ? lightFormat(new Date(label), "dd.MM.")
+              : label
+          }
           itemSorter={(repositoryGroupedByDay) =>
             repositoryGroupedByDay.value ? repositoryGroupedByDay.value * -1 : 0
           }
