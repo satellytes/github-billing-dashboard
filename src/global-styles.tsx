@@ -1,6 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import CocoGothicRegularTFF from "./fonts/Coco-Gothic-Regular-TTF.ttf";
 
 export const GlobalStyles = createGlobalStyle`
