@@ -11,6 +11,7 @@ const MainContent = styled.div`
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
+
   display: grid;
   grid-template-columns: repeat(12, 1fr);
 `;
