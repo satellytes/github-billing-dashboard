@@ -9,6 +9,7 @@ import {
   lastDayOfMonth,
   startOfMonth,
   getYear,
+  isSameMonth,
 } from "date-fns";
 
 export interface UsageReportDay {
@@ -56,7 +57,8 @@ export interface UsageReportWeek {
 }
 
 export const groupEntriesPerWeek = (
-  csvData: UsageReportEntry[]
+  csvData: UsageReportEntry[],
+  isDataFromWidget: boolean
 ): UsageReportWeek[] => {
   return csvData.reduce((acc: UsageReportWeek[], obj) => {
     let indexOfEntryForCurrentDate = 0;
@@ -73,10 +75,22 @@ export const groupEntriesPerWeek = (
       const firstDayOfTheWeek = startOfWeek(currentDate);
       const lastDayOfTheWeek = lastDayOfWeek(currentDate);
 
+      let firstDayOfTheWeekRange = startOfWeek(currentDate);
+      let lastDayOfTheWeekRange = lastDayOfWeek(currentDate);
+
+      if (isDataFromWidget) {
+        if (!isSameMonth(firstDayOfTheWeek, currentDate)) {
+          firstDayOfTheWeekRange = startOfMonth(currentDate);
+        }
+        if (!isSameMonth(lastDayOfTheWeek, currentDate)) {
+          lastDayOfTheWeekRange = lastDayOfMonth(currentDate);
+        }
+      }
+
       const newEntry: UsageReportWeek = {
         //TODO from, to und week enthalten in der widget Ansicht Daten, die gar nicht angezeigt werden
-        week: `${lightFormat(firstDayOfTheWeek, "dd.MM.")} - ${lightFormat(
-          lastDayOfTheWeek,
+        week: `${lightFormat(firstDayOfTheWeekRange, "dd.MM.")} - ${lightFormat(
+          lastDayOfTheWeekRange,
           "dd.MM."
         )}`,
         from: firstDayOfTheWeek.toISOString(),
@@ -166,7 +180,7 @@ export const getMaximumTotalPriceOfAllDays = (
 export const getMaximumTotalPriceOfAllWeeks = (
   data: UsageReportEntry[]
 ): number => {
-  const entriesGroupedPerWeek = groupEntriesPerWeek(data);
+  const entriesGroupedPerWeek = groupEntriesPerWeek(data, false);
   return Math.ceil(
     Math.max(...entriesGroupedPerWeek.map((entry) => entry.totalPrice))
   );
