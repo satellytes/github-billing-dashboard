@@ -29,6 +29,7 @@ export const BillingLineChart = ({
   entriesGroupedPerWeek,
 }: BillingChartProps): JSX.Element => {
   console.log(isDataFromWidget);
+
   return (
     <ResponsiveContainer width="100%" height={600}>
       <LineChart
