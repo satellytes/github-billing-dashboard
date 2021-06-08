@@ -11,7 +11,7 @@ const Title = styled.h2`
   font-style: normal;
   font-weight: bold;
   font-size: 32px;
-  line-height: 110%;
+  line-height: 35px;
   margin: 120px 0 0 0;
   grid-column: 1/13;
 `;
@@ -20,7 +20,7 @@ const Description = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  line-height: 150%;
+  line-height: 24px;
   grid-column: 1/9;
   margin: 24px 0 0 0;
 `;

@@ -16,9 +16,9 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import { getPriceByRepositoryName } from "../../group-entries";
+import { getPriceByRepositoryName } from "../../util/group-entries";
 import { lightFormat } from "date-fns";
-import { isStringDateValue } from "../../date-util";
+import { isStringDateValue } from "../../util/date-util";
 
 export const BillingLineChart = ({
   groupedBy,

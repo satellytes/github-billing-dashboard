@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getCsvFile, UsageReportEntry } from "./csv-reader";
+import { getCsvFile, UsageReportEntry } from "./util/csv-reader";
 import { WidgetContext } from "./components/context/widget-context";
 import { Headline } from "./components/headline/headline";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";

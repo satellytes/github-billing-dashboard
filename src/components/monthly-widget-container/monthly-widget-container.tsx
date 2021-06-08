@@ -1,10 +1,10 @@
 import React from "react";
-import { UsageReportEntry } from "../../csv-reader";
+import { UsageReportEntry } from "../../util/csv-reader";
 import { MonthlyWidget } from "../monthly-widget/monthly-widget";
 import {
   getMaximumTotalPriceOfAllDays,
   groupEntriesPerMonth,
-} from "../../group-entries";
+} from "../../util/group-entries";
 import styled from "styled-components";
 
 interface MonthlyWidgetProps {
@@ -14,13 +14,10 @@ interface MonthlyWidgetProps {
 let totalPriceOfPreviousMonth = 0;
 
 const StyledContainer = styled.div`
-  display: flex;
   grid-column: 1/13;
-  margin-bottom: 96px;
-  overflow: auto;
-  @media (max-width: 576px) {
-    flex-direction: column;
-  }
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  margin: 40px 0 0 0;
 `;
 
 export const MonthlyWidgetContainer = ({

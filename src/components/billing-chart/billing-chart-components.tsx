@@ -1,6 +1,6 @@
 import { Tooltip } from "recharts";
 import { CSSProperties } from "react";
-import { UsageReportDay, UsageReportWeek } from "../../group-entries";
+import { UsageReportDay, UsageReportWeek } from "../../util/group-entries";
 
 export interface BillingChartProps {
   groupedBy: "daily" | "weekly";
@@ -18,20 +18,23 @@ export const tooltipLabelStyle: CSSProperties = {
   fontStyle: "normal",
   fontWeight: "normal",
   fontSize: "12px",
-  lineHeight: "110%",
-  marginBottom: "4px",
+  lineHeight: "13px",
+  margin: "0 0 10px 0",
 };
 
 export const tooltipItemStyle: CSSProperties = {
   fontStyle: "normal",
   fontWeight: "normal",
   fontSize: "12px",
-  lineHeight: "110%",
+  lineHeight: "13px",
+  margin: "0 0 4px 0",
+  padding: 0,
 };
 
 export const tooltipContentStyle: CSSProperties = {
   borderRadius: "4px",
   borderBlockColor: "white",
+  padding: "12px",
 };
 
 export const colors = [
