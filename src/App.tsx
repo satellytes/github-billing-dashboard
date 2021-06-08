@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { FileInput } from "./components/file-input/file-input";
-import { ChartContainer } from "./components/chart-container/chart-container";
-import { MonthlyWidgetContainer } from "./components/monthly-widget-container/monthly-widget-container";
 import { getCsvFile, UsageReportEntry } from "./csv-reader";
 import { WidgetContext } from "./components/context/widget-context";
 import { Headline } from "./components/headline/headline";
-import { StartScreen } from "./components/start-screen/start-screen";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
+import { Start } from "./pages/start";
+import { RunningApplication } from "./pages/running-application";
 
 const MainContent = styled.div`
   max-width: 1280px;
@@ -19,6 +17,11 @@ const MainContent = styled.div`
 
 const App = (): JSX.Element => {
   const [csvData, setCsvData] = useState<UsageReportEntry[] | null>(null);
+  const [selectedMonthFromWidget, setSelectedMonthFromWidget] = useState<{
+    monthName: string;
+    data: UsageReportEntry[];
+  }>({ monthName: "", data: [] });
+
   const handleInput = (file: File) => {
     getCsvFile(file).then((res) => {
       setCsvData(res);
@@ -33,11 +36,6 @@ const App = (): JSX.Element => {
     }
   };
 
-  const [selectedMonthFromWidget, setSelectedMonthFromWidget] = useState<{
-    monthName: string;
-    data: UsageReportEntry[];
-  }>({ monthName: "", data: [] });
-
   return (
     <Router>
       <MainContent>
@@ -51,12 +49,10 @@ const App = (): JSX.Element => {
           <Headline />
           <Switch>
             <Route path="/github-billing-dashboard">
-              <StartScreen />
-              <FileInput onInput={handleInput} />
+              <Start handleInput={handleInput} />
             </Route>
-            <Route path="/acitve">
-              {csvData && <MonthlyWidgetContainer csvData={csvData} />}
-              {csvData && <ChartContainer csvData={csvData} />}
+            <Route path="/active">
+              {csvData && <RunningApplication csvData={csvData} />}
             </Route>
           </Switch>
         </WidgetContext.Provider>

@@ -54,7 +54,7 @@ const FlowChartDescription = styled.p`
   margin: 8px 40px 0 20px;
 `;
 
-export const StartScreen = (): JSX.Element => {
+export const StartDescription = (): JSX.Element => {
   return (
     <>
       <IntroductionSentence>
