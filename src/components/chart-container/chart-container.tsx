@@ -70,7 +70,10 @@ export const ChartContainer = ({
   const currentData = isDataFromWidget ? activeMonth.data : csvData;
 
   const entriesGroupedPerDay = groupEntriesPerDay(currentData);
-  const entriesGroupedPerWeek = groupEntriesPerWeek(currentData);
+  const entriesGroupedPerWeek = groupEntriesPerWeek(
+    currentData,
+    isDataFromWidget
+  );
 
   const repositoryNames = (): string[] => {
     const repositoryNamesWithDuplicates = csvData.map(
