@@ -29,6 +29,8 @@ export const MonthlyWidgetContainer = ({
     <StyledContainer>
       {entriesGroupedPerMonth.map((monthlyEntry, index) => {
         let isMoreExpensiveThanPreviousMonth = true;
+        const isFirstMonth = index == 0;
+        const isLastMonth = index == entriesGroupedPerMonth.length - 1;
         if (
           index === 0 ||
           totalPriceOfPreviousMonth > monthlyEntry.totalPrice
@@ -47,6 +49,8 @@ export const MonthlyWidgetContainer = ({
             maxValueOfYAxis={maxValueOfYAxis}
             isMoreExpensiveThanPreviousMonth={isMoreExpensiveThanPreviousMonth}
             differenceToPreviousMonth={differenceToPreviousMonth}
+            isFirstMonth={isFirstMonth}
+            isLastMonth={isLastMonth}
           />
         );
       })}
