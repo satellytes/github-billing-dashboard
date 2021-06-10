@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.js": "/github-billing-dashboard/static/js/main.50b82597.chunk.js",
-    "main.js.map": "/github-billing-dashboard/static/js/main.50b82597.chunk.js.map",
+    "main.js": "/github-billing-dashboard/static/js/main.e4d8bf40.chunk.js",
+    "main.js.map": "/github-billing-dashboard/static/js/main.e4d8bf40.chunk.js.map",
     "runtime-main.js": "/github-billing-dashboard/static/js/runtime-main.78e55d83.js",
     "runtime-main.js.map": "/github-billing-dashboard/static/js/runtime-main.78e55d83.js.map",
-    "static/js/2.3bac20e3.chunk.js": "/github-billing-dashboard/static/js/2.3bac20e3.chunk.js",
-    "static/js/2.3bac20e3.chunk.js.map": "/github-billing-dashboard/static/js/2.3bac20e3.chunk.js.map",
+    "static/js/2.2e7c1d28.chunk.js": "/github-billing-dashboard/static/js/2.2e7c1d28.chunk.js",
+    "static/js/2.2e7c1d28.chunk.js.map": "/github-billing-dashboard/static/js/2.2e7c1d28.chunk.js.map",
     "index.html": "/github-billing-dashboard/index.html",
-    "static/js/2.3bac20e3.chunk.js.LICENSE.txt": "/github-billing-dashboard/static/js/2.3bac20e3.chunk.js.LICENSE.txt",
-    "static/media/rectangle.760bdabe.svg": "/github-billing-dashboard/static/media/rectangle.760bdabe.svg"
+    "static/js/2.2e7c1d28.chunk.js.LICENSE.txt": "/github-billing-dashboard/static/js/2.2e7c1d28.chunk.js.LICENSE.txt",
+    "static/media/Coco-Gothic-Bold-TTF.ee8e9b6a.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Bold-TTF.ee8e9b6a.ttf",
+    "static/media/Coco-Gothic-Heavy-TTF.d8ca8344.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Heavy-TTF.d8ca8344.ttf",
+    "static/media/Coco-Gothic-Regular-TTF.76afad7d.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Regular-TTF.76afad7d.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.78e55d83.js",
-    "static/js/2.3bac20e3.chunk.js",
-    "static/js/main.50b82597.chunk.js"
+    "static/js/2.2e7c1d28.chunk.js",
+    "static/js/main.e4d8bf40.chunk.js"
   ]
 }
