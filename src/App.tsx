@@ -8,6 +8,7 @@ import { DashboardPage } from "./pages/dashboard-page";
 import { Grid } from "./components/grid/grid";
 import styled from "styled-components";
 import { Header } from "./components/header/header";
+import { GlobalStyles } from "./global-styles";
 
 const MainContent = styled(Grid)`
   max-width: 1280px;
@@ -38,6 +39,7 @@ const App = (): JSX.Element => {
 
   return (
     <Router>
+      <GlobalStyles />
       <Header />
       <MainContent>
         <WidgetContext.Provider
