@@ -48,9 +48,8 @@ export const MonthlyWidgetContainer = ({
             isMoreExpensiveThanPreviousMonth = false;
           }
 
-          //TODO prevent 0 divide
           const percentageDifferenceToPreviousMonth =
-            index === 0
+            index === 0 || averageCostsPerDayOfPreviousMonth === 0
               ? 0
               : ((averageCostsPerDay - averageCostsPerDayOfPreviousMonth) /
                   averageCostsPerDayOfPreviousMonth) *
