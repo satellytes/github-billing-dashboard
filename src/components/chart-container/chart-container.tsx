@@ -11,6 +11,7 @@ import {
 } from "../../util/group-entries";
 import { getPeriodOfTimeString } from "../../util/date-util";
 import styled from "styled-components";
+import { GridItem } from "../grid/grid";
 
 interface ChartContainerProps {
   csvData: UsageReportEntry[];
@@ -25,11 +26,9 @@ const ChartDiv = styled.div`
   border-radius: 4px;
   margin: 24px 0 437px 0;
   padding-right: 24px;
-  grid-column: 1/13;
 `;
 
 const ButtonDiv = styled.div`
-  grid-column: 1/13;
   display: flex;
   justify-content: space-between;
   margin: 40px 0 0 0;
@@ -59,7 +58,6 @@ const ChartHeadline = styled.h2`
   font-weight: bold;
   font-size: 32px;
   line-height: 42px;
-  grid-column: 1/13;
   margin: 120px 0 0 0;
 `;
 
@@ -68,7 +66,6 @@ const ChartDescription = styled.p`
   font-weight: normal;
   font-size: 16px;
   line-height: 21px;
-  grid-column: 1/13;
   margin: 16px 0 0 0;
 `;
 
@@ -107,60 +104,62 @@ export const ChartContainer = ({
 
   return (
     <>
-      <ChartHeadline>Angezeigter Zeitraum</ChartHeadline>
-      <ChartDescription>
-        {activeMonth.monthName || getPeriodOfTimeString(csvData)}
-      </ChartDescription>
-      <ButtonDiv>
-        <div>
-          <LeftToggleButton
-            isActive={groupedBy === "daily"}
-            onClick={() => setGroupedBy("daily")}
-          >
-            Daily
-          </LeftToggleButton>
-          <RightToggleButton
-            isActive={groupedBy === "weekly"}
-            onClick={() => setGroupedBy("weekly")}
-          >
-            Weekly
-          </RightToggleButton>
-        </div>
+      <GridItem>
+        <ChartHeadline>Angezeigter Zeitraum</ChartHeadline>
+        <ChartDescription>
+          {activeMonth.monthName || getPeriodOfTimeString(csvData)}
+        </ChartDescription>
+        <ButtonDiv>
+          <div>
+            <LeftToggleButton
+              isActive={groupedBy === "daily"}
+              onClick={() => setGroupedBy("daily")}
+            >
+              Daily
+            </LeftToggleButton>
+            <RightToggleButton
+              isActive={groupedBy === "weekly"}
+              onClick={() => setGroupedBy("weekly")}
+            >
+              Weekly
+            </RightToggleButton>
+          </div>
 
-        <div>
-          <LeftToggleButton
-            isActive={diagramType === "Bar"}
-            onClick={() => setDiagramType("Bar")}
-          >
-            Bar
-          </LeftToggleButton>
-          <RightToggleButton
-            isActive={diagramType === "Line"}
-            onClick={() => setDiagramType("Line")}
-          >
-            Line
-          </RightToggleButton>
-        </div>
-      </ButtonDiv>
-      <ChartDiv>
-        {diagramType === "Bar" ? (
-          <BillingBarChart
-            maxValueOfYAxis={currentMaxValueOfYAxis}
-            groupedBy={groupedBy}
-            repositoryNames={repositoryNames()}
-            entriesGroupedPerDay={entriesGroupedPerDay}
-            entriesGroupedPerWeek={entriesGroupedPerWeek}
-          />
-        ) : (
-          <BillingLineChart
-            maxValueOfYAxis={currentMaxValueOfYAxis}
-            groupedBy={groupedBy}
-            repositoryNames={repositoryNames()}
-            entriesGroupedPerDay={entriesGroupedPerDay}
-            entriesGroupedPerWeek={entriesGroupedPerWeek}
-          />
-        )}
-      </ChartDiv>
+          <div>
+            <LeftToggleButton
+              isActive={diagramType === "Bar"}
+              onClick={() => setDiagramType("Bar")}
+            >
+              Bar
+            </LeftToggleButton>
+            <RightToggleButton
+              isActive={diagramType === "Line"}
+              onClick={() => setDiagramType("Line")}
+            >
+              Line
+            </RightToggleButton>
+          </div>
+        </ButtonDiv>
+        <ChartDiv>
+          {diagramType === "Bar" ? (
+            <BillingBarChart
+              maxValueOfYAxis={currentMaxValueOfYAxis}
+              groupedBy={groupedBy}
+              repositoryNames={repositoryNames()}
+              entriesGroupedPerDay={entriesGroupedPerDay}
+              entriesGroupedPerWeek={entriesGroupedPerWeek}
+            />
+          ) : (
+            <BillingLineChart
+              maxValueOfYAxis={currentMaxValueOfYAxis}
+              groupedBy={groupedBy}
+              repositoryNames={repositoryNames()}
+              entriesGroupedPerDay={entriesGroupedPerDay}
+              entriesGroupedPerWeek={entriesGroupedPerWeek}
+            />
+          )}
+        </ChartDiv>
+      </GridItem>
     </>
   );
 };

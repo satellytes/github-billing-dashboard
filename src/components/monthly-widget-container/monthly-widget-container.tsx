@@ -6,6 +6,7 @@ import {
   groupEntriesPerMonth,
 } from "../../util/group-entries";
 import styled from "styled-components";
+import { Grid } from "../grid/grid";
 
 interface MonthlyWidgetProps {
   csvData: UsageReportEntry[];
@@ -13,11 +14,9 @@ interface MonthlyWidgetProps {
 
 let totalPriceOfPreviousMonth = 0;
 
-const StyledContainer = styled.div`
-  grid-column: 1/13;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
+const StyledContainer = styled(Grid)`
   margin: 40px 0 0 0;
+  grid-column-start: span 12;
 `;
 
 export const MonthlyWidgetContainer = ({
@@ -27,7 +26,7 @@ export const MonthlyWidgetContainer = ({
   const entriesGroupedPerMonth = groupEntriesPerMonth(csvData);
 
   return (
-    <StyledContainer className={"widget-container"}>
+    <StyledContainer>
       {entriesGroupedPerMonth.map((monthlyEntry, index) => {
         let isMoreExpensiveThanPreviousMonth = true;
         if (

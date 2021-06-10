@@ -3,17 +3,15 @@ import { getCsvFile, UsageReportEntry } from "./util/csv-reader";
 import { WidgetContext } from "./components/context/widget-context";
 import { Headline } from "./components/headline/headline";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import styled from "styled-components";
 import { Start } from "./pages/start";
 import { RunningApplication } from "./pages/running-application";
+import { Grid } from "./components/grid/grid";
+import styled from "styled-components";
 
-const MainContent = styled.div`
+const MainContent = styled(Grid)`
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
-
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
 `;
 
 const App = (): JSX.Element => {

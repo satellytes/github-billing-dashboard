@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { UsageReportMonth } from "../../util/group-entries";
-import { LineChart, Line, YAxis } from "recharts";
+import { LineChart, Line, YAxis, ResponsiveContainer } from "recharts";
 import { groupEntriesPerDay } from "../../util/group-entries";
 import { WidgetContext } from "../context/widget-context";
 import styled from "styled-components";
+import { GridItem } from "../grid/grid";
 
 interface MonthlyWidgetProps {
   monthlyEntry: UsageReportMonth;
@@ -12,35 +13,28 @@ interface MonthlyWidgetProps {
   differenceToPreviousMonth: number;
 }
 
-const StyledWidget = styled.div`
-  grid-column: 3 span;
+const StyledWidget = styled(GridItem)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-right: 10px;
+  margin: 0 10px 10px 0;
   cursor: pointer;
   background: rgba(122, 143, 204, 0.3);
-  min-width: 220px;
+  padding: 16px;
   border: ${(props: { isActive: boolean }) =>
     props.isActive ? "1px solid white" : "1px solid rgba(122, 143, 204, 0.3)"};
-  padding: 8px 4px;
+
   border-radius: 4px;
 
   &:hover {
     border-color: white;
   }
-
-  @media (max-width: 576px) {
-    margin-bottom: 4px;
-  }
 `;
 
-const WidgetDescription = styled.div`
-  margin-right: 8px;
-`;
+const WidgetDescription = styled.div``;
 
 const WidgetMonth = styled.h2`
-  margin-top: 0;
+  margin: 0 0 8px 0;
   font-style: normal;
   font-weight: 900;
   font-size: 12px;
@@ -52,7 +46,7 @@ const WidgetValue = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
-  margin: 0;
+  margin: 8px 0 0 0;
   text-transform: uppercase;
 `;
 
@@ -81,6 +75,9 @@ export const MonthlyWidget = ({
       onClick={() =>
         setActiveMonth(monthlyEntry.monthName, monthlyEntry.entries)
       }
+      sm={6}
+      md={4}
+      lg={3}
     >
       <WidgetDescription>
         <WidgetMonth>{monthlyEntry.monthName}</WidgetMonth>
@@ -96,22 +93,22 @@ export const MonthlyWidget = ({
           </Arrow>
         </WidgetValue>
       </WidgetDescription>
-      <LineChart
-        width={100}
-        height={50}
-        data={entriesGroupedPerDay}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        cursor="pointer"
-      >
-        <YAxis hide={true} domain={[0, maxValueOfYAxis]} />
-        <Line
-          type="monotone"
-          dataKey="totalPrice"
-          stroke={isMoreExpensiveThanPreviousMonth ? "#DC052D" : "#75F0C7"}
-          dot={false}
-        />
-      </LineChart>
+      <ResponsiveContainer width="55%" height={50}>
+        <LineChart
+          data={entriesGroupedPerDay}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          cursor="pointer"
+        >
+          <YAxis hide={true} domain={[0, maxValueOfYAxis]} />
+          <Line
+            type="monotone"
+            dataKey="totalPrice"
+            stroke={isMoreExpensiveThanPreviousMonth ? "#DC052D" : "#75F0C7"}
+            dot={false}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </StyledWidget>
   );
 };

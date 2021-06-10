@@ -3,6 +3,7 @@ import { MonthlyWidgetContainer } from "../components/monthly-widget-container/m
 import { ChartContainer } from "../components/chart-container/chart-container";
 import { UsageReportEntry } from "../util/csv-reader";
 import styled from "styled-components";
+import { GridItem } from "../components/grid/grid";
 
 interface RunningApplicationProps {
   csvData: UsageReportEntry[];
@@ -22,12 +23,14 @@ export const RunningApplication = ({
 }: RunningApplicationProps): JSX.Element => {
   return (
     <>
-      <ApplicationDescription>
-        Kuzre Einführungstext Integer posuere erat a ante venenatis dapibus
-        posuere velit aliquet. Morbi leo risus, porta ac consectetur ac,
-        vestibulum at eros. Maecenas sed diam eget risus varius blandit sit amet
-        non magna.
-      </ApplicationDescription>
+      <GridItem md={7}>
+        <ApplicationDescription>
+          Kuzre Einführungstext Integer posuere erat a ante venenatis dapibus
+          posuere velit aliquet. Morbi leo risus, porta ac consectetur ac,
+          vestibulum at eros. Maecenas sed diam eget risus varius blandit sit
+          amet non magna.
+        </ApplicationDescription>
+      </GridItem>
       {csvData && <MonthlyWidgetContainer csvData={csvData} />}
       {csvData && <ChartContainer csvData={csvData} />}
     </>
