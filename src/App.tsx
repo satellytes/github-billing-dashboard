@@ -52,7 +52,7 @@ const App = (): JSX.Element => {
             <Route exact path="/">
               <HomePage handleInput={handleInput} />
             </Route>
-            <Route path="/dashboard-page">
+            <Route path="/dashboard">
               {csvData && <DashboardPage csvData={csvData} />}
             </Route>
           </Switch>
