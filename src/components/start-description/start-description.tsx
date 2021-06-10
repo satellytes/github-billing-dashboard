@@ -9,25 +9,24 @@ const PlaceholderForImage = styled.div`
   margin: 0;
 `;
 
-const EmptyDiv = styled(GridItem)``;
-
-const IntroductionSentence = styled.h2`
+const Subline = styled.h2`
   font-style: normal;
   font-weight: normal;
   font-size: 32px;
   line-height: 110%;
-  margin: 40px 0 0 0;
+  margin-top: 40px;
 `;
 
-const Explanation = styled.p`
+const Text = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 150%;
-  margin: 32px 0 0 0;
+  margin-top: 32px;
+  margin-bottom: 32px;
 `;
 
-const FlowChartRectangle = styled(GridItem)`
+const FlowChartRectangle = styled.div`
   margin: 40px 24px 0 0;
   padding: 20px 40px 20px 20px;
   clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%);
@@ -35,7 +34,7 @@ const FlowChartRectangle = styled(GridItem)`
 `;
 
 const FlowChartHeadline = styled.h1`
-  margin: 0 0 8px 0;
+  margin-bottom: 8px;
   font-style: normal;
   font-weight: normal;
   font-size: 32px;
@@ -43,7 +42,8 @@ const FlowChartHeadline = styled.h1`
 `;
 
 const FlowChartDescription = styled.p`
-  margin: 0 0 16px 0;
+  margin-bottom: 16px;
+  margin-top: 0;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -54,42 +54,44 @@ export const StartDescription = (): JSX.Element => {
   return (
     <>
       <GridItem md={7}>
-        <IntroductionSentence>
+        <Subline>
           Hier ein kurzer Einführungssatz zum Tool integer posuere erat a ante
           venenatis
-        </IntroductionSentence>
-        <Explanation>
+        </Subline>
+        <Text>
           Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
           Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas
           sed diam eget risus varius blandit sit amet non magna.
-        </Explanation>
+        </Text>
       </GridItem>
-
-      <EmptyDiv md={4} />
-
-      <FlowChartRectangle xs={11} sm={4}>
-        <FlowChartHeadline>1</FlowChartHeadline>
-        <FlowChartDescription>
-          Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-        </FlowChartDescription>
-        <PlaceholderForImage />
-      </FlowChartRectangle>
-
-      <FlowChartRectangle xs={11} sm={4}>
-        <FlowChartHeadline>2</FlowChartHeadline>
-        <FlowChartDescription>
-          Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-        </FlowChartDescription>
-        <PlaceholderForImage />
-      </FlowChartRectangle>
-
-      <FlowChartRectangle xs={11} sm={4}>
-        <FlowChartHeadline>3</FlowChartHeadline>
-        <FlowChartDescription>
-          Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-        </FlowChartDescription>
-        <PlaceholderForImage />
-      </FlowChartRectangle>
+      <GridItem md={4} />
+      <GridItem xs={11} sm={4}>
+        <FlowChartRectangle>
+          <FlowChartHeadline>1</FlowChartHeadline>
+          <FlowChartDescription>
+            Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+          </FlowChartDescription>
+          <PlaceholderForImage />
+        </FlowChartRectangle>
+      </GridItem>
+      <GridItem xs={11} sm={4}>
+        <FlowChartRectangle>
+          <FlowChartHeadline>2</FlowChartHeadline>
+          <FlowChartDescription>
+            Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+          </FlowChartDescription>
+          <PlaceholderForImage />
+        </FlowChartRectangle>
+      </GridItem>
+      <GridItem xs={11} sm={4}>
+        <FlowChartRectangle>
+          <FlowChartHeadline>3</FlowChartHeadline>
+          <FlowChartDescription>
+            Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+          </FlowChartDescription>
+          <PlaceholderForImage />
+        </FlowChartRectangle>
+      </GridItem>
     </>
   );
 };

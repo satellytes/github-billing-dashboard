@@ -6,7 +6,7 @@ interface StartProp {
   handleInput: (file: File) => void;
 }
 
-export const Start = ({ handleInput }: StartProp): JSX.Element => {
+export const HomePage = ({ handleInput }: StartProp): JSX.Element => {
   return (
     <>
       <StartDescription />

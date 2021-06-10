@@ -30,4 +30,8 @@ export const GlobalStyles = createGlobalStyle`
     background: #202840;
     color: #FFF;
   }
+  
+  h1, h2 {
+    margin: 0;
+  }
 `;

@@ -6,7 +6,7 @@ import {
   groupEntriesPerMonth,
 } from "../../util/group-entries";
 import styled from "styled-components";
-import { Grid } from "../grid/grid";
+import { Grid, GridItem } from "../grid/grid";
 
 interface MonthlyWidgetProps {
   csvData: UsageReportEntry[];
@@ -15,8 +15,7 @@ interface MonthlyWidgetProps {
 let totalPriceOfPreviousMonth = 0;
 
 const StyledContainer = styled(Grid)`
-  margin: 40px 0 0 0;
-  grid-column-start: span 12;
+  margin-top: 40px;
 `;
 
 export const MonthlyWidgetContainer = ({
@@ -26,34 +25,40 @@ export const MonthlyWidgetContainer = ({
   const entriesGroupedPerMonth = groupEntriesPerMonth(csvData);
 
   return (
-    <StyledContainer>
-      {entriesGroupedPerMonth.map((monthlyEntry, index) => {
-        let isMoreExpensiveThanPreviousMonth = true;
-        const isFirstMonth = index == 0;
-        const isLastMonth = index == entriesGroupedPerMonth.length - 1;
-        if (
-          index === 0 ||
-          totalPriceOfPreviousMonth > monthlyEntry.totalPrice
-        ) {
-          isMoreExpensiveThanPreviousMonth = false;
-        }
+    <GridItem>
+      <StyledContainer>
+        {entriesGroupedPerMonth.map((monthlyEntry, index) => {
+          let isMoreExpensiveThanPreviousMonth = true;
+          const isFirstMonth = index == 0;
+          const isLastMonth = index == entriesGroupedPerMonth.length - 1;
+          if (
+            index === 0 ||
+            totalPriceOfPreviousMonth > monthlyEntry.totalPrice
+          ) {
+            isMoreExpensiveThanPreviousMonth = false;
+          }
 
-        const differenceToPreviousMonth =
-          index === 0 ? 0 : monthlyEntry.totalPrice - totalPriceOfPreviousMonth;
-        totalPriceOfPreviousMonth = monthlyEntry.totalPrice;
+          const differenceToPreviousMonth =
+            index === 0
+              ? 0
+              : monthlyEntry.totalPrice - totalPriceOfPreviousMonth;
+          totalPriceOfPreviousMonth = monthlyEntry.totalPrice;
 
-        return (
-          <MonthlyWidget
-            key={monthlyEntry.month}
-            monthlyEntry={monthlyEntry}
-            maxValueOfYAxis={maxValueOfYAxis}
-            isMoreExpensiveThanPreviousMonth={isMoreExpensiveThanPreviousMonth}
-            differenceToPreviousMonth={differenceToPreviousMonth}
-            isFirstMonth={isFirstMonth}
-            isLastMonth={isLastMonth}
-          />
-        );
-      })}
-    </StyledContainer>
+          return (
+            <MonthlyWidget
+              key={monthlyEntry.month}
+              monthlyEntry={monthlyEntry}
+              maxValueOfYAxis={maxValueOfYAxis}
+              isMoreExpensiveThanPreviousMonth={
+                isMoreExpensiveThanPreviousMonth
+              }
+              differenceToPreviousMonth={differenceToPreviousMonth}
+              isFirstMonth={isFirstMonth}
+              isLastMonth={isLastMonth}
+            />
+          );
+        })}
+      </StyledContainer>
+    </GridItem>
   );
 };

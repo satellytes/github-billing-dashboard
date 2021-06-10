@@ -19,7 +19,7 @@ export const tooltipLabelStyle: CSSProperties = {
   fontWeight: "normal",
   fontSize: "12px",
   lineHeight: "13px",
-  margin: "0 0 10px 0",
+  marginBottom: "10px",
 };
 
 export const tooltipItemStyle: CSSProperties = {
@@ -27,7 +27,7 @@ export const tooltipItemStyle: CSSProperties = {
   fontWeight: "normal",
   fontSize: "12px",
   lineHeight: "13px",
-  margin: "0 0 4px 0",
+  marginBottom: "4px",
   padding: 0,
 };
 

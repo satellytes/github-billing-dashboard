@@ -24,14 +24,15 @@ const ChartDiv = styled.div`
     rgba(122, 143, 204, 0.3) 100%
   );
   border-radius: 4px;
-  margin: 24px 0 437px 0;
+  margin-top: 24px;
+  margin-bottom: 437px;
   padding-right: 24px;
 `;
 
 const ButtonDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 40px 0 0 0;
+  margin-top: 40px;
 `;
 
 const Button = styled.button`
@@ -58,7 +59,7 @@ const ChartHeadline = styled.h2`
   font-weight: bold;
   font-size: 32px;
   line-height: 42px;
-  margin: 80px 0 0 0;
+  margin-top: 80px;
 `;
 
 const ChartDescription = styled.p`
@@ -66,7 +67,7 @@ const ChartDescription = styled.p`
   font-weight: normal;
   font-size: 16px;
   line-height: 21px;
-  margin: 16px 0 0 0;
+  margin-top: 16px;
 `;
 
 export const ChartContainer = ({

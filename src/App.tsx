@@ -3,8 +3,8 @@ import { getCsvFile, UsageReportEntry } from "./util/csv-reader";
 import { WidgetContext } from "./components/context/widget-context";
 import { Headline } from "./components/headline/headline";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Start } from "./pages/start";
-import { RunningApplication } from "./pages/running-application";
+import { HomePage } from "./pages/home-page";
+import { DashboardPage } from "./pages/dashboard-page";
 import { Grid } from "./components/grid/grid";
 import styled from "styled-components";
 
@@ -48,10 +48,10 @@ const App = (): JSX.Element => {
           <Headline />
           <Switch>
             <Route path="/github-billing-dashboard">
-              <Start handleInput={handleInput} />
+              <HomePage handleInput={handleInput} />
             </Route>
-            <Route path="/active">
-              {csvData && <RunningApplication csvData={csvData} />}
+            <Route path="/dashboard-page">
+              {csvData && <DashboardPage csvData={csvData} />}
             </Route>
           </Switch>
         </WidgetContext.Provider>
