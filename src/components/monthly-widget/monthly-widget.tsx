@@ -45,9 +45,9 @@ const WidgetMonth = styled.h2`
 const WidgetValue = styled.p`
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
   margin: 8px 0 0 0;
   text-transform: uppercase;
+  font-size: ${(props: { fontSize: number }) => `${props.fontSize}px`};
 `;
 
 const Arrow = styled.span`
@@ -81,10 +81,10 @@ export const MonthlyWidget = ({
     >
       <WidgetDescription>
         <WidgetMonth>{monthlyEntry.monthName}</WidgetMonth>
-        <WidgetValue>{`${
+        <WidgetValue fontSize={14}>{`${
           Math.round(monthlyEntry.totalPrice * 100) / 100
         } $`}</WidgetValue>
-        <WidgetValue>
+        <WidgetValue fontSize={12}>
           {formattedDifferenceToPreviousMonth}
           <Arrow
             isMoreExpensiveThanPreviousMonth={isMoreExpensiveThanPreviousMonth}
