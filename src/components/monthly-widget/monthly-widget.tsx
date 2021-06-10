@@ -16,11 +16,12 @@ interface MonthlyWidgetProps {
   isLastMonth: boolean;
 }
 
-const StyledWidget = styled(GridItem)`
+const StyledWidget = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 10px 10px 0;
+  margin-right: 10px;
+  margin-bottom: 10px;
   cursor: pointer;
   background: rgba(122, 143, 204, 0.3);
   padding: 16px;
@@ -37,7 +38,7 @@ const StyledWidget = styled(GridItem)`
 const WidgetDescription = styled.div``;
 
 const WidgetMonth = styled.h2`
-  margin: 0 0 8px 0;
+  margin-bottom: 8px;
   font-style: normal;
   font-weight: 900;
   font-size: 12px;
@@ -48,7 +49,8 @@ const WidgetMonth = styled.h2`
 const WidgetValue = styled.p`
   font-style: normal;
   font-weight: normal;
-  margin: 8px 0 0 0;
+  margin-top: 8px;
+  margin-bottom: 0;
   text-transform: uppercase;
   font-size: ${(props: { fontSize: number }) => `${props.fontSize}px`};
 `;
@@ -81,60 +83,59 @@ export const MonthlyWidget = ({
   } $ ${isMoreExpensiveThanPreviousMonth ? "mehr" : "weniger"} als im Vormonat`;
 
   return (
-    <StyledWidget
-      isActive={activeMonth.monthName === monthlyEntry.monthName}
-      onClick={() =>
-        setActiveMonth(monthlyEntry.monthName, monthlyEntry.entries)
-      }
-      sm={6}
-      md={4}
-      lg={3}
-    >
-      <WidgetDescription>
-        <WidgetMonth>{monthlyEntry.monthName}</WidgetMonth>
-        {isFirstMonth && (
-          <WidgetMonth style={{ color: "yellow" }}>
-            ab {lightFormat(new Date(firstDayOfMonth), "dd.MM.")}
-          </WidgetMonth>
-        )}
-        {isLastMonth && (
-          <WidgetMonth style={{ color: "yellow" }}>
-            bis {lightFormat(new Date(lastDayOfMonth), "dd.MM.")}
-          </WidgetMonth>
-        )}
-        <WidgetValue fontSize={14}>{`${
-          Math.round(monthlyEntry.totalPrice * 100) / 100
-        } $`}</WidgetValue>
-        {!isFirstMonth && (
-          <WidgetValue title={tooltipValue} fontSize={12}>
-            {formattedDifferenceToPreviousMonth}
-            <Arrow
-              isMoreExpensiveThanPreviousMonth={
-                isMoreExpensiveThanPreviousMonth
-              }
-            >
-              {arrowSymbol}
-            </Arrow>
-          </WidgetValue>
-        )}
-      </WidgetDescription>
-      <ResponsiveContainer width="55%" height={50}>
-        <LineChart
-          data={entriesGroupedPerDay}
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
-          cursor="pointer"
-        >
-          <YAxis hide={true} domain={[0, maxValueOfYAxis]} />
-          <Line
-            type="monotone"
-            dataKey="totalPrice"
-            stroke={isMoreExpensiveThanPreviousMonth ? "#DC052D" : "#75F0C7"}
-            strokeWidth={3}
-            dot={false}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </StyledWidget>
+    <GridItem sm={6} md={4} lg={3}>
+      <StyledWidget
+        isActive={activeMonth.monthName === monthlyEntry.monthName}
+        onClick={() =>
+          setActiveMonth(monthlyEntry.monthName, monthlyEntry.entries)
+        }
+      >
+        <WidgetDescription>
+          <WidgetMonth>{monthlyEntry.monthName}</WidgetMonth>
+          {isFirstMonth && (
+            <WidgetMonth style={{ color: "yellow" }}>
+              ab {lightFormat(new Date(firstDayOfMonth), "dd.MM.")}
+            </WidgetMonth>
+          )}
+          {isLastMonth && (
+            <WidgetMonth style={{ color: "yellow" }}>
+              bis {lightFormat(new Date(lastDayOfMonth), "dd.MM.")}
+            </WidgetMonth>
+          )}
+          <WidgetValue fontSize={14}>{`${
+            Math.round(monthlyEntry.totalPrice * 100) / 100
+          } $`}</WidgetValue>
+          {!isFirstMonth && (
+            <WidgetValue title={tooltipValue} fontSize={12}>
+              {formattedDifferenceToPreviousMonth}
+              <Arrow
+                isMoreExpensiveThanPreviousMonth={
+                  isMoreExpensiveThanPreviousMonth
+                }
+              >
+                {arrowSymbol}
+              </Arrow>
+            </WidgetValue>
+          )}
+        </WidgetDescription>
+        <ResponsiveContainer width="55%" height={50}>
+          <LineChart
+            data={entriesGroupedPerDay}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            cursor="pointer"
+          >
+            <YAxis hide={true} domain={[0, maxValueOfYAxis]} />
+            <Line
+              type="monotone"
+              dataKey="totalPrice"
+              stroke={isMoreExpensiveThanPreviousMonth ? "#DC052D" : "#75F0C7"}
+              strokeWidth={3}
+              dot={false}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </StyledWidget>
+    </GridItem>
   );
 };

@@ -13,28 +13,27 @@ const Title = styled.h2`
   font-weight: bold;
   font-size: 32px;
   line-height: 35px;
-  margin: 120px 0 0 0;
-  grid-column: 1/13;
+  margin-top: 120px;
 `;
 
-const Description = styled.p`
+const Subline = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 24px;
-  grid-column: 1/9;
-  margin: 24px 0 0 0;
+  margin-top: 24px;
 `;
 
 const StyledFileInput = styled.div`
-  margin: 32px 0 397px 0;
+  margin-top: 32px;
+  margin-bottom: 397px;
+  padding: 30px;
   background: rgba(122, 143, 204, 0.3);
   border: 1px solid rgba(122, 143, 204, 0.3);
   border-radius: 4px;
-  padding: 30px 0;
   text-align: center;
   cursor: pointer;
-  grid-column: 1/13;
+
   &:hover {
     border-color: white;
   }
@@ -46,7 +45,7 @@ export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       onInput(acceptedFiles[0]);
-      history.push("/active");
+      history.push("/dashboard-page");
     }
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -58,20 +57,22 @@ export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
     <>
       <GridItem md={7}>
         <Title>Github Report Usage UI</Title>
-        <Description>
+        <Subline>
           Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
           Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas
           sed diam eget risus varius blandit sit amet non magna.
-        </Description>
+        </Subline>
       </GridItem>
-      <StyledFileInput {...getRootProps()}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the file here ...</p>
-        ) : (
-          <p>Drop a csv file here, or click to select a file</p>
-        )}
-      </StyledFileInput>
+      <GridItem>
+        <StyledFileInput {...getRootProps()}>
+          <input {...getInputProps()} />
+          {isDragActive ? (
+            <p>Drop the file here ...</p>
+          ) : (
+            <p>Drop a csv file here, or click to select a file</p>
+          )}
+        </StyledFileInput>
+      </GridItem>
     </>
   );
 };

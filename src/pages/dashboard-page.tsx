@@ -18,7 +18,7 @@ const ApplicationDescription = styled.p`
   margin: 40px 0 0 0;
 `;
 
-export const RunningApplication = ({
+export const DashboardPage = ({
   csvData,
 }: RunningApplicationProps): JSX.Element => {
   return (
