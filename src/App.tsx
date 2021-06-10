@@ -49,7 +49,7 @@ const App = (): JSX.Element => {
         >
           <Headline />
           <Switch>
-            <Route path="/github-billing-dashboard">
+            <Route exact path="/">
               <HomePage handleInput={handleInput} />
             </Route>
             <Route path="/dashboard-page">
