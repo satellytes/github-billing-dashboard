@@ -2,6 +2,7 @@ import React from "react";
 import { UsageReportEntry } from "../../util/csv-reader";
 import { MonthlyWidget } from "../monthly-widget/monthly-widget";
 import {
+  getAmountOfDays,
   getMaximumTotalPriceOfAllDays,
   groupEntriesPerMonth,
 } from "../../util/group-entries";
@@ -12,7 +13,7 @@ interface MonthlyWidgetProps {
   csvData: UsageReportEntry[];
 }
 
-let totalPriceOfPreviousMonth = 0;
+let averageCostsPerDayOfPreviousMonth = 0;
 
 const StyledContainer = styled(Grid)`
   margin-top: 40px;
@@ -31,18 +32,24 @@ export const MonthlyWidgetContainer = ({
           let isMoreExpensiveThanPreviousMonth = true;
           const isFirstMonth = index == 0;
           const isLastMonth = index == entriesGroupedPerMonth.length - 1;
+          const averageCostsPerDay =
+            monthlyEntry.totalPrice / getAmountOfDays(monthlyEntry.entries);
           if (
             index === 0 ||
-            totalPriceOfPreviousMonth > monthlyEntry.totalPrice
+            averageCostsPerDayOfPreviousMonth > averageCostsPerDay
           ) {
             isMoreExpensiveThanPreviousMonth = false;
           }
 
-          const differenceToPreviousMonth =
+          //TODO prevent 0 divide
+          const percentageDifferenceToPreviousMonth =
             index === 0
               ? 0
-              : monthlyEntry.totalPrice - totalPriceOfPreviousMonth;
-          totalPriceOfPreviousMonth = monthlyEntry.totalPrice;
+              : ((averageCostsPerDay - averageCostsPerDayOfPreviousMonth) /
+                  averageCostsPerDayOfPreviousMonth) *
+                100;
+
+          averageCostsPerDayOfPreviousMonth = averageCostsPerDay;
 
           return (
             <MonthlyWidget
@@ -52,7 +59,9 @@ export const MonthlyWidgetContainer = ({
               isMoreExpensiveThanPreviousMonth={
                 isMoreExpensiveThanPreviousMonth
               }
-              differenceToPreviousMonth={differenceToPreviousMonth}
+              percentageDifferenceToPreviousMonth={
+                percentageDifferenceToPreviousMonth
+              }
               isFirstMonth={isFirstMonth}
               isLastMonth={isLastMonth}
             />

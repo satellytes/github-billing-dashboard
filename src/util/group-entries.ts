@@ -184,3 +184,10 @@ export const getMaximumTotalPriceOfAllWeeks = (
     Math.max(...entriesGroupedPerWeek.map((entry) => entry.totalPrice))
   );
 };
+
+export const getAmountOfDays = (
+  usageReportEntries: UsageReportEntry[]
+): number => {
+  const entriesGroupedPerDay = groupEntriesPerDay(usageReportEntries);
+  return entriesGroupedPerDay.length;
+};

@@ -11,7 +11,7 @@ interface MonthlyWidgetProps {
   monthlyEntry: UsageReportMonth;
   maxValueOfYAxis: number;
   isMoreExpensiveThanPreviousMonth: boolean;
-  differenceToPreviousMonth: number;
+  percentageDifferenceToPreviousMonth: number;
   isFirstMonth: boolean;
   isLastMonth: boolean;
 }
@@ -64,23 +64,23 @@ export const MonthlyWidget = ({
   monthlyEntry,
   maxValueOfYAxis,
   isMoreExpensiveThanPreviousMonth,
-  differenceToPreviousMonth,
+  percentageDifferenceToPreviousMonth,
   isLastMonth,
   isFirstMonth,
 }: MonthlyWidgetProps): JSX.Element => {
   const { activeMonth, setActiveMonth } = useContext(WidgetContext);
   const entriesGroupedPerDay = groupEntriesPerDay(monthlyEntry.entries);
   const formattedDifferenceToPreviousMonth = `${
-    differenceToPreviousMonth >= 0 ? "+" : ""
-  }${Math.round(differenceToPreviousMonth * 100) / 100} $`;
+    percentageDifferenceToPreviousMonth >= 0 ? "+" : ""
+  }${Math.round(percentageDifferenceToPreviousMonth * 100) / 100} %`;
   //"\u2191" = Arrow-Up-Symbol, "\u2193" = Arrow-Down-Symbol
   const arrowSymbol = isMoreExpensiveThanPreviousMonth ? " \u2191" : " \u2193";
   const firstDayOfMonth = monthlyEntry.entries[0].date;
   const lastDayOfMonth =
     monthlyEntry.entries[monthlyEntry.entries.length - 1].date;
   const tooltipValue = `${
-    Math.round(differenceToPreviousMonth * 100) / 100
-  } $ ${isMoreExpensiveThanPreviousMonth ? "mehr" : "weniger"} als im Vormonat`;
+    Math.round(percentageDifferenceToPreviousMonth * 100) / 100
+  } % ${isMoreExpensiveThanPreviousMonth ? "mehr" : "weniger"} als im Vormonat`;
 
   return (
     <GridItem sm={6} md={4} lg={3}>
