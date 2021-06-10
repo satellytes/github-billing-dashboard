@@ -56,7 +56,7 @@ export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
   return (
     <>
       <GridItem md={7}>
-        <Title>Github Report Usage UI</Title>
+        <Title>Github Billing Dashboard UI</Title>
         <Subline>
           Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
           Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas

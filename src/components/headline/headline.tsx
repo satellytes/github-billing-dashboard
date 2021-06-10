@@ -15,7 +15,7 @@ export const Headline = (): JSX.Element => {
     <>
       {/*TODO: Add satellytes symbol*/}
       <GridItem>
-        <StyledHeadline>GitHub Report</StyledHeadline>
+        <StyledHeadline>GitHub Billing Dashboard</StyledHeadline>
       </GridItem>
     </>
   );

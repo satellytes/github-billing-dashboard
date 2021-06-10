@@ -90,17 +90,15 @@ export const MonthlyWidget = ({
         }
       >
         <WidgetDescription>
-          <WidgetMonth>{monthlyEntry.monthName}</WidgetMonth>
-          {isFirstMonth && (
-            <WidgetMonth style={{ color: "yellow" }}>
-              ab {lightFormat(new Date(firstDayOfMonth), "dd.MM.")}
-            </WidgetMonth>
-          )}
-          {isLastMonth && (
-            <WidgetMonth style={{ color: "yellow" }}>
-              bis {lightFormat(new Date(lastDayOfMonth), "dd.MM.")}
-            </WidgetMonth>
-          )}
+          <WidgetMonth>
+            {monthlyEntry.monthName}
+            {isFirstMonth
+              ? ` (from ${lightFormat(new Date(firstDayOfMonth), "dd.MM.")})`
+              : ""}
+            {isLastMonth
+              ? ` (till ${lightFormat(new Date(lastDayOfMonth), "dd.MM.")})`
+              : ""}
+          </WidgetMonth>
           <WidgetValue fontSize={14}>{`${
             Math.round(monthlyEntry.totalPrice * 100) / 100
           } $`}</WidgetValue>

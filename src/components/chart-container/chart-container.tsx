@@ -106,7 +106,7 @@ export const ChartContainer = ({
   return (
     <>
       <GridItem>
-        <ChartHeadline>Angezeigter Zeitraum</ChartHeadline>
+        <ChartHeadline>Displayed Time Period</ChartHeadline>
         <ChartDescription>
           {activeMonth.monthName || getPeriodOfTimeString(csvData)}
         </ChartDescription>
