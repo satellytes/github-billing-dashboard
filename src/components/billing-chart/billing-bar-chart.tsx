@@ -45,7 +45,7 @@ export const BillingBarChart = ({
               ? lightFormat(new Date(tick), "dd.MM.")
               : tick
           }
-          interval="preserveStart"
+          minTickGap={10}
         />
         <YAxis
           domain={[0, maxValueOfYAxis]}

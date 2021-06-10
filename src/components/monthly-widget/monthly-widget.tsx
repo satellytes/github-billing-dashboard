@@ -105,6 +105,7 @@ export const MonthlyWidget = ({
             type="monotone"
             dataKey="totalPrice"
             stroke={isMoreExpensiveThanPreviousMonth ? "#DC052D" : "#75F0C7"}
+            strokeWidth={3}
             dot={false}
           />
         </LineChart>
