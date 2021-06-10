@@ -76,6 +76,9 @@ export const MonthlyWidget = ({
   const firstDayOfMonth = monthlyEntry.entries[0].date;
   const lastDayOfMonth =
     monthlyEntry.entries[monthlyEntry.entries.length - 1].date;
+  const tooltipValue = `${
+    Math.round(differenceToPreviousMonth * 100) / 100
+  } $ ${isMoreExpensiveThanPreviousMonth ? "mehr" : "weniger"} als im Vormonat`;
 
   return (
     <StyledWidget
@@ -102,14 +105,18 @@ export const MonthlyWidget = ({
         <WidgetValue fontSize={14}>{`${
           Math.round(monthlyEntry.totalPrice * 100) / 100
         } $`}</WidgetValue>
-        <WidgetValue fontSize={12}>
-          {formattedDifferenceToPreviousMonth}
-          <Arrow
-            isMoreExpensiveThanPreviousMonth={isMoreExpensiveThanPreviousMonth}
-          >
-            {arrowSymbol}
-          </Arrow>
-        </WidgetValue>
+        {!isFirstMonth && (
+          <WidgetValue title={tooltipValue} fontSize={12}>
+            {formattedDifferenceToPreviousMonth}
+            <Arrow
+              isMoreExpensiveThanPreviousMonth={
+                isMoreExpensiveThanPreviousMonth
+              }
+            >
+              {arrowSymbol}
+            </Arrow>
+          </WidgetValue>
+        )}
       </WidgetDescription>
       <ResponsiveContainer width="55%" height={50}>
         <LineChart
