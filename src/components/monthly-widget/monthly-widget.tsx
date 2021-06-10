@@ -5,12 +5,15 @@ import { groupEntriesPerDay } from "../../util/group-entries";
 import { WidgetContext } from "../context/widget-context";
 import styled from "styled-components";
 import { GridItem } from "../grid/grid";
+import { lightFormat } from "date-fns";
 
 interface MonthlyWidgetProps {
   monthlyEntry: UsageReportMonth;
   maxValueOfYAxis: number;
   isMoreExpensiveThanPreviousMonth: boolean;
   differenceToPreviousMonth: number;
+  isFirstMonth: boolean;
+  isLastMonth: boolean;
 }
 
 const StyledWidget = styled(GridItem)`
@@ -60,6 +63,8 @@ export const MonthlyWidget = ({
   maxValueOfYAxis,
   isMoreExpensiveThanPreviousMonth,
   differenceToPreviousMonth,
+  isLastMonth,
+  isFirstMonth,
 }: MonthlyWidgetProps): JSX.Element => {
   const { activeMonth, setActiveMonth } = useContext(WidgetContext);
   const entriesGroupedPerDay = groupEntriesPerDay(monthlyEntry.entries);
@@ -68,6 +73,9 @@ export const MonthlyWidget = ({
   }${Math.round(differenceToPreviousMonth * 100) / 100} $`;
   //"\u2191" = Arrow-Up-Symbol, "\u2193" = Arrow-Down-Symbol
   const arrowSymbol = isMoreExpensiveThanPreviousMonth ? " \u2191" : " \u2193";
+  const firstDayOfMonth = monthlyEntry.entries[0].date;
+  const lastDayOfMonth =
+    monthlyEntry.entries[monthlyEntry.entries.length - 1].date;
 
   return (
     <StyledWidget
@@ -81,6 +89,16 @@ export const MonthlyWidget = ({
     >
       <WidgetDescription>
         <WidgetMonth>{monthlyEntry.monthName}</WidgetMonth>
+        {isFirstMonth && (
+          <WidgetMonth style={{ color: "yellow" }}>
+            ab {lightFormat(new Date(firstDayOfMonth), "dd.MM.")}
+          </WidgetMonth>
+        )}
+        {isLastMonth && (
+          <WidgetMonth style={{ color: "yellow" }}>
+            bis {lightFormat(new Date(lastDayOfMonth), "dd.MM.")}
+          </WidgetMonth>
+        )}
         <WidgetValue fontSize={14}>{`${
           Math.round(monthlyEntry.totalPrice * 100) / 100
         } $`}</WidgetValue>
