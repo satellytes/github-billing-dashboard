@@ -74,9 +74,7 @@ export const MonthlyWidgetContainer = ({
           );
         })}
       </StyledContainer>
-      <Annotation>
-        ¹ Durchscnittliche Kosten pro Tag im Vergleich zum Vormonat
-      </Annotation>
+      <Annotation>¹ Average cost per day compared to previous month</Annotation>
     </GridItem>
   );
 };
