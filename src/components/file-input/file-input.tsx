@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { GridItem } from "../grid/grid";
 
 interface FileInputProp {
   onInput: (file: File) => void;
@@ -55,12 +56,14 @@ export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
 
   return (
     <>
-      <Title>Github Report Usage UI</Title>
-      <Description>
-        Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-        Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas
-        sed diam eget risus varius blandit sit amet non magna.
-      </Description>
+      <GridItem md={7}>
+        <Title>Github Report Usage UI</Title>
+        <Description>
+          Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+          Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas
+          sed diam eget risus varius blandit sit amet non magna.
+        </Description>
+      </GridItem>
       <StyledFileInput {...getRootProps()}>
         <input {...getInputProps()} />
         {isDragActive ? (
