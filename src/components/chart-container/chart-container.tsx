@@ -58,7 +58,7 @@ const ChartHeadline = styled.h2`
   font-weight: bold;
   font-size: 32px;
   line-height: 42px;
-  margin: 120px 0 0 0;
+  margin: 80px 0 0 0;
 `;
 
 const ChartDescription = styled.p`
