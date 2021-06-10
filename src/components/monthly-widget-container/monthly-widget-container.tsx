@@ -19,6 +19,13 @@ const StyledContainer = styled(Grid)`
   margin-top: 40px;
 `;
 
+const Annotation = styled.p`
+  margin: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+`;
+
 export const MonthlyWidgetContainer = ({
   csvData,
 }: MonthlyWidgetProps): JSX.Element => {
@@ -68,6 +75,9 @@ export const MonthlyWidgetContainer = ({
           );
         })}
       </StyledContainer>
+      <Annotation>
+        ¹ Durchscnittliche Kosten pro Tag im Vergleich zum Vormonat
+      </Annotation>
     </GridItem>
   );
 };
