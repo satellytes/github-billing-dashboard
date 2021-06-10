@@ -45,7 +45,7 @@ export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       onInput(acceptedFiles[0]);
-      history.push("/dashboard-page");
+      history.push("/dashboard");
     }
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
