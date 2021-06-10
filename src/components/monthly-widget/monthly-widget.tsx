@@ -51,7 +51,6 @@ const WidgetValue = styled.p`
   font-weight: normal;
   margin-top: 8px;
   margin-bottom: 0;
-  text-transform: uppercase;
   font-size: ${(props: { fontSize: number }) => `${props.fontSize}px`};
 `;
 
@@ -72,7 +71,7 @@ export const MonthlyWidget = ({
   const entriesGroupedPerDay = groupEntriesPerDay(monthlyEntry.entries);
   const formattedDifferenceToPreviousMonth = `${
     percentageDifferenceToPreviousMonth >= 0 ? "+" : ""
-  }${Math.round(percentageDifferenceToPreviousMonth * 100) / 100} %`;
+  }${Math.round(percentageDifferenceToPreviousMonth * 100) / 100}%`;
   //"\u2191" = Arrow-Up-Symbol, "\u2193" = Arrow-Down-Symbol
   const arrowSymbol = isMoreExpensiveThanPreviousMonth ? " \u2191" : " \u2193";
   const firstDayOfMonth = monthlyEntry.entries[0].date;
@@ -107,7 +106,7 @@ export const MonthlyWidget = ({
           } $`}</WidgetValue>
           {!isFirstMonth && (
             <WidgetValue title={tooltipValue} fontSize={12}>
-              {formattedDifferenceToPreviousMonth}
+              {formattedDifferenceToPreviousMonth} ¹
               <Arrow
                 isMoreExpensiveThanPreviousMonth={
                   isMoreExpensiveThanPreviousMonth
