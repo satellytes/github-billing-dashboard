@@ -31,6 +31,8 @@ export const MonthlyWidgetContainer = ({
 }: MonthlyWidgetProps): JSX.Element => {
   const maxValueOfYAxis = getMaximumTotalPriceOfAllDays(csvData);
   const entriesGroupedPerMonth = groupEntriesPerMonth(csvData);
+  const getPercentageDifference = (value1: number, value2: number) =>
+    value1 !== 0 ? ((value2 - value1) / value1) * 100 : 0;
 
   return (
     <GridItem>
@@ -49,11 +51,12 @@ export const MonthlyWidgetContainer = ({
           }
 
           const percentageDifferenceToPreviousMonth =
-            index === 0 || averageCostsPerDayOfPreviousMonth === 0
+            index === 0
               ? 0
-              : ((averageCostsPerDay - averageCostsPerDayOfPreviousMonth) /
-                  averageCostsPerDayOfPreviousMonth) *
-                100;
+              : getPercentageDifference(
+                  averageCostsPerDayOfPreviousMonth,
+                  averageCostsPerDay
+                );
 
           averageCostsPerDayOfPreviousMonth = averageCostsPerDay;
 
