@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const StyledHeader = styled.div`
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -15,9 +16,16 @@ const Logo = styled.h1`
 `;
 
 export const Header = (): JSX.Element => {
+  const history = useHistory();
   return (
     <StyledHeader>
-      <Logo>Satellytes</Logo>
+      <Logo
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        Satellytes
+      </Logo>
     </StyledHeader>
   );
 };

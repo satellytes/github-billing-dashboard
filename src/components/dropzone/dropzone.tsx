@@ -11,18 +11,6 @@ interface DropzoneProp {
 const StyledDropzone = styled.div`
   margin: 0;
   padding: 0;
-  //margin-top: 32px;
-  //margin-bottom: 397px;
-  //padding: 30px;
-  //background: rgba(122, 143, 204, 0);
-  //border: 1px solid rgba(122, 143, 204, 0.3);
-  //border-radius: 4px;
-  //text-align: center;
-  //cursor: pointer;
-  //
-  //&:hover {
-  //  border-color: white;
-  //}
 `;
 
 export const Dropzone = ({ onInput, children }: DropzoneProp): JSX.Element => {
@@ -41,7 +29,9 @@ export const Dropzone = ({ onInput, children }: DropzoneProp): JSX.Element => {
 
   return (
     <>
-      <StyledDropzone {...getRootProps()}>
+      <StyledDropzone
+        {...getRootProps({ onClick: (event) => event.stopPropagation() })}
+      >
         <input {...getInputProps()} />
         {children}
       </StyledDropzone>
