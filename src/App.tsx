@@ -38,7 +38,7 @@ const App = (): JSX.Element => {
   };
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL || "/"}>
       <GlobalStyles />
       <Header />
       <MainContent>
