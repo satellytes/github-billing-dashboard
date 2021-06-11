@@ -9,6 +9,7 @@ import { Grid } from "./components/grid/grid";
 import styled from "styled-components";
 import { Header } from "./components/header/header";
 import { GlobalStyles } from "./global-styles";
+import { Dropzone } from "./components/dropzone/dropzone";
 
 const MainContent = styled(Grid)`
   max-width: 1280px;
@@ -40,26 +41,30 @@ const App = (): JSX.Element => {
   return (
     <Router basename={process.env.PUBLIC_URL || "/"}>
       <GlobalStyles />
-      <Header />
-      <MainContent>
-        <WidgetContext.Provider
-          value={{
-            activeMonth: selectedMonthFromWidget,
-            setActiveMonth: (month: string, data: UsageReportEntry[]) =>
-              handleWidgetClick(month, data),
-          }}
-        >
-          <Headline />
-          <Switch>
-            <Route exact path="/">
-              <HomePage handleInput={handleInput} />
-            </Route>
-            <Route path="/dashboard">
-              {csvData && <DashboardPage csvData={csvData} />}
-            </Route>
-          </Switch>
-        </WidgetContext.Provider>
-      </MainContent>
+
+      <Dropzone onInput={handleInput}>
+        <Header />
+        <MainContent>
+          <WidgetContext.Provider
+            value={{
+              activeMonth: selectedMonthFromWidget,
+              setActiveMonth: (month: string, data: UsageReportEntry[]) =>
+                handleWidgetClick(month, data),
+            }}
+          >
+            <Headline />
+
+            <Switch>
+              <Route exact path="/">
+                <HomePage handleInput={handleInput} />
+              </Route>
+              <Route path="/dashboard">
+                {csvData && <DashboardPage csvData={csvData} />}
+              </Route>
+            </Switch>
+          </WidgetContext.Provider>
+        </MainContent>
+      </Dropzone>
     </Router>
   );
 };
