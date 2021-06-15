@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/github-billing-dashboard/static/js/main.426298a2.chunk.js",
-    "main.js.map": "/github-billing-dashboard/static/js/main.426298a2.chunk.js.map",
+    "main.js": "/github-billing-dashboard/static/js/main.4f5453d2.chunk.js",
+    "main.js.map": "/github-billing-dashboard/static/js/main.4f5453d2.chunk.js.map",
     "runtime-main.js": "/github-billing-dashboard/static/js/runtime-main.78e55d83.js",
     "runtime-main.js.map": "/github-billing-dashboard/static/js/runtime-main.78e55d83.js.map",
     "static/js/2.f49ced64.chunk.js": "/github-billing-dashboard/static/js/2.f49ced64.chunk.js",
@@ -10,11 +10,14 @@
     "static/js/2.f49ced64.chunk.js.LICENSE.txt": "/github-billing-dashboard/static/js/2.f49ced64.chunk.js.LICENSE.txt",
     "static/media/Coco-Gothic-Bold-TTF.ee8e9b6a.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Bold-TTF.ee8e9b6a.ttf",
     "static/media/Coco-Gothic-Heavy-TTF.d8ca8344.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Heavy-TTF.d8ca8344.ttf",
-    "static/media/Coco-Gothic-Regular-TTF.76afad7d.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Regular-TTF.76afad7d.ttf"
+    "static/media/Coco-Gothic-Regular-TTF.76afad7d.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Regular-TTF.76afad7d.ttf",
+    "static/media/github-personal-1-settings.b4acdf88.png": "/github-billing-dashboard/static/media/github-personal-1-settings.b4acdf88.png",
+    "static/media/github-personal-2-billing-and-plans.f1322e35.png": "/github-billing-dashboard/static/media/github-personal-2-billing-and-plans.f1322e35.png",
+    "static/media/github-personal-3-get-usage-report.40b9173f.png": "/github-billing-dashboard/static/media/github-personal-3-get-usage-report.40b9173f.png"
   },
   "entrypoints": [
     "static/js/runtime-main.78e55d83.js",
     "static/js/2.f49ced64.chunk.js",
-    "static/js/main.426298a2.chunk.js"
+    "static/js/main.4f5453d2.chunk.js"
   ]
 }
