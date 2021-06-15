@@ -24,7 +24,6 @@ const Text = styled.p`
 
 const FlowChartRectangle = styled.div`
   margin: 40px 24px 0 0;
-
   padding: 20px 20px 40px 20px;
   background: rgba(122, 143, 204, 0.3);
 
@@ -32,15 +31,16 @@ const FlowChartRectangle = styled.div`
     !props.isLastRectangle
       ? "clip-path: polygon(100% 0, 100% 94%, 50% 100%, 0 94%, 0 0)"
       : ""};
+
   ${(props: { isLastRectangle: boolean }) =>
     !props.isLastRectangle
       ? `
     ${up("sm")} {
-      clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%);
-      
+      clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%); 
     }
   `
       : ""};
+
   ${() => `
     ${up("sm")} {
         padding: 20px 40px 20px 20px;
