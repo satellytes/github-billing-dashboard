@@ -154,6 +154,16 @@ export const groupEntriesPerMonth = (
   }, []);
 };
 
+export interface CostPerRepository {
+  repositoryName: string;
+  totalCost: number;
+}
+
+export const getCostPerRepository = (): CostPerRepository[] => {
+  //TODO
+  return [];
+};
+
 export const getPriceByRepositoryName = (
   repositoryName: string,
   currentEntries: UsageReportEntry[]
