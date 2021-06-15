@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
 import { GridItem } from "../grid/grid";
 import { getBillingFilesFromLocalStorage } from "../../util/local-storage";
 import { UsageReportEntry } from "../../util/csv-reader";
@@ -69,14 +68,13 @@ const StyledButton = styled.div`
 
 const ButtonContainer = styled.div`
   margin-top: 32px;
-  margin-bottom: 397px;
+  margin-bottom: 32px;
 `;
 
 export const FileInput = ({
   onInput,
   handleInputFromLocalStorage,
 }: FileInputProp): JSX.Element => {
-  const history = useHistory();
   const fileInput = useRef<HTMLInputElement>(null);
   const recentFilesFromLocalStorage = getBillingFilesFromLocalStorage();
 
@@ -85,13 +83,11 @@ export const FileInput = ({
 
     if (fileInput && fileInput.current && fileInput.current.files) {
       onInput(fileInput.current.files[0]);
-      history.push("/dashboard");
     }
   };
 
   const useRecentFiles = (entry: UsageReportEntry[]) => {
     handleInputFromLocalStorage(entry);
-    history.push("/dashboard");
   };
 
   return (

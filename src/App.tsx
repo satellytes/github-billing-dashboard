@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { getCsvFile, UsageReportEntry } from "./util/csv-reader";
 import { WidgetContext } from "./components/context/widget-context";
 import { Headline } from "./components/headline/headline";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { HomePage } from "./pages/home-page";
 import { DashboardPage } from "./pages/dashboard-page";
 import { Grid } from "./components/grid/grid";
@@ -43,36 +42,26 @@ const App = (): JSX.Element => {
   };
 
   return (
-    <Router basename={process.env.PUBLIC_URL || "/"}>
+    <Dropzone onInput={handleFileInput}>
       <GlobalStyles />
-
-      <Dropzone onInput={handleFileInput}>
-        <Header />
-        <MainContent>
-          <WidgetContext.Provider
-            value={{
-              activeMonth: selectedMonthFromWidget,
-              setActiveMonth: (month: string, data: UsageReportEntry[]) =>
-                handleWidgetClick(month, data),
-            }}
-          >
-            <Headline />
-
-            <Switch>
-              <Route exact path="/">
-                <HomePage
-                  handleInput={handleFileInput}
-                  handleInputFromLocalStorage={handleInputFromLocalStorage}
-                />
-              </Route>
-              <Route path="/dashboard">
-                {csvData && <DashboardPage csvData={csvData} />}
-              </Route>
-            </Switch>
-          </WidgetContext.Provider>
-        </MainContent>
-      </Dropzone>
-    </Router>
+      <Header />
+      <MainContent>
+        <WidgetContext.Provider
+          value={{
+            activeMonth: selectedMonthFromWidget,
+            setActiveMonth: (month: string, data: UsageReportEntry[]) =>
+              handleWidgetClick(month, data),
+          }}
+        >
+          <Headline />
+          <HomePage
+            handleInput={handleFileInput}
+            handleInputFromLocalStorage={handleInputFromLocalStorage}
+          />
+          {csvData && <DashboardPage csvData={csvData} />}
+        </WidgetContext.Provider>
+      </MainContent>
+    </Dropzone>
   );
 };
 
