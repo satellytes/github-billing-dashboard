@@ -1,7 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { GridItem } from "../grid/grid";
-import { getBillingFilesFromLocalStorage } from "../../util/local-storage";
+import {
+  getBillingFilesFromLocalStorage,
+  removeFileFromLocalStorage,
+} from "../../util/local-storage";
 import { UsageReportEntry } from "../../util/csv-reader";
 import { sampleData } from "./sampleData";
 import { LocalStorageEntry } from "../../util/local-storage";
@@ -54,7 +57,7 @@ const StyledButton = styled.div`
 
   margin-right: 4px;
   margin-bottom: 4px;
-  padding: 30px;
+
   background: rgba(122, 143, 204, 0.3);
   border: 1px solid rgba(122, 143, 204, 0.3);
   border-radius: 4px;
@@ -64,6 +67,9 @@ const StyledButton = styled.div`
   &:hover {
     border-color: white;
   }
+
+  ${(props: { isActive: boolean }) =>
+    props.isActive ? "border-color: white" : ""};
 `;
 
 const ButtonContainer = styled.div`
@@ -71,22 +77,37 @@ const ButtonContainer = styled.div`
   margin-bottom: 32px;
 `;
 
+const ButtonText = styled.div`
+  padding: 30px;
+`;
+
+const CloseFile = styled.div`
+  //position: absolute;
+  //margin-left: 10px;
+`;
+
 export const FileInput = ({
   onInput,
   handleInputFromLocalStorage,
 }: FileInputProp): JSX.Element => {
   const fileInput = useRef<HTMLInputElement>(null);
-  const recentFilesFromLocalStorage = getBillingFilesFromLocalStorage();
+  //const filesFromLocalStorage = getBillingFilesFromLocalStorage();
+  const [filesFromLocalStorage, setFilesFromLocalStorage] = useState(
+    getBillingFilesFromLocalStorage()
+  );
+  const [activeButton, setActiveButton] = useState<number>();
 
   const handleInput = (event: React.FormEvent) => {
     event.preventDefault();
 
     if (fileInput && fileInput.current && fileInput.current.files) {
       onInput(fileInput.current.files[0]);
+      setActiveButton(undefined)
     }
   };
 
-  const useRecentFiles = (entry: UsageReportEntry[]) => {
+  const useRecentFiles = (entry: UsageReportEntry[], buttonNumber: number) => {
+    setActiveButton(buttonNumber);
     handleInputFromLocalStorage(entry);
   };
 
@@ -111,18 +132,33 @@ export const FileInput = ({
               onInput={handleInput}
             />
           </InputLabel>
-          <StyledButton onClick={() => useRecentFiles(sampleData)}>
-            Use Sample CSV File
+          <StyledButton
+            isActive={-1 === activeButton}
+            onClick={() => useRecentFiles(sampleData, -1)}
+          >
+            <ButtonText>Use Sample CSV File</ButtonText>
           </StyledButton>
-          {recentFilesFromLocalStorage
-            ? recentFilesFromLocalStorage.map(
+          {filesFromLocalStorage
+            ? filesFromLocalStorage.map(
                 (entry: LocalStorageEntry, index: number) => {
                   return (
                     <StyledButton
                       key={index}
-                      onClick={() => useRecentFiles(entry.entries)}
+                      onClick={() => useRecentFiles(entry.entries, index)}
+                      isActive={index === activeButton}
                     >
-                      {entry.filename}
+                      <ButtonText>{entry.filename}</ButtonText>
+                      {/*TODO: Data shows up on "x"-click*/}
+                      <CloseFile
+                        onClick={() => {
+                          removeFileFromLocalStorage(index);
+                          setFilesFromLocalStorage(
+                            getBillingFilesFromLocalStorage()
+                          );
+                        }}
+                      >
+                        x
+                      </CloseFile>
                     </StyledButton>
                   );
                 }
