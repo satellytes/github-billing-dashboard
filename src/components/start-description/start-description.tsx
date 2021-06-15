@@ -54,14 +54,16 @@ export const StartDescription = (): JSX.Element => {
   return (
     <>
       <GridItem md={7}>
-        <Subline>
-          Hier ein kurzer Einführungssatz zum Tool integer posuere erat a ante
-          venenatis
-        </Subline>
+        <Subline>Visualize your Github CSV Billing files.</Subline>
         <Text>
-          Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-          Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas
-          sed diam eget risus varius blandit sit amet non magna.
+          Github provides a CSV file with detailed information about your costs.
+          Reading and analyzing this CSV can be cumbersome, which is why we
+          created this dashboard. Just add you CSV file and see the cost nicely
+          visualized and aggregated.
+        </Text>
+        <Text>
+          No data gets uploaded to any servers. The CSV file is just stored in
+          your browser which only you can access.
         </Text>
       </GridItem>
       <GridItem md={4} />
@@ -69,7 +71,7 @@ export const StartDescription = (): JSX.Element => {
         <FlowChartRectangle>
           <FlowChartHeadline>1</FlowChartHeadline>
           <FlowChartDescription>
-            Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+            Go to `&quot;Settings`&quot;.
           </FlowChartDescription>
           <PlaceholderForImage />
         </FlowChartRectangle>
@@ -78,7 +80,7 @@ export const StartDescription = (): JSX.Element => {
         <FlowChartRectangle>
           <FlowChartHeadline>2</FlowChartHeadline>
           <FlowChartDescription>
-            Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+            Click on `&quot;Billing & plans`&quot;.
           </FlowChartDescription>
           <PlaceholderForImage />
         </FlowChartRectangle>
@@ -87,7 +89,8 @@ export const StartDescription = (): JSX.Element => {
         <FlowChartRectangle>
           <FlowChartHeadline>3</FlowChartHeadline>
           <FlowChartDescription>
-            Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+            Click on `&quot;Get usage report`&quot;. You will now receive an
+            email with the CSV file that you can add here.
           </FlowChartDescription>
           <PlaceholderForImage />
         </FlowChartRectangle>
