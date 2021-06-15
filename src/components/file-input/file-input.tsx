@@ -99,15 +99,15 @@ export const FileInput = ({
       <GridItem md={7}>
         <Title>Github Billing Dashboard UI</Title>
         <Subline>
-          Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-          Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas
-          sed diam eget risus varius blandit sit amet non magna.
+          You can add your own CSV file here or just drag it into the browsers
+          window. There is also a sample CSV file that you can use if you just
+          want to try out the dashboard.
         </Subline>
       </GridItem>
       <GridItem>
         <ButtonContainer>
           <InputLabel>
-            Upload CSV File
+            Add CSV File
             <StyledFileInput
               type="file"
               accept=".csv"

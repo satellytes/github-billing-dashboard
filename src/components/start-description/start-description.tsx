@@ -1,13 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { GridItem } from "../grid/grid";
-
-//TODO Remove Placeholder
-const PlaceholderForImage = styled.div`
-  background: rgba(122, 143, 204, 0.3);
-  height: 142px;
-  margin: 0;
-`;
+import GithubPersonalSettings from "../../assets/github-personal-1-settings.png";
+import GithubPersonalBillingAndPlans from "../../assets/github-personal-2-billing-and-plans.png";
+import GihtubPersonalGetUsageReport from "../../assets/github-personal-3-get-usage-report.png";
 
 const Subline = styled.h2`
   font-style: normal;
@@ -50,11 +46,15 @@ const FlowChartDescription = styled.p`
   line-height: 150%;
 `;
 
+const FlowChartImage = styled.img`
+  width: 100%;
+`;
+
 export const StartDescription = (): JSX.Element => {
   return (
     <>
       <GridItem md={7}>
-        <Subline>Visualize your Github CSV Billing files.</Subline>
+        <Subline>Visualize your Github CSV Billing files</Subline>
         <Text>
           Github provides a CSV file with detailed information about your costs.
           Reading and analyzing this CSV can be cumbersome, which is why we
@@ -65,34 +65,35 @@ export const StartDescription = (): JSX.Element => {
           No data gets uploaded to any servers. The CSV file is just stored in
           your browser which only you can access.
         </Text>
+        <Subline>How to get your CSV file</Subline>
       </GridItem>
       <GridItem md={4} />
       <GridItem xs={11} sm={4}>
         <FlowChartRectangle>
           <FlowChartHeadline>1</FlowChartHeadline>
           <FlowChartDescription>
-            Go to `&quot;Settings`&quot;.
+            Go either to your personal or organization &quot;Settings&quot;
           </FlowChartDescription>
-          <PlaceholderForImage />
+          <FlowChartImage src={GithubPersonalSettings} alt="" />
         </FlowChartRectangle>
       </GridItem>
       <GridItem xs={11} sm={4}>
         <FlowChartRectangle>
           <FlowChartHeadline>2</FlowChartHeadline>
           <FlowChartDescription>
-            Click on `&quot;Billing & plans`&quot;.
+            Click on &quot;Billing & plans&quot;.
           </FlowChartDescription>
-          <PlaceholderForImage />
+          <FlowChartImage src={GithubPersonalBillingAndPlans} alt="" />
         </FlowChartRectangle>
       </GridItem>
       <GridItem xs={11} sm={4}>
         <FlowChartRectangle>
           <FlowChartHeadline>3</FlowChartHeadline>
           <FlowChartDescription>
-            Click on `&quot;Get usage report`&quot;. You will now receive an
-            email with the CSV file that you can add here.
+            Click on &quot;Get usage report&quot;. You will now receive an email
+            with the CSV file that you can add here.
           </FlowChartDescription>
-          <PlaceholderForImage />
+          <FlowChartImage src={GihtubPersonalGetUsageReport} alt="" />
         </FlowChartRectangle>
       </GridItem>
     </>
