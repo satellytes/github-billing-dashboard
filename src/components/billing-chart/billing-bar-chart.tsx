@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BarChart,
   Bar,
@@ -27,6 +27,7 @@ export const BillingBarChart = ({
   entriesGroupedPerDay,
   entriesGroupedPerWeek,
 }: BillingChartProps): JSX.Element => {
+  const [activeRepository, setActiveRepository] = useState("");
   return (
     <ResponsiveContainer width="100%" height={600}>
       <BarChart
@@ -70,7 +71,13 @@ export const BillingBarChart = ({
           contentStyle={tooltipContentStyle}
           cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
         />
-        <Legend />
+        {/*TODO: Remove any*/}
+        <Legend
+          onMouseEnter={(repository: any) =>
+            setActiveRepository(repository.value)
+          }
+          onMouseLeave={() => setActiveRepository("")}
+        />
         {repositoryNames.map((repositoryName, index) => {
           return (
             <Bar
@@ -78,7 +85,9 @@ export const BillingBarChart = ({
                 getPriceByRepositoryName(repositoryName, currentEntry.entries)
               }
               stackId="a"
-              fill={colors[index]}
+              fill={
+                activeRepository === repositoryName ? "white" : colors[index]
+              }
               key={index}
               name={repositoryName}
               unit={"$"}

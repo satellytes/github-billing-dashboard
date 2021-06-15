@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BillingChartProps,
   colors,
@@ -27,6 +27,7 @@ export const BillingLineChart = ({
   entriesGroupedPerDay,
   entriesGroupedPerWeek,
 }: BillingChartProps): JSX.Element => {
+  const [activeRepository, setActiveRepository] = useState("");
   return (
     <ResponsiveContainer width="100%" height={600}>
       <LineChart
@@ -69,12 +70,20 @@ export const BillingLineChart = ({
           itemStyle={tooltipItemStyle}
           contentStyle={tooltipContentStyle}
         />
-        <Legend />
+        {/*TODO: Remove any*/}
+        <Legend
+          onMouseEnter={(repository: any) =>
+            setActiveRepository(repository.value)
+          }
+          onMouseLeave={() => setActiveRepository("")}
+        />
         {repositoryNames.map((repositoryName, index) => {
           return (
             <Line
               type="monotone"
-              stroke={colors[index]}
+              stroke={
+                activeRepository === repositoryName ? "white" : colors[index]
+              }
               dataKey={(currentEntry) =>
                 getPriceByRepositoryName(repositoryName, currentEntry.entries)
               }

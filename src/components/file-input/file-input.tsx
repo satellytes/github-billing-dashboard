@@ -91,7 +91,6 @@ export const FileInput = ({
   handleInputFromLocalStorage,
 }: FileInputProp): JSX.Element => {
   const fileInput = useRef<HTMLInputElement>(null);
-  //const filesFromLocalStorage = getBillingFilesFromLocalStorage();
   const [filesFromLocalStorage, setFilesFromLocalStorage] = useState(
     getBillingFilesFromLocalStorage()
   );
