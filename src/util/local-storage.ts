@@ -5,7 +5,7 @@ export interface LocalStorageEntry {
   entries: UsageReportEntry[];
 }
 
-const LocalStorageEntryKeyName = "GitHubBillingDashboard";
+const localStorageEntryKeyName = "GitHubBillingDashboard";
 
 export const saveFileInLocalStorage = (
   githubBillingEntries: UsageReportEntry[],
@@ -30,13 +30,13 @@ export const saveFileInLocalStorage = (
     if (!isFileAlreadyInLocalStorage) {
       alreadyExistingEntriesFromLocalStorage.push(entriesForLocalStorage);
       localStorage.setItem(
-        LocalStorageEntryKeyName,
+        localStorageEntryKeyName,
         JSON.stringify(alreadyExistingEntriesFromLocalStorage)
       );
     }
   } else {
     localStorage.setItem(
-      LocalStorageEntryKeyName,
+      localStorageEntryKeyName,
       JSON.stringify([entriesForLocalStorage])
     );
   }
@@ -45,9 +45,20 @@ export const saveFileInLocalStorage = (
 export const getBillingFilesFromLocalStorage = ():
   | LocalStorageEntry[]
   | null => {
-  const itemsFromLocalStorage = localStorage.getItem(LocalStorageEntryKeyName);
+  const itemsFromLocalStorage = localStorage.getItem(localStorageEntryKeyName);
   if (!itemsFromLocalStorage) {
     return null;
   }
   return JSON.parse(itemsFromLocalStorage);
+};
+
+export const removeFileFromLocalStorage = (index: number): void => {
+  const currentFilesInLocalStorage = getBillingFilesFromLocalStorage();
+  if (currentFilesInLocalStorage) {
+    currentFilesInLocalStorage.splice(index, 1);
+    localStorage.setItem(
+      localStorageEntryKeyName,
+      JSON.stringify(currentFilesInLocalStorage)
+    );
+  }
 };
