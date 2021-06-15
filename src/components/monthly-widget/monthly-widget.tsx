@@ -17,6 +17,7 @@ interface MonthlyWidgetProps {
 }
 
 const StyledWidget = styled.div`
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
