@@ -13,6 +13,7 @@ const Logo = styled.h1`
   font-weight: bold;
   font-size: 20px;
   line-height: 31px;
+  cursor: pointer;
 `;
 
 export const Header = (): JSX.Element => {

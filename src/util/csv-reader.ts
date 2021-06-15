@@ -1,4 +1,5 @@
 import { parse } from "papaparse";
+import { saveFileInLocalStorage } from "./local-storage";
 
 export interface UsageReportCsvEntry {
   date: string;
@@ -39,6 +40,8 @@ export const getCsvFile = (file: File): Promise<UsageReportEntry[]> => {
             };
           }
         );
+
+        saveFileInLocalStorage(githubBillingEntries, file.name);
         resolve(githubBillingEntries);
       },
     });
