@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { GridItem } from "../grid/grid";
+import { GridItem, up } from "../grid/grid";
 import GithubPersonalSettings from "../../assets/github-personal-1-settings.png";
 import GithubPersonalBillingAndPlans from "../../assets/github-personal-2-billing-and-plans.png";
 import GihtubPersonalGetUsageReport from "../../assets/github-personal-3-get-usage-report.png";
@@ -24,9 +24,28 @@ const Text = styled.p`
 
 const FlowChartRectangle = styled.div`
   margin: 40px 24px 0 0;
-  padding: 20px 40px 20px 20px;
-  clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%);
+
+  padding: 20px 20px 40px 20px;
   background: rgba(122, 143, 204, 0.3);
+
+  ${(props: { isLastRectangle: boolean }) =>
+    !props.isLastRectangle
+      ? "clip-path: polygon(100% 0, 100% 94%, 50% 100%, 0 94%, 0 0)"
+      : ""};
+  ${(props: { isLastRectangle: boolean }) =>
+    !props.isLastRectangle
+      ? `
+    ${up("sm")} {
+      clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%);
+      
+    }
+  `
+      : ""};
+  ${() => `
+    ${up("sm")} {
+        padding: 20px 40px 20px 20px;
+    }
+  `};
 `;
 
 const FlowChartHeadline = styled.h1`
@@ -69,7 +88,9 @@ export const StartDescription = (): JSX.Element => {
       </GridItem>
       <GridItem md={4} />
       <GridItem xs={11} sm={4}>
-        <FlowChartRectangle>
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/*@ts-ignore*/}
+        <FlowChartRectangle isLastRectangle={false}>
           <FlowChartHeadline>1</FlowChartHeadline>
           <FlowChartDescription>
             Go either to your personal or organization &quot;Settings&quot;
@@ -78,7 +99,7 @@ export const StartDescription = (): JSX.Element => {
         </FlowChartRectangle>
       </GridItem>
       <GridItem xs={11} sm={4}>
-        <FlowChartRectangle>
+        <FlowChartRectangle isLastRectangle={false}>
           <FlowChartHeadline>2</FlowChartHeadline>
           <FlowChartDescription>
             Click on &quot;Billing & plans&quot;.
@@ -87,7 +108,7 @@ export const StartDescription = (): JSX.Element => {
         </FlowChartRectangle>
       </GridItem>
       <GridItem xs={11} sm={4}>
-        <FlowChartRectangle>
+        <FlowChartRectangle isLastRectangle={true}>
           <FlowChartHeadline>3</FlowChartHeadline>
           <FlowChartDescription>
             Click on &quot;Get usage report&quot;. You will now receive an email
