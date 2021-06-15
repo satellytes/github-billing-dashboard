@@ -1,11 +1,15 @@
-import React, { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { GridItem } from "../grid/grid";
+import { getBillingFilesFromLocalStorage } from "../../util/local-storage";
+import { UsageReportEntry } from "../../util/csv-reader";
+import { sampleData } from "./sampleData";
+import { LocalStorageEntry } from "../../util/local-storage";
 
 interface FileInputProp {
   onInput: (file: File) => void;
+  handleInputFromLocalStorage: (csvData: UsageReportEntry[]) => void;
 }
 
 const Title = styled.h2`
@@ -24,9 +28,33 @@ const Subline = styled.p`
   margin-top: 24px;
 `;
 
-const StyledFileInput = styled.div`
-  margin-top: 32px;
-  margin-bottom: 397px;
+const StyledFileInput = styled.input`
+  display: none;
+  width: 100%;
+  height: 100%;
+`;
+
+const InputLabel = styled.label`
+  display: inline-block;
+
+  margin-right: 4px;
+  margin-bottom: 4px;
+  padding: 30px;
+  background: rgba(122, 143, 204, 0.3);
+  border: 1px solid rgba(122, 143, 204, 0.3);
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    border-color: white;
+  }
+`;
+const StyledButton = styled.div`
+  display: inline-block;
+
+  margin-right: 4px;
+  margin-bottom: 4px;
   padding: 30px;
   background: rgba(122, 143, 204, 0.3);
   border: 1px solid rgba(122, 143, 204, 0.3);
@@ -39,19 +67,32 @@ const StyledFileInput = styled.div`
   }
 `;
 
-export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
-  const history = useHistory();
+const ButtonContainer = styled.div`
+  margin-top: 32px;
+  margin-bottom: 397px;
+`;
 
-  const onDrop = useCallback((acceptedFiles) => {
-    if (acceptedFiles.length > 0) {
-      onInput(acceptedFiles[0]);
+export const FileInput = ({
+  onInput,
+  handleInputFromLocalStorage,
+}: FileInputProp): JSX.Element => {
+  const history = useHistory();
+  const fileInput = useRef<HTMLInputElement>(null);
+  const recentFilesFromLocalStorage = getBillingFilesFromLocalStorage();
+
+  const handleInput = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (fileInput && fileInput.current && fileInput.current.files) {
+      onInput(fileInput.current.files[0]);
       history.push("/dashboard");
     }
-  }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: ".csv",
-  });
+  };
+
+  const useRecentFiles = (entry: UsageReportEntry[]) => {
+    handleInputFromLocalStorage(entry);
+    history.push("/dashboard");
+  };
 
   return (
     <>
@@ -64,14 +105,34 @@ export const FileInput = ({ onInput }: FileInputProp): JSX.Element => {
         </Subline>
       </GridItem>
       <GridItem>
-        <StyledFileInput {...getRootProps()}>
-          <input {...getInputProps()} />
-          {isDragActive ? (
-            <p>Drop the file here ...</p>
-          ) : (
-            <p>Drop a csv file here, or click to select a file</p>
-          )}
-        </StyledFileInput>
+        <ButtonContainer>
+          <InputLabel>
+            Upload CSV File
+            <StyledFileInput
+              type="file"
+              accept=".csv"
+              ref={fileInput}
+              onInput={handleInput}
+            />
+          </InputLabel>
+          <StyledButton onClick={() => useRecentFiles(sampleData)}>
+            Use Sample CSV File
+          </StyledButton>
+          {recentFilesFromLocalStorage
+            ? recentFilesFromLocalStorage.map(
+                (entry: LocalStorageEntry, index: number) => {
+                  return (
+                    <StyledButton
+                      key={index}
+                      onClick={() => useRecentFiles(entry.entries)}
+                    >
+                      {entry.filename}
+                    </StyledButton>
+                  );
+                }
+              )
+            : null}
+        </ButtonContainer>
       </GridItem>
     </>
   );

@@ -24,10 +24,14 @@ const App = (): JSX.Element => {
     data: UsageReportEntry[];
   }>({ monthName: "", data: [] });
 
-  const handleInput = (file: File) => {
+  const handleFileInput = (file: File) => {
     getCsvFile(file).then((res) => {
       setCsvData(res);
     });
+  };
+
+  const handleInputFromLocalStorage = (csvData: UsageReportEntry[]) => {
+    setCsvData(csvData);
   };
 
   const handleWidgetClick = (month: string, data: UsageReportEntry[]) => {
@@ -42,7 +46,7 @@ const App = (): JSX.Element => {
     <Router basename={process.env.PUBLIC_URL || "/"}>
       <GlobalStyles />
 
-      <Dropzone onInput={handleInput}>
+      <Dropzone onInput={handleFileInput}>
         <Header />
         <MainContent>
           <WidgetContext.Provider
@@ -56,7 +60,10 @@ const App = (): JSX.Element => {
 
             <Switch>
               <Route exact path="/">
-                <HomePage handleInput={handleInput} />
+                <HomePage
+                  handleInput={handleFileInput}
+                  handleInputFromLocalStorage={handleInputFromLocalStorage}
+                />
               </Route>
               <Route path="/dashboard">
                 {csvData && <DashboardPage csvData={csvData} />}
