@@ -84,6 +84,11 @@ const ButtonText = styled.div`
 const CloseFile = styled.div`
   //position: absolute;
   //margin-left: 10px;
+  text-align: right;
+
+  &:hover {
+    font-weight: bold;
+  }
 `;
 
 export const FileInput = ({
@@ -95,6 +100,7 @@ export const FileInput = ({
     getBillingFilesFromLocalStorage()
   );
   const [activeButton, setActiveButton] = useState<number>();
+  let hoverOverX = false;
 
   const handleInput = (event: React.FormEvent) => {
     event.preventDefault();
@@ -146,7 +152,6 @@ export const FileInput = ({
                       onClick={() => useRecentFiles(entry.entries, index)}
                       isActive={index === activeButton}
                     >
-                      <ButtonText>{entry.filename}</ButtonText>
                       {/*TODO: Data shows up on "x"-click*/}
                       <CloseFile
                         onClick={() => {
@@ -155,9 +160,16 @@ export const FileInput = ({
                             getBillingFilesFromLocalStorage()
                           );
                         }}
+                        onMouseEnter={() => {
+                          hoverOverX = true;
+                        }}
+                        onMouseLeave={() => {
+                          hoverOverX = false;
+                        }}
                       >
                         x
                       </CloseFile>
+                      <ButtonText>{entry.filename}</ButtonText>
                     </StyledButton>
                   );
                 }
