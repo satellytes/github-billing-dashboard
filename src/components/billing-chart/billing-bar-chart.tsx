@@ -77,6 +77,18 @@ export const BillingBarChart = ({
         />
 
         <CustomTooltip
+          //formatter removes repos with 0$ value
+          formatter={(
+            value: number,
+            name: string,
+            props: { value: number }
+          ) => {
+            if (props.value === 0) {
+              return [null, null, null];
+            } else {
+              return [`${value}$`, name, props];
+            }
+          }}
           labelFormatter={(label) =>
             isStringDateValue(label)
               ? lightFormat(new Date(label), "dd.MM.")
@@ -92,10 +104,9 @@ export const BillingBarChart = ({
         />
         {/*TODO: Remove any*/}
         <Legend
-          onMouseEnter={(repository: any) => {
-            console.log(repository);
-            setActiveRepository(repository.value);
-          }}
+          onMouseEnter={(repository: any) =>
+            setActiveRepository(repository.value)
+          }
           onMouseLeave={() => setActiveRepository("")}
         />
         {repositoryNames.map((repositoryName, index) => {
@@ -108,7 +119,6 @@ export const BillingBarChart = ({
               fill={colors[index]}
               key={index}
               name={repositoryName}
-              unit={"$"}
             />
           );
         })}

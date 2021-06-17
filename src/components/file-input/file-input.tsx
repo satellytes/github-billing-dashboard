@@ -153,7 +153,6 @@ export const FileInput = ({
                       }}
                       isActive={index === activeButton}
                     >
-                      {/*TODO: Data shows up on "x"-click*/}
                       <CloseFile
                         onClick={() => {
                           removeFileFromLocalStorage(index);
