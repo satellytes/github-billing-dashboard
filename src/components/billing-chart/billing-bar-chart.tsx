@@ -105,11 +105,10 @@ export const BillingBarChart = ({
           contentStyle={tooltipContentStyle}
           cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
         />
-        {/*TODO: Remove any*/}
         <Legend
-          onMouseEnter={(repository: any) =>
-            setActiveRepository(repository.value)
-          }
+          onMouseEnter={() => (repository: { value: string }) => {
+            setActiveRepository(repository.value);
+          }}
           onMouseLeave={() => setActiveRepository("")}
         />
         {repositoryNames.map((repositoryName, index) => {
