@@ -58,6 +58,18 @@ export const BillingLineChart = ({
         />
 
         <CustomTooltip
+          //formatter removes repos with 0$ value
+          formatter={(
+            value: number,
+            name: string,
+            props: { value: number }
+          ) => {
+            if (props.value === 0) {
+              return [null, null, null];
+            } else {
+              return [`${value}$`, name, props];
+            }
+          }}
           labelFormatter={(label) =>
             isStringDateValue(label)
               ? lightFormat(new Date(label), "dd.MM.")
@@ -89,7 +101,6 @@ export const BillingLineChart = ({
               }
               key={index}
               name={repositoryName}
-              unit={"$"}
               strokeWidth={4}
               dot={false}
             />
