@@ -8,7 +8,10 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { getPriceByRepositoryName } from "../../util/group-entries";
+import {
+  filterEntriesByRepositoryName,
+  getPriceByRepositoryName,
+} from "../../util/group-entries";
 import { lightFormat } from "date-fns";
 import {
   BillingChartProps,
@@ -28,13 +31,29 @@ export const BillingBarChart = ({
   entriesGroupedPerWeek,
 }: BillingChartProps): JSX.Element => {
   const [activeRepository, setActiveRepository] = useState("");
+  const entriesOfOneRepositoryGroupedPerDay = filterEntriesByRepositoryName(
+    entriesGroupedPerDay,
+    activeRepository
+  );
+  const entriesOfOneRepositoryGroupedPerWeek = filterEntriesByRepositoryName(
+    entriesGroupedPerWeek,
+    activeRepository
+  );
+  const currentData = () => {
+    if (groupedBy === "daily") {
+      return activeRepository === ""
+        ? entriesGroupedPerDay
+        : entriesOfOneRepositoryGroupedPerDay;
+    } else {
+      return activeRepository === ""
+        ? entriesGroupedPerWeek
+        : entriesOfOneRepositoryGroupedPerWeek;
+    }
+  };
+
   return (
     <ResponsiveContainer width="100%" height={600}>
-      <BarChart
-        data={
-          groupedBy === "daily" ? entriesGroupedPerDay : entriesGroupedPerWeek
-        }
-      >
+      <BarChart data={currentData()}>
         <CartesianGrid vertical={false} stroke={"rgba(255, 255, 255, 0.1)"} />
         <XAxis
           dataKey={groupedBy === "daily" ? "day" : "week"}
@@ -73,9 +92,10 @@ export const BillingBarChart = ({
         />
         {/*TODO: Remove any*/}
         <Legend
-          onMouseEnter={(repository: any) =>
-            setActiveRepository(repository.value)
-          }
+          onMouseEnter={(repository: any) => {
+            console.log(repository);
+            setActiveRepository(repository.value);
+          }}
           onMouseLeave={() => setActiveRepository("")}
         />
         {repositoryNames.map((repositoryName, index) => {
@@ -85,9 +105,7 @@ export const BillingBarChart = ({
                 getPriceByRepositoryName(repositoryName, currentEntry.entries)
               }
               stackId="a"
-              fill={
-                activeRepository === repositoryName ? "white" : colors[index]
-              }
+              fill={colors[index]}
               key={index}
               name={repositoryName}
               unit={"$"}
