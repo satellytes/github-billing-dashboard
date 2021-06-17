@@ -159,9 +159,28 @@ export interface CostPerRepository {
   totalCost: number;
 }
 
-export const getCostPerRepository = (): CostPerRepository[] => {
-  //TODO
-  return [];
+export const getCostPerRepository = (
+  csvData: UsageReportEntry[]
+): CostPerRepository[] => {
+  return csvData.reduce((acc: CostPerRepository[], currentEntry) => {
+    let indexOfEntryForCurrentRepositoryName = 0;
+    if (
+      !acc.find((objectsInAcc: CostPerRepository, index) => {
+        indexOfEntryForCurrentRepositoryName = index;
+        return objectsInAcc.repositoryName === currentEntry.repositorySlug;
+      })
+    ) {
+      const newEntry: CostPerRepository = {
+        repositoryName: currentEntry.repositorySlug,
+        totalCost: currentEntry.totalPrice,
+      };
+      acc.push(newEntry);
+    } else {
+      acc[indexOfEntryForCurrentRepositoryName].totalCost +=
+        currentEntry.totalPrice;
+    }
+    return acc;
+  }, []);
 };
 
 export const getPriceByRepositoryName = (
