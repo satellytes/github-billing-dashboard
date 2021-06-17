@@ -106,7 +106,7 @@ export const BillingBarChart = ({
           cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
         />
         <Legend
-          onMouseEnter={() => (repository: { value: string }) => {
+          onMouseEnter={(repository: any) => {
             setActiveRepository(repository.value);
           }}
           onMouseLeave={() => setActiveRepository("")}
