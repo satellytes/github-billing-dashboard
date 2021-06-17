@@ -4,6 +4,7 @@ import { ChartContainer } from "../components/chart-container/chart-container";
 import { UsageReportEntry } from "../util/csv-reader";
 import styled from "styled-components";
 import { GridItem } from "../components/grid/grid";
+import { RepositoryTable } from "../components/repository-table/repository-table";
 
 interface RunningApplicationProps {
   csvData: UsageReportEntry[];
@@ -32,6 +33,7 @@ export const DashboardPage = ({
         </ApplicationDescription>
       </GridItem>
       {csvData && <MonthlyWidgetContainer csvData={csvData} />}
+      {csvData && <RepositoryTable csvData={csvData} />}
       {csvData && <ChartContainer csvData={csvData} />}
     </>
   );
