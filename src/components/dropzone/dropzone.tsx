@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 
 interface DropzoneProp {
-  onInput: (file: File) => void;
+  onInput: (file: File, isDataFromDropzone: boolean) => void;
   children: React.ReactNode;
 }
 
@@ -15,14 +15,14 @@ const StyledDropzone = styled.div`
 export const Dropzone = ({ onInput, children }: DropzoneProp): JSX.Element => {
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
-      onInput(acceptedFiles[0]);
+      onInput(acceptedFiles[0], true);
     }
   }, []);
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: ".csv",
   });
-
+  console.log(children);
   return (
     <>
       <StyledDropzone
