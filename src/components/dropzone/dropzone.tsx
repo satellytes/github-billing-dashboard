@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
 
 interface DropzoneProp {
   onInput: (file: File) => void;
@@ -14,12 +13,9 @@ const StyledDropzone = styled.div`
 `;
 
 export const Dropzone = ({ onInput, children }: DropzoneProp): JSX.Element => {
-  const history = useHistory();
-
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       onInput(acceptedFiles[0]);
-      history.push("/dashboard");
     }
   }, []);
   const { getRootProps, getInputProps } = useDropzone({
