@@ -22,7 +22,7 @@ export const Dropzone = ({ onInput, children }: DropzoneProp): JSX.Element => {
     onDrop,
     accept: ".csv",
   });
-  console.log(children);
+
   return (
     <>
       <StyledDropzone
