@@ -15,7 +15,7 @@ const StyledHeadline = styled.h1`
   `};
 `;
 
-export const Headline = (): JSX.Element => {
+export const MainHeadline = (): JSX.Element => {
   return (
     <>
       {/*TODO: Add satellytes symbol*/}

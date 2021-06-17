@@ -3,6 +3,7 @@ import { MonthlyWidgetContainer } from "../components/monthly-widget-container/m
 import { ChartContainer } from "../components/chart-container/chart-container";
 import { UsageReportEntry } from "../util/csv-reader";
 import { RepositoryTable } from "../components/repository-table/repository-table";
+import { CurrentTimePeriode } from "../components/headlines/current-time-periode";
 
 interface RunningApplicationProps {
   csvData: UsageReportEntry[];
@@ -13,8 +14,9 @@ export const DashboardPage = ({
 }: RunningApplicationProps): JSX.Element => {
   return (
     <>
-      {csvData && <MonthlyWidgetContainer csvData={csvData} />}
+      {csvData && <CurrentTimePeriode csvData={csvData} />}
       {csvData && <RepositoryTable csvData={csvData} />}
+      {csvData && <MonthlyWidgetContainer csvData={csvData} />}
       {csvData && <ChartContainer csvData={csvData} />}
     </>
   );
