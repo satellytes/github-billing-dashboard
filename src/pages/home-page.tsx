@@ -5,13 +5,15 @@ import { UsageReportEntry } from "../util/csv-reader";
 import { MainHeadline } from "../components/headlines/main-headline";
 
 interface StartProp {
-  handleInput: (file: File) => void;
+  handleInput: (file: File, isDataFromDropzone: boolean) => void;
   handleInputFromLocalStorage: (csvData: UsageReportEntry[]) => void;
+  isDataFromDropzone: boolean;
 }
 
 export const HomePage = ({
   handleInput,
   handleInputFromLocalStorage,
+  isDataFromDropzone,
 }: StartProp): JSX.Element => {
   return (
     <>
@@ -20,6 +22,7 @@ export const HomePage = ({
       <FileInput
         onInput={handleInput}
         handleInputFromLocalStorage={handleInputFromLocalStorage}
+        isDataFromDropzone={isDataFromDropzone}
       />
     </>
   );

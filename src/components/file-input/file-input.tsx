@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { GridItem } from "../grid/grid";
 import {
@@ -10,8 +10,9 @@ import { sampleData } from "./sampleData";
 import { LocalStorageEntry } from "../../util/local-storage";
 
 interface FileInputProp {
-  onInput: (file: File) => void;
+  onInput: (file: File, isDataFromDropzone: boolean) => void;
   handleInputFromLocalStorage: (csvData: UsageReportEntry[]) => void;
+  isDataFromDropzone: boolean;
 }
 
 const Title = styled.h2`
@@ -91,6 +92,7 @@ const CloseFile = styled.div`
 export const FileInput = ({
   onInput,
   handleInputFromLocalStorage,
+  isDataFromDropzone,
 }: FileInputProp): JSX.Element => {
   const fileInput = useRef<HTMLInputElement>(null);
   const [filesFromLocalStorage, setFilesFromLocalStorage] = useState(
@@ -103,8 +105,8 @@ export const FileInput = ({
     event.preventDefault();
 
     if (fileInput && fileInput.current && fileInput.current.files) {
-      onInput(fileInput.current.files[0]);
-      setActiveButton(undefined)
+      onInput(fileInput.current.files[0], false);
+      setActiveButton(undefined);
     }
   };
 
@@ -112,6 +114,12 @@ export const FileInput = ({
     setActiveButton(buttonNumber);
     handleInputFromLocalStorage(entry);
   };
+
+  useEffect(() => {
+    if (isDataFromDropzone) {
+      setActiveButton(undefined);
+    }
+  }, [isDataFromDropzone]);
 
   return (
     <>
