@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { GridItem, up } from "../grid/grid";
+import { Grid, GridItem, up } from "../grid/grid";
 import GithubPersonalSettings from "../../assets/github-personal-1-settings.png";
 import GithubPersonalBillingAndPlans from "../../assets/github-personal-2-billing-and-plans.png";
 import GihtubPersonalGetUsageReport from "../../assets/github-personal-3-get-usage-report.png";
@@ -22,30 +22,21 @@ const Text = styled.p`
   margin-bottom: 32px;
 `;
 
-const FlowChartRectangle = styled.div`
+const FlowChartRectangle = styled(GridItem)`
   margin: 40px 24px 0 0;
   padding: 20px 20px 40px 20px;
   background: rgba(122, 143, 204, 0.3);
+  clip-path: polygon(100% 0, 100% 94%, 50% 100%, 0 94%, 0 0);
 
-  ${(props: { isLastRectangle: boolean }) =>
-    !props.isLastRectangle
-      ? "clip-path: polygon(100% 0, 100% 94%, 50% 100%, 0 94%, 0 0)"
-      : ""};
+  ${`${up("sm")}{
+    clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%); 
+    padding: 20px 40px 20px 20px;
+   }`}
 
-  ${(props: { isLastRectangle: boolean }) =>
-    !props.isLastRectangle
-      ? `
-    ${up("sm")} {
-      clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%); 
-    }
-  `
-      : ""};
-
-  ${() => `
-    ${up("sm")} {
-        padding: 20px 40px 20px 20px;
-    }
-  `};
+  &:last-child {
+    clip-path: none;
+    padding: 20px;
+  }
 `;
 
 const FlowChartHeadline = styled.h1`
@@ -71,7 +62,8 @@ const FlowChartImage = styled.img`
 
 export const StartDescription = (): JSX.Element => {
   return (
-    <>
+    <GridItem>
+      <Grid>
       <GridItem md={7}>
         <Subline>Visualize your Github CSV Billing files</Subline>
         <Text>
@@ -87,28 +79,21 @@ export const StartDescription = (): JSX.Element => {
         <Subline>How to get your CSV file</Subline>
       </GridItem>
       <GridItem md={4} />
-      <GridItem xs={11} sm={4}>
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/*@ts-ignore*/}
-        <FlowChartRectangle isLastRectangle={false}>
+        <FlowChartRectangle xs={11} sm={4}>
           <FlowChartHeadline>1</FlowChartHeadline>
           <FlowChartDescription>
             Go either to your personal or organization &quot;Settings&quot;
           </FlowChartDescription>
           <FlowChartImage src={GithubPersonalSettings} alt="" />
         </FlowChartRectangle>
-      </GridItem>
-      <GridItem xs={11} sm={4}>
-        <FlowChartRectangle isLastRectangle={false}>
+        <FlowChartRectangle xs={11} sm={4}>
           <FlowChartHeadline>2</FlowChartHeadline>
           <FlowChartDescription>
             Click on &quot;Billing & plans&quot;.
           </FlowChartDescription>
           <FlowChartImage src={GithubPersonalBillingAndPlans} alt="" />
         </FlowChartRectangle>
-      </GridItem>
-      <GridItem xs={11} sm={4}>
-        <FlowChartRectangle isLastRectangle={true}>
+        <FlowChartRectangle xs={11} sm={4}>
           <FlowChartHeadline>3</FlowChartHeadline>
           <FlowChartDescription>
             Click on &quot;Get usage report&quot;. You will now receive an email
@@ -116,7 +101,7 @@ export const StartDescription = (): JSX.Element => {
           </FlowChartDescription>
           <FlowChartImage src={GihtubPersonalGetUsageReport} alt="" />
         </FlowChartRectangle>
-      </GridItem>
-    </>
+      </Grid>
+    </GridItem>
   );
 };

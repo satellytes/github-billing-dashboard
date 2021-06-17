@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { getCsvFile, UsageReportEntry } from "./util/csv-reader";
 import { WidgetContext } from "./components/context/widget-context";
-import { Headline } from "./components/headline/headline";
 import { HomePage } from "./pages/home-page";
 import { DashboardPage } from "./pages/dashboard-page";
 import { Grid } from "./components/grid/grid";
@@ -53,7 +52,6 @@ const App = (): JSX.Element => {
               handleWidgetClick(month, data),
           }}
         >
-          <Headline />
           <HomePage
             handleInput={handleFileInput}
             handleInputFromLocalStorage={handleInputFromLocalStorage}
