@@ -54,7 +54,6 @@ const InputLabel = styled.label`
 `;
 const StyledButton = styled.div`
   display: inline-block;
-
   margin-right: 4px;
   margin-bottom: 4px;
 
@@ -81,11 +80,9 @@ const ButtonText = styled.div`
   padding: 30px;
 `;
 
+//TODO Improve position of X
 const CloseFile = styled.div`
-  //position: absolute;
-  //margin-left: 10px;
-  text-align: right;
-
+  position: absolute;
   &:hover {
     font-weight: bold;
   }
@@ -149,7 +146,11 @@ export const FileInput = ({
                   return (
                     <StyledButton
                       key={index}
-                      onClick={() => useRecentFiles(entry.entries, index)}
+                      onClick={() => {
+                        if (!hoverOverX) {
+                          useRecentFiles(entry.entries, index);
+                        }
+                      }}
                       isActive={index === activeButton}
                     >
                       {/*TODO: Data shows up on "x"-click*/}
