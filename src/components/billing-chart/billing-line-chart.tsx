@@ -17,8 +17,8 @@ import {
   CartesianGrid,
 } from "recharts";
 import { getPriceByRepositoryName } from "../../util/group-entries";
-import { lightFormat } from "date-fns";
-import { isStringDateValue } from "../../util/date-util";
+import { getDay, lightFormat } from "date-fns";
+import { dayOfWeek, isStringDateValue } from "../../util/date-util";
 
 export const BillingLineChart = ({
   groupedBy,
@@ -72,7 +72,10 @@ export const BillingLineChart = ({
           }}
           labelFormatter={(label) =>
             isStringDateValue(label)
-              ? lightFormat(new Date(label), "dd.MM.")
+              ? `${dayOfWeek[getDay(new Date(label))]}, ${lightFormat(
+                  new Date(label),
+                  "dd.MM."
+                )}`
               : label
           }
           itemSorter={(repositoryGroupedByDay) =>
