@@ -86,7 +86,7 @@ export const BillingLineChart = ({
           contentStyle={tooltipContentStyle}
         />
         <Legend
-          onMouseEnter={() => (repository: { value: string }) => {
+          onMouseEnter={(repository: any) => {
             setActiveRepository(repository.value);
           }}
           onMouseLeave={() => setActiveRepository("")}
