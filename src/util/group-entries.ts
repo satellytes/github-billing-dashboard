@@ -154,6 +154,30 @@ export const groupEntriesPerMonth = (
   }, []);
 };
 
+type UsageReportGeneralGrouped =
+  | UsageReportDay[]
+  | UsageReportWeek[]
+  | UsageReportMonth[];
+export const filterEntriesByRepositoryName = (
+  groupedEntries: UsageReportGeneralGrouped,
+  repositoryName: string
+): UsageReportGeneralGrouped => {
+  if (repositoryName === "") {
+    return groupedEntries;
+  }
+  return <UsageReportGeneralGrouped>groupedEntries.map(
+    (entry: { entries: UsageReportEntry[] }) => {
+      return {
+        ...entry,
+        entries: entry.entries.filter(
+          (usageReportEntry: UsageReportEntry) =>
+            usageReportEntry.repositorySlug === repositoryName
+        ),
+      };
+    }
+  );
+};
+
 export interface CostPerRepository {
   repositoryName: string;
   totalCost: number;
