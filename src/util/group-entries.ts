@@ -186,25 +186,31 @@ export interface CostPerRepository {
 export const getCostPerRepository = (
   csvData: UsageReportEntry[]
 ): CostPerRepository[] => {
-  return csvData.reduce((acc: CostPerRepository[], currentEntry) => {
-    let indexOfEntryForCurrentRepositoryName = 0;
-    if (
-      !acc.find((objectsInAcc: CostPerRepository, index) => {
-        indexOfEntryForCurrentRepositoryName = index;
-        return objectsInAcc.repositoryName === currentEntry.repositorySlug;
-      })
-    ) {
-      const newEntry: CostPerRepository = {
-        repositoryName: currentEntry.repositorySlug,
-        totalCost: currentEntry.totalPrice,
-      };
-      acc.push(newEntry);
-    } else {
-      acc[indexOfEntryForCurrentRepositoryName].totalCost +=
-        currentEntry.totalPrice;
-    }
-    return acc;
-  }, []);
+  const costPerRepository = csvData.reduce(
+    (acc: CostPerRepository[], currentEntry) => {
+      let indexOfEntryForCurrentRepositoryName = 0;
+      if (
+        !acc.find((objectsInAcc: CostPerRepository, index) => {
+          indexOfEntryForCurrentRepositoryName = index;
+          return objectsInAcc.repositoryName === currentEntry.repositorySlug;
+        })
+      ) {
+        const newEntry: CostPerRepository = {
+          repositoryName: currentEntry.repositorySlug,
+          totalCost: currentEntry.totalPrice,
+        };
+        acc.push(newEntry);
+      } else {
+        acc[indexOfEntryForCurrentRepositoryName].totalCost +=
+          currentEntry.totalPrice;
+      }
+      return acc;
+    },
+    []
+  );
+  return costPerRepository.sort((a, b) =>
+    a.totalCost < b.totalCost ? 1 : b.totalCost < a.totalCost ? -1 : 0
+  );
 };
 
 export const getPriceByRepositoryName = (
