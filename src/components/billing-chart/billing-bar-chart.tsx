@@ -12,7 +12,7 @@ import {
   filterEntriesByRepositoryName,
   getPriceByRepositoryName,
 } from "../../util/group-entries";
-import { lightFormat } from "date-fns";
+import { getDay, lightFormat } from "date-fns";
 import {
   BillingChartProps,
   colors,
@@ -21,7 +21,7 @@ import {
   tooltipItemStyle,
   tooltipLabelStyle,
 } from "./billing-chart-components";
-import { isStringDateValue } from "../../util/date-util";
+import { dayOfWeek, isStringDateValue } from "../../util/date-util";
 
 export const BillingBarChart = ({
   groupedBy,
@@ -91,7 +91,10 @@ export const BillingBarChart = ({
           }}
           labelFormatter={(label) =>
             isStringDateValue(label)
-              ? lightFormat(new Date(label), "dd.MM.")
+              ? `${dayOfWeek[getDay(new Date(label))]}, ${lightFormat(
+                  new Date(label),
+                  "dd.MM."
+                )}`
               : label
           }
           itemSorter={(repositoryGroupedByDay) =>

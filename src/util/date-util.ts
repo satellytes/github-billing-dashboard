@@ -14,3 +14,13 @@ export const getPeriodOfTimeString = (csvData: UsageReportEntry[]): string => {
 export const isStringDateValue = (possibleDateValue: string): boolean => {
   return !!Date.parse(possibleDateValue);
 };
+
+export const dayOfWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
