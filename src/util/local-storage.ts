@@ -17,6 +17,7 @@ export const saveFileInLocalStorage = (
   };
   const alreadyExistingEntriesFromLocalStorage =
     getBillingFilesFromLocalStorage();
+
   if (alreadyExistingEntriesFromLocalStorage) {
     let isFileAlreadyInLocalStorage = false;
     alreadyExistingEntriesFromLocalStorage.forEach(
@@ -26,7 +27,6 @@ export const saveFileInLocalStorage = (
         }
       }
     );
-
     if (!isFileAlreadyInLocalStorage) {
       alreadyExistingEntriesFromLocalStorage.push(entriesForLocalStorage);
       localStorage.setItem(

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getCsvFile, UsageReportEntry } from "./util/csv-reader";
 import { WidgetContext } from "./components/context/widget-context";
 import { HomePage } from "./pages/home-page";
@@ -22,6 +22,11 @@ const App = (): JSX.Element => {
     monthName: string;
     data: UsageReportEntry[];
   }>({ monthName: "", data: [] });
+
+  //deactivate active widget when new data is loaded
+  useEffect(() => {
+    setSelectedMonthFromWidget({ monthName: "", data: [] });
+  }, [csvData]);
 
   const handleFileInput = (file: File, isDataFromDropzoneCallback: boolean) => {
     setIsDataFromDropzone(isDataFromDropzoneCallback);
