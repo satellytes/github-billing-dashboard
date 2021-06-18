@@ -154,10 +154,7 @@ export const groupEntriesPerMonth = (
   }, []);
 };
 
-type UsageReportGeneralGrouped =
-  | UsageReportDay[]
-  | UsageReportWeek[]
-  | UsageReportMonth[];
+type UsageReportGeneralGrouped = UsageReportDay[] | UsageReportWeek[];
 export const filterEntriesByRepositoryName = (
   groupedEntries: UsageReportGeneralGrouped,
   repositoryName: string
