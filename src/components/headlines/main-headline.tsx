@@ -7,7 +7,7 @@ const StyledHeadline = styled.h1`
   font-weight: bold;
   font-size: 56px;
   line-height: 79px;
-  margin-top: 254px;
+  margin-top: 188px;
   ${() => `
     ${up("md")} {
       font-size: 72px
