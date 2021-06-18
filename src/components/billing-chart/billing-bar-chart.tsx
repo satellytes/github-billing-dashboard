@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -11,6 +11,8 @@ import {
 import {
   filterEntriesByRepositoryName,
   getPriceByRepositoryName,
+  UsageReportDay,
+  UsageReportWeek,
 } from "../../util/group-entries";
 import { getDay, lightFormat } from "date-fns";
 import {
@@ -31,29 +33,34 @@ export const BillingBarChart = ({
   entriesGroupedPerWeek,
 }: BillingChartProps): JSX.Element => {
   const [activeRepository, setActiveRepository] = useState("");
-  const entriesOfOneRepositoryGroupedPerDay = filterEntriesByRepositoryName(
-    entriesGroupedPerDay,
-    activeRepository
-  );
-  const entriesOfOneRepositoryGroupedPerWeek = filterEntriesByRepositoryName(
-    entriesGroupedPerWeek,
-    activeRepository
-  );
-  const currentData = () => {
+  const [currentData, setCurrentData] =
+    useState<UsageReportDay[] | UsageReportWeek[]>();
+
+  useEffect(() => {
     if (groupedBy === "daily") {
-      return activeRepository === ""
-        ? entriesGroupedPerDay
-        : entriesOfOneRepositoryGroupedPerDay;
+      activeRepository === ""
+        ? setCurrentData(entriesGroupedPerDay)
+        : setCurrentData(
+            filterEntriesByRepositoryName(
+              entriesGroupedPerDay,
+              activeRepository
+            )
+          );
     } else {
-      return activeRepository === ""
-        ? entriesGroupedPerWeek
-        : entriesOfOneRepositoryGroupedPerWeek;
+      activeRepository === ""
+        ? setCurrentData(entriesGroupedPerWeek)
+        : setCurrentData(
+            filterEntriesByRepositoryName(
+              entriesGroupedPerWeek,
+              activeRepository
+            )
+          );
     }
-  };
+  }, [activeRepository, entriesGroupedPerDay, entriesGroupedPerWeek]);
 
   return (
     <ResponsiveContainer width="100%" height={600}>
-      <BarChart data={currentData()}>
+      <BarChart data={currentData}>
         <CartesianGrid vertical={false} stroke={"rgba(255, 255, 255, 0.1)"} />
         <XAxis
           dataKey={groupedBy === "daily" ? "day" : "week"}
