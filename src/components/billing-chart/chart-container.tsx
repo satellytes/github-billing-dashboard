@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { UsageReportEntry } from "../../util/csv-reader";
-import { BillingBarChart } from "../billing-chart/billing-bar-chart";
-import { BillingLineChart } from "../billing-chart/billing-line-chart";
+import { BillingBarChart } from "./billing-bar-chart";
+import { BillingLineChart } from "./billing-line-chart";
 import { WidgetContext } from "../context/widget-context";
 import {
   getMaximumTotalPriceOfAllDays,
