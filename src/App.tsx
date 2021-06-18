@@ -32,6 +32,7 @@ const App = (): JSX.Element => {
 
   const handleInputFromLocalStorage = (csvData: UsageReportEntry[]) => {
     setCsvData(csvData);
+    setIsDataFromDropzone(false);
   };
 
   const handleWidgetClick = (month: string, data: UsageReportEntry[]) => {

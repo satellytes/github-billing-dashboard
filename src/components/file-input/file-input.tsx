@@ -119,6 +119,7 @@ export const FileInput = ({
     if (isDataFromDropzone) {
       setActiveButton(undefined);
     }
+    setFilesFromLocalStorage(getBillingFilesFromLocalStorage);
   }, [isDataFromDropzone]);
 
   return (
