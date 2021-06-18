@@ -3,10 +3,11 @@ import {
   BillingChartProps,
   colors,
   CustomTooltip,
+  removeZeroDollarEntries,
   tooltipContentStyle,
   tooltipItemStyle,
   tooltipLabelStyle,
-} from "./billing-chart-components";
+} from "./shared-chart-util";
 import {
   LineChart,
   Line,
@@ -59,17 +60,9 @@ export const BillingLineChart = ({
 
         <CustomTooltip
           //formatter removes repos with 0$ value
-          formatter={(
-            value: number,
-            name: string,
-            props: { value: number }
-          ) => {
-            if (props.value === 0) {
-              return [null, null, null];
-            } else {
-              return [`${value}$`, name, props];
-            }
-          }}
+          formatter={(value: number, name: string, props: { value: number }) =>
+            removeZeroDollarEntries(value, name, props)
+          }
           labelFormatter={(label) =>
             isStringDateValue(label)
               ? `${dayOfWeek[getDay(new Date(label))]}, ${lightFormat(

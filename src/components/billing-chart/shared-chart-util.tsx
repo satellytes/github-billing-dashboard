@@ -10,6 +10,18 @@ export interface BillingChartProps {
   entriesGroupedPerWeek: UsageReportWeek[];
 }
 
+export const removeZeroDollarEntries = (
+  value: number,
+  name: string,
+  props: { value: number }
+): [string | null, string | null, { value: number } | null] => {
+  if (props.value === 0) {
+    return [null, null, null];
+  } else {
+    return [`${value}$`, name, props];
+  }
+};
+
 //Setting the generics for Tooltip
 export class CustomTooltip extends Tooltip<number, string> {}
 
