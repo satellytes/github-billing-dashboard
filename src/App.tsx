@@ -16,7 +16,7 @@ const MainContent = styled(Grid)`
 `;
 
 const App = (): JSX.Element => {
-  const [isDataFromDropzone, setIsDataFromDropzone] = useState<boolean>(false);
+  const [activeFileName, setActiveFileName] = useState<string>("");
   const [csvData, setCsvData] = useState<UsageReportEntry[] | null>(null);
   const [selectedMonthFromWidget, setSelectedMonthFromWidget] = useState<{
     monthName: string;
@@ -28,16 +28,16 @@ const App = (): JSX.Element => {
     setSelectedMonthFromWidget({ monthName: "", data: [] });
   }, [csvData]);
 
-  const handleFileInput = (file: File, isDataFromDropzoneCallback: boolean) => {
-    setIsDataFromDropzone(isDataFromDropzoneCallback);
+  const handleFileInput = (file: File) => {
     getCsvFile(file).then((res) => {
       setCsvData(res);
+      setActiveFileName("");
+      setActiveFileName(file.name);
     });
   };
 
   const handleInputFromLocalStorage = (csvData: UsageReportEntry[]) => {
     setCsvData(csvData);
-    setIsDataFromDropzone(false);
   };
 
   const handleWidgetClick = (month: string, data: UsageReportEntry[]) => {
@@ -63,7 +63,7 @@ const App = (): JSX.Element => {
           <HomePage
             handleInput={handleFileInput}
             handleInputFromLocalStorage={handleInputFromLocalStorage}
-            isDataFromDropzone={isDataFromDropzone}
+            activeFileName={activeFileName}
           />
           {csvData && <DashboardPage csvData={csvData} />}
         </WidgetContext.Provider>

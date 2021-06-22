@@ -21,7 +21,6 @@ export const getBillingFilesFromLocalStorage = ():
   | LocalStorageEntry[]
   | null => {
   const allLocalStorageEntries = Object.entries(localStorage);
-  console.log(allLocalStorageEntries);
   return allLocalStorageEntries.map((entry) => {
     if (entry[0].startsWith(LOCAL_STORAGE_ENTRY_KEY_NAME)) {
       return JSON.parse(entry[1]);

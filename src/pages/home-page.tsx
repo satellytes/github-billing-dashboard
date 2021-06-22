@@ -7,13 +7,13 @@ import { MainHeadline } from "../components/headlines/main-headline";
 interface StartProp {
   handleInput: (file: File, isDataFromDropzone: boolean) => void;
   handleInputFromLocalStorage: (csvData: UsageReportEntry[]) => void;
-  isDataFromDropzone: boolean;
+  activeFileName: string;
 }
 
 export const HomePage = ({
   handleInput,
   handleInputFromLocalStorage,
-  isDataFromDropzone,
+  activeFileName,
 }: StartProp): JSX.Element => {
   return (
     <>
@@ -22,7 +22,7 @@ export const HomePage = ({
       <FileInput
         onInput={handleInput}
         handleInputFromLocalStorage={handleInputFromLocalStorage}
-        isDataFromDropzone={isDataFromDropzone}
+        activeFileName={activeFileName}
       />
     </>
   );

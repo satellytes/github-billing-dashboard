@@ -12,7 +12,7 @@ import { LocalStorageEntry } from "../../util/local-storage";
 interface FileInputProp {
   onInput: (file: File, isDataFromDropzone: boolean) => void;
   handleInputFromLocalStorage: (csvData: UsageReportEntry[]) => void;
-  isDataFromDropzone: boolean;
+  activeFileName: string;
 }
 
 const Title = styled.h2`
@@ -92,35 +92,34 @@ const CloseFile = styled.div`
 export const FileInput = ({
   onInput,
   handleInputFromLocalStorage,
-  isDataFromDropzone,
+  activeFileName,
 }: FileInputProp): JSX.Element => {
   const fileInput = useRef<HTMLInputElement>(null);
   const [filesFromLocalStorage, setFilesFromLocalStorage] = useState(
     getBillingFilesFromLocalStorage()
   );
-  const [activeButton, setActiveButton] = useState<number>();
+  const [activeButton, setActiveButton] = useState<string>();
   let hoverOverX = false;
 
   const handleInput = (event: React.FormEvent) => {
     event.preventDefault();
-
     if (fileInput && fileInput.current && fileInput.current.files) {
-      onInput(fileInput.current.files[0], false);
       setActiveButton(undefined);
+      onInput(fileInput.current.files[0], false);
     }
   };
 
-  const useRecentFiles = (entry: UsageReportEntry[], buttonNumber: number) => {
-    setActiveButton(buttonNumber);
+  const useRecentFiles = (entry: UsageReportEntry[], buttonName: string) => {
+    setActiveButton(buttonName);
     handleInputFromLocalStorage(entry);
   };
 
   useEffect(() => {
-    if (isDataFromDropzone) {
-      setActiveButton(undefined);
+    if (activeFileName) {
+      setActiveButton(activeFileName);
     }
     setFilesFromLocalStorage(getBillingFilesFromLocalStorage);
-  }, [isDataFromDropzone]);
+  }, [activeFileName]);
 
   return (
     <>
@@ -144,45 +143,43 @@ export const FileInput = ({
             />
           </InputLabel>
           <StyledButton
-            isActive={-1 === activeButton}
-            onClick={() => useRecentFiles(sampleData, -1)}
+            isActive={"sampleBtn" === activeButton}
+            onClick={() => useRecentFiles(sampleData, "sampleBtn")}
           >
             <ButtonText>Use Sample CSV File</ButtonText>
           </StyledButton>
           {filesFromLocalStorage
-            ? filesFromLocalStorage.map(
-                (entry: LocalStorageEntry, index: number) => {
-                  return (
-                    <StyledButton
-                      key={index}
+            ? filesFromLocalStorage.map((entry: LocalStorageEntry) => {
+                return (
+                  <StyledButton
+                    key={entry.filename}
+                    onClick={() => {
+                      if (!hoverOverX) {
+                        useRecentFiles(entry.entries, entry.filename);
+                      }
+                    }}
+                    isActive={entry.filename === activeButton}
+                  >
+                    <CloseFile
                       onClick={() => {
-                        if (!hoverOverX) {
-                          useRecentFiles(entry.entries, index);
-                        }
+                        removeFileFromLocalStorage(entry.filename);
+                        setFilesFromLocalStorage(
+                          getBillingFilesFromLocalStorage()
+                        );
                       }}
-                      isActive={index === activeButton}
+                      onMouseEnter={() => {
+                        hoverOverX = true;
+                      }}
+                      onMouseLeave={() => {
+                        hoverOverX = false;
+                      }}
                     >
-                      <CloseFile
-                        onClick={() => {
-                          removeFileFromLocalStorage(entry.filename);
-                          setFilesFromLocalStorage(
-                            getBillingFilesFromLocalStorage()
-                          );
-                        }}
-                        onMouseEnter={() => {
-                          hoverOverX = true;
-                        }}
-                        onMouseLeave={() => {
-                          hoverOverX = false;
-                        }}
-                      >
-                        x
-                      </CloseFile>
-                      <ButtonText>{entry.filename}</ButtonText>
-                    </StyledButton>
-                  );
-                }
-              )
+                      x
+                    </CloseFile>
+                    <ButtonText>{entry.filename}</ButtonText>
+                  </StyledButton>
+                );
+              })
             : null}
         </ButtonContainer>
       </GridItem>

@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 
 interface DropzoneProp {
-  onInput: (file: File, isDataFromDropzone: boolean) => void;
+  onInput: (file: File, activeFileName: string) => void;
   children: React.ReactNode;
 }
 
@@ -23,7 +23,7 @@ const DropzoneText = styled.h1<{ isDragActive: boolean }>`
 export const Dropzone = ({ onInput, children }: DropzoneProp): JSX.Element => {
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
-      onInput(acceptedFiles[0], true);
+      onInput(acceptedFiles[0], acceptedFiles[0].name);
     }
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
