@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { getCsvFile, UsageReportEntry } from "./util/csv-reader";
 import { WidgetContext } from "./components/context/widget-context";
-import { HomePage } from "./pages/home-page";
-import { DashboardPage } from "./pages/dashboard-page";
 import { Grid } from "./components/grid/grid";
 import styled from "styled-components";
 import { Header } from "./components/header/header";
 import { GlobalStyles } from "./global-styles";
 import { Dropzone } from "./components/dropzone/dropzone";
+import { MainHeadline } from "./components/headlines/main-headline";
+import { StartDescription } from "./components/start-description/start-description";
+import { FileInput } from "./components/file-input/file-input";
+import { CurrentTimePeriode } from "./components/headlines/current-time-periode";
+import { RepositoryTable } from "./components/repository-table/repository-table";
+import { MonthlyWidgetContainer } from "./components/monthly-widget-container/monthly-widget-container";
+import { ChartContainer } from "./components/billing-chart/chart-container";
 
 const MainContent = styled(Grid)`
   max-width: 1280px;
@@ -60,12 +65,17 @@ const App = (): JSX.Element => {
               handleWidgetClick(month, data),
           }}
         >
-          <HomePage
-            handleInput={handleFileInput}
+          <MainHeadline />
+          <StartDescription />
+          <FileInput
+            onInput={handleFileInput}
             handleInputFromLocalStorage={handleInputFromLocalStorage}
             activeFileName={activeFileName}
           />
-          {csvData && <DashboardPage csvData={csvData} />}
+          {csvData && <CurrentTimePeriode csvData={csvData} />}
+          {csvData && <RepositoryTable csvData={csvData} />}
+          {csvData && <MonthlyWidgetContainer csvData={csvData} />}
+          {csvData && <ChartContainer csvData={csvData} />}
         </WidgetContext.Provider>
       </MainContent>
     </Dropzone>
