@@ -64,21 +64,20 @@ export const StartDescription = (): JSX.Element => {
   return (
     <GridItem>
       <Grid>
-      <GridItem md={7}>
-        <Subline>Visualize your Github CSV Billing files</Subline>
-        <Text>
-          Github provides a CSV file with detailed information about your costs.
-          Reading and analyzing this CSV can be cumbersome, which is why we
-          created this dashboard. Just add you CSV file and see the cost nicely
-          visualized and aggregated.
-        </Text>
-        <Text>
-          No data gets uploaded to any servers. The CSV file is just stored in
-          your browser which only you can access.
-        </Text>
-        <Subline>How to get your CSV file</Subline>
-      </GridItem>
-      <GridItem md={4} />
+        <GridItem md={7}>
+          <Text>
+            Github provides a CSV file with detailed information about your
+            costs. Reading and analyzing this CSV can be cumbersome, which is
+            why we created this dashboard. Just add you CSV file and see the
+            cost nicely visualized and aggregated.
+          </Text>
+          <Text>
+            No data gets uploaded to any servers. The CSV file is just stored in
+            your browser which only you can access.
+          </Text>
+          <Subline>How to get your CSV file</Subline>
+        </GridItem>
+        <GridItem md={4} />
         <FlowChartRectangle xs={11} sm={4}>
           <FlowChartHeadline>1</FlowChartHeadline>
           <FlowChartDescription>
