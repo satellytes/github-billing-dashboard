@@ -36,7 +36,7 @@ export const RepositoryTable = ({
           {costPerRepository.map((repository, index) => {
             const isLink = !(
               repository.repositoryName.includes(" ") ||
-              repository.repositoryName.includes("sample")
+              repository.repositoryName.includes("sample-repository-")
             );
             return isLink ? (
               <TableLink
