@@ -106,6 +106,7 @@ export const BillingBarChart = ({
           cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
         />
         <Legend
+          /* eslint-disable  @typescript-eslint/no-explicit-any */
           onClick={(repository: any) => {
             activeRepository
               ? setActiveRepository("")

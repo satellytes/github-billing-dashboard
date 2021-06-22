@@ -5,60 +5,30 @@ export interface LocalStorageEntry {
   entries: UsageReportEntry[];
 }
 
-const localStorageEntryKeyName = "GitHubBillingDashboard";
+const LOCAL_STORAGE_ENTRY_KEY_NAME = "GitHubBillingDashboard_";
 
 export const saveFileInLocalStorage = (
   githubBillingEntries: UsageReportEntry[],
-  fileName: string
+  filename: string
 ): void => {
-  const entriesForLocalStorage = {
-    filename: fileName,
-    entries: githubBillingEntries,
-  };
-  const alreadyExistingEntriesFromLocalStorage =
-    getBillingFilesFromLocalStorage();
-
-  if (alreadyExistingEntriesFromLocalStorage) {
-    let isFileAlreadyInLocalStorage = false;
-    alreadyExistingEntriesFromLocalStorage.forEach(
-      (entry: LocalStorageEntry) => {
-        if (entry.filename === fileName) {
-          isFileAlreadyInLocalStorage = true;
-        }
-      }
-    );
-    if (!isFileAlreadyInLocalStorage) {
-      alreadyExistingEntriesFromLocalStorage.push(entriesForLocalStorage);
-      localStorage.setItem(
-        localStorageEntryKeyName,
-        JSON.stringify(alreadyExistingEntriesFromLocalStorage)
-      );
-    }
-  } else {
-    localStorage.setItem(
-      localStorageEntryKeyName,
-      JSON.stringify([entriesForLocalStorage])
-    );
-  }
+  localStorage.setItem(
+    LOCAL_STORAGE_ENTRY_KEY_NAME + filename,
+    JSON.stringify({ filename, entries: githubBillingEntries })
+  );
 };
 
 export const getBillingFilesFromLocalStorage = ():
   | LocalStorageEntry[]
   | null => {
-  const itemsFromLocalStorage = localStorage.getItem(localStorageEntryKeyName);
-  if (!itemsFromLocalStorage) {
-    return null;
-  }
-  return JSON.parse(itemsFromLocalStorage);
+  const allLocalStorageEntries = Object.entries(localStorage);
+  console.log(allLocalStorageEntries);
+  return allLocalStorageEntries.map((entry) => {
+    if (entry[0].startsWith(LOCAL_STORAGE_ENTRY_KEY_NAME)) {
+      return JSON.parse(entry[1]);
+    }
+  });
 };
 
-export const removeFileFromLocalStorage = (index: number): void => {
-  const currentFilesInLocalStorage = getBillingFilesFromLocalStorage();
-  if (currentFilesInLocalStorage) {
-    currentFilesInLocalStorage.splice(index, 1);
-    localStorage.setItem(
-      localStorageEntryKeyName,
-      JSON.stringify(currentFilesInLocalStorage)
-    );
-  }
+export const removeFileFromLocalStorage = (filename: string): void => {
+  localStorage.removeItem(LOCAL_STORAGE_ENTRY_KEY_NAME + filename);
 };

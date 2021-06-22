@@ -164,7 +164,7 @@ export const FileInput = ({
                     >
                       <CloseFile
                         onClick={() => {
-                          removeFileFromLocalStorage(index);
+                          removeFileFromLocalStorage(entry.filename);
                           setFilesFromLocalStorage(
                             getBillingFilesFromLocalStorage()
                           );
