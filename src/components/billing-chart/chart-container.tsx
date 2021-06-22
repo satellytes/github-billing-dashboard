@@ -1,7 +1,5 @@
 import React, { useContext, useState } from "react";
 import { UsageReportEntry } from "../../util/csv-reader";
-import { BillingBarChart } from "./billing-bar-chart";
-import { BillingLineChart } from "./billing-line-chart";
 import { WidgetContext } from "../context/widget-context";
 import {
   getMaximumTotalPriceOfAllDays,
@@ -11,6 +9,7 @@ import {
 } from "../../util/group-entries";
 import styled from "styled-components";
 import { GridItem } from "../grid/grid";
+import { BillingChart } from "./billing-chart";
 
 interface ChartContainerProps {
   csvData: UsageReportEntry[];
@@ -121,23 +120,14 @@ export const ChartContainer = ({
           </div>
         </ButtonDiv>
         <ChartDiv>
-          {diagramType === "Bar" ? (
-            <BillingBarChart
-              maxValueOfYAxis={currentMaxValueOfYAxis}
-              groupedBy={groupedBy}
-              repositoryNames={repositoryNames()}
-              entriesGroupedPerDay={entriesGroupedPerDay}
-              entriesGroupedPerWeek={entriesGroupedPerWeek}
-            />
-          ) : (
-            <BillingLineChart
-              maxValueOfYAxis={currentMaxValueOfYAxis}
-              groupedBy={groupedBy}
-              repositoryNames={repositoryNames()}
-              entriesGroupedPerDay={entriesGroupedPerDay}
-              entriesGroupedPerWeek={entriesGroupedPerWeek}
-            />
-          )}
+          <BillingChart
+            maxValueOfYAxis={currentMaxValueOfYAxis}
+            groupedBy={groupedBy}
+            repositoryNames={repositoryNames()}
+            entriesGroupedPerDay={entriesGroupedPerDay}
+            entriesGroupedPerWeek={entriesGroupedPerWeek}
+            diagrammType={diagramType}
+          />
         </ChartDiv>
       </GridItem>
     </>
