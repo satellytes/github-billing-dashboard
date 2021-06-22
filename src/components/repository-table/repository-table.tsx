@@ -8,9 +8,18 @@ interface RepositoryTableProps {
   csvData: UsageReportEntry[];
 }
 
-const TableEntry = styled.p`
-  //TODO table styling
+const TableLink = styled.a`
+  display: block;
+  text-decoration: none;
+  color: white;
+  margin: 1em 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
+
+const TableEntry = styled.p``;
 
 export const RepositoryTable = ({
   csvData,
@@ -21,7 +30,18 @@ export const RepositoryTable = ({
       <Grid>
         <GridItem xs={6}>
           {costPerRepository.map((repository, index) => {
-            return (
+            const isLink = !(
+              repository.repositoryName.includes(" ") ||
+              repository.repositoryName.includes("sample")
+            );
+            return isLink ? (
+              <TableLink
+                href={`https://github.com/${repository.repositoryName}`}
+                key={index}
+              >
+                {repository.repositoryName}
+              </TableLink>
+            ) : (
               <TableEntry key={index}>{repository.repositoryName}</TableEntry>
             );
           })}
