@@ -19,6 +19,7 @@ import {
 } from "../../util/group-entries";
 import { getDay, lightFormat } from "date-fns";
 import { dayOfWeek, isStringDateValue } from "../../util/date-util";
+import styled from "styled-components";
 
 const removeZeroDollarEntries = (
   value: number,
@@ -47,6 +48,15 @@ const colors = [
   "#414C66",
   "#3D5EB3",
 ];
+
+const LegendLabel = styled.span<{ isActive: boolean }>`
+  cursor: pointer;
+  text-decoration: ${(props) => (props.isActive ? "underline" : "none")};
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 interface BillingChartProps {
   groupedBy: "daily" | "weekly";
@@ -171,10 +181,15 @@ export const BillingChart = ({
     <Legend
       /* eslint-disable  @typescript-eslint/no-explicit-any */
       onClick={(repository: any) => {
-        activeRepository
-          ? setActiveRepository("")
-          : setActiveRepository(repository.value);
+        !activeRepository || activeRepository !== repository.value
+          ? setActiveRepository(repository.value)
+          : setActiveRepository("");
       }}
+      formatter={(repositoryName) => (
+        <LegendLabel isActive={activeRepository === repositoryName}>
+          {repositoryName}
+        </LegendLabel>
+      )}
     />
   );
 
