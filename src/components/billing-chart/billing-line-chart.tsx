@@ -79,6 +79,7 @@ export const BillingLineChart = ({
           contentStyle={tooltipContentStyle}
         />
         <Legend
+          /* eslint-disable  @typescript-eslint/no-explicit-any */
           onClick={(repository: any) => {
             activeRepository
               ? setActiveRepository("")
