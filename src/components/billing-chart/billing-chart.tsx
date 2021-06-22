@@ -68,6 +68,20 @@ export const BillingChart = ({
   const [activeRepository, setActiveRepository] = useState("");
   const [currentData, setCurrentData] =
     useState<UsageReportDay[] | UsageReportWeek[]>();
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(false);
+    setActiveRepository("");
+    if (groupedBy === "daily") {
+      setCurrentData(entriesGroupedPerDay);
+    } else {
+      setCurrentData(entriesGroupedPerWeek);
+    }
+    setTimeout(() => {
+      setLoaded(true);
+    }, 0);
+  }, [entriesGroupedPerDay, entriesGroupedPerWeek]);
 
   useEffect(() => {
     if (groupedBy === "daily") {
@@ -89,7 +103,7 @@ export const BillingChart = ({
             )
           );
     }
-  }, [activeRepository, entriesGroupedPerDay, entriesGroupedPerWeek]);
+  }, [activeRepository]);
 
   const sharedXAxis = (
     <XAxis
@@ -165,54 +179,69 @@ export const BillingChart = ({
   );
 
   return (
-    <ResponsiveContainer width="100%" height={600}>
-      {diagrammType === "Bar" ? (
-        <BarChart data={currentData}>
-          <CartesianGrid vertical={false} stroke={"rgba(255, 255, 255, 0.1)"} />
-          {sharedXAxis}
-          {sharedYAxis}
-          {sharedTooltip}
-          {sharedLegend}
-          {repositoryNames.map((repositoryName, index) => {
-            return (
-              <Bar
-                dataKey={(currentEntry) =>
-                  getPriceByRepositoryName(repositoryName, currentEntry.entries)
-                }
-                stackId="a"
-                fill={colors[index]}
-                key={index}
-                name={repositoryName}
+    <>
+      {loaded && (
+        <ResponsiveContainer width="100%" height={700}>
+          {diagrammType === "Bar" ? (
+            <BarChart data={currentData}>
+              <CartesianGrid
+                vertical={false}
+                stroke={"rgba(255, 255, 255, 0.1)"}
               />
-            );
-          })}
-        </BarChart>
-      ) : (
-        <LineChart data={currentData}>
-          <CartesianGrid stroke={"rgba(255, 255, 255, 0.1)"} />
-          {sharedXAxis}
-          {sharedYAxis}
-          {sharedTooltip}
-          {sharedLegend}
-          {repositoryNames.map((repositoryName, index) => {
-            return (
-              <Line
-                type="monotone"
-                stroke={
-                  activeRepository === repositoryName ? "white" : colors[index]
-                }
-                dataKey={(currentEntry) =>
-                  getPriceByRepositoryName(repositoryName, currentEntry.entries)
-                }
-                key={index}
-                name={repositoryName}
-                strokeWidth={4}
-                dot={false}
-              />
-            );
-          })}
-        </LineChart>
+              {sharedXAxis}
+              {sharedYAxis}
+              {sharedTooltip}
+              {sharedLegend}
+              {repositoryNames.map((repositoryName, index) => {
+                return (
+                  <Bar
+                    dataKey={(currentEntry) =>
+                      getPriceByRepositoryName(
+                        repositoryName,
+                        currentEntry.entries
+                      )
+                    }
+                    stackId="a"
+                    fill={colors[index]}
+                    key={index}
+                    name={repositoryName}
+                  />
+                );
+              })}
+            </BarChart>
+          ) : (
+            <LineChart data={currentData}>
+              <CartesianGrid stroke={"rgba(255, 255, 255, 0.1)"} />
+              {sharedXAxis}
+              {sharedYAxis}
+              {sharedTooltip}
+              {sharedLegend}
+              {repositoryNames.map((repositoryName, index) => {
+                return (
+                  <Line
+                    type="monotone"
+                    stroke={
+                      activeRepository === repositoryName
+                        ? "white"
+                        : colors[index]
+                    }
+                    dataKey={(currentEntry) =>
+                      getPriceByRepositoryName(
+                        repositoryName,
+                        currentEntry.entries
+                      )
+                    }
+                    key={index}
+                    name={repositoryName}
+                    strokeWidth={4}
+                    dot={false}
+                  />
+                );
+              })}
+            </LineChart>
+          )}
+        </ResponsiveContainer>
       )}
-    </ResponsiveContainer>
+    </>
   );
 };
