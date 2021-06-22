@@ -2,6 +2,12 @@
   "name": "github-billing-dashboard",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
@@ -22,11 +28,18 @@
     "typescript": "^4.2.4",
     "web-vitals": "^1.1.2"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@types/papaparse": "^5.2.5",
+    "@types/styled-components": "^5.1.9",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "eslint": "^7.27.0",
+    "eslint-plugin-react": "^7.23.2",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "2.3.0",
+    "pretty-quick": "^3.1.0",
+    "source-map-js": "^0.6.2"
   },
   "browserslist": {
     "production": [
@@ -39,18 +52,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/papaparse": "^5.2.5",
-    "@types/styled-components": "^5.1.9",
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
-    "eslint": "^7.27.0",
-    "eslint-plugin-react": "^7.23.2",
-    "husky": "^6.0.0",
-    "lint-staged": "^11.0.0",
-    "prettier": "2.3.0",
-    "pretty-quick": "^3.1.0"
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write --ignore-unknown"
