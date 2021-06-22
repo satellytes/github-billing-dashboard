@@ -124,7 +124,7 @@ export const FileInput = ({
   return (
     <>
       <GridItem md={7}>
-        <Title>Github Billing Dashboard UI</Title>
+        <Title>Visualize your CSV file</Title>
         <Subline>
           You can add your own CSV file here or just drag it into the browsers
           window. There is also a sample CSV file that you can use if you just

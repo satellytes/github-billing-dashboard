@@ -31,7 +31,7 @@ export const CurrentTimePeriode = ({
   const { activeMonth } = useContext(WidgetContext);
   return (
     <GridItem>
-      <ChartHeadline>Displayed Time Period</ChartHeadline>
+      <ChartHeadline>Overview</ChartHeadline>
       <ChartDescription>
         {activeMonth.monthName || getPeriodOfTimeString(csvData)}
       </ChartDescription>
