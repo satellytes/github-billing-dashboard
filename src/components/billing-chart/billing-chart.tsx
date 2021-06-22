@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   LineChart,
@@ -35,30 +35,6 @@ const removeZeroDollarEntries = (
 //Setting the generics for Tooltip
 class CustomTooltip extends Tooltip<number, string> {}
 
-const tooltipLabelStyle: CSSProperties = {
-  color: "black",
-  fontStyle: "normal",
-  fontWeight: "normal",
-  fontSize: "12px",
-  lineHeight: "13px",
-  marginBottom: "10px",
-};
-
-const tooltipItemStyle: CSSProperties = {
-  fontStyle: "normal",
-  fontWeight: "normal",
-  fontSize: "12px",
-  lineHeight: "13px",
-  marginBottom: "4px",
-  padding: 0,
-};
-
-const tooltipContentStyle: CSSProperties = {
-  borderRadius: "4px",
-  borderBlockColor: "white",
-  padding: "12px",
-};
-
 const colors = [
   "#233666",
   "#96ADEA",
@@ -72,7 +48,7 @@ const colors = [
   "#3D5EB3",
 ];
 
-export interface BillingChartProps {
+interface BillingChartProps {
   groupedBy: "daily" | "weekly";
   maxValueOfYAxis: number;
   repositoryNames: string[];
@@ -145,7 +121,6 @@ export const BillingChart = ({
   );
   const sharedTooltip = (
     <CustomTooltip
-      //formatter removes repos with 0$ value
       formatter={(value: number, name: string, props: { value: number }) =>
         removeZeroDollarEntries(value, name, props)
       }
@@ -160,9 +135,27 @@ export const BillingChart = ({
       itemSorter={(repositoryGroupedByDay) =>
         repositoryGroupedByDay.value ? repositoryGroupedByDay.value * -1 : 0
       }
-      labelStyle={tooltipLabelStyle}
-      itemStyle={tooltipItemStyle}
-      contentStyle={tooltipContentStyle}
+      labelStyle={{
+        color: "black",
+        fontStyle: "normal",
+        fontWeight: "normal",
+        fontSize: "12px",
+        lineHeight: "13px",
+        marginBottom: "10px",
+      }}
+      itemStyle={{
+        fontStyle: "normal",
+        fontWeight: "normal",
+        fontSize: "12px",
+        lineHeight: "13px",
+        marginBottom: "4px",
+        padding: 0,
+      }}
+      contentStyle={{
+        borderRadius: "4px",
+        borderBlockColor: "white",
+        padding: "12px",
+      }}
       cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
     />
   );
