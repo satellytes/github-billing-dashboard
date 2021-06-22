@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { UsageReportEntry } from "../../util/csv-reader";
 import { getCostPerRepository } from "../../util/group-entries";
 import { Grid, GridItem } from "../grid/grid";
 import styled from "styled-components";
+import { WidgetContext } from "../context/widget-context";
 
 interface RepositoryTableProps {
   csvData: UsageReportEntry[];
@@ -24,7 +25,10 @@ const TableEntry = styled.p``;
 export const RepositoryTable = ({
   csvData,
 }: RepositoryTableProps): JSX.Element => {
-  const costPerRepository = getCostPerRepository(csvData);
+  const { activeMonth } = useContext(WidgetContext);
+  const costPerRepository = activeMonth.monthName
+    ? getCostPerRepository(activeMonth.data)
+    : getCostPerRepository(csvData);
   return (
     <GridItem>
       <Grid>
