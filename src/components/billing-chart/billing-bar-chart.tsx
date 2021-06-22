@@ -106,10 +106,11 @@ export const BillingBarChart = ({
           cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
         />
         <Legend
-          onMouseEnter={(repository: any) => {
-            setActiveRepository(repository.value);
+          onClick={(repository: any) => {
+            activeRepository
+              ? setActiveRepository("")
+              : setActiveRepository(repository.value);
           }}
-          onMouseLeave={() => setActiveRepository("")}
         />
         {repositoryNames.map((repositoryName, index) => {
           return (
