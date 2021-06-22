@@ -91,12 +91,6 @@ export const BillingChart = ({
     }
   }, [activeRepository, entriesGroupedPerDay, entriesGroupedPerWeek]);
 
-  const lineCartesianGrid = (
-    <CartesianGrid stroke={"rgba(255, 255, 255, 0.1)"} />
-  );
-  const barCartesianGrid = (
-    <CartesianGrid vertical={false} stroke={"rgba(255, 255, 255, 0.1)"} />
-  );
   const sharedXAxis = (
     <XAxis
       dataKey={groupedBy === "daily" ? "day" : "week"}
@@ -174,7 +168,7 @@ export const BillingChart = ({
     <ResponsiveContainer width="100%" height={600}>
       {diagrammType === "Bar" ? (
         <BarChart data={currentData}>
-          {barCartesianGrid}
+          <CartesianGrid vertical={false} stroke={"rgba(255, 255, 255, 0.1)"} />
           {sharedXAxis}
           {sharedYAxis}
           {sharedTooltip}
@@ -195,7 +189,7 @@ export const BillingChart = ({
         </BarChart>
       ) : (
         <LineChart data={currentData}>
-          {lineCartesianGrid}
+          <CartesianGrid stroke={"rgba(255, 255, 255, 0.1)"} />
           {sharedXAxis}
           {sharedYAxis}
           {sharedTooltip}
