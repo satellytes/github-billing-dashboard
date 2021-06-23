@@ -30,7 +30,7 @@ const ChartDiv = styled.div`
 const ButtonDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
+  margin-top: 24px;
 `;
 
 const Button = styled.button`

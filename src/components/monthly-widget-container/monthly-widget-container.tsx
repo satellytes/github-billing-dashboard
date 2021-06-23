@@ -16,7 +16,6 @@ interface MonthlyWidgetProps {
 let averageCostsPerDayOfPreviousMonth = 0;
 
 const StyledContainer = styled(Grid)`
-  margin-top: 40px;
   grid-auto-rows: 1fr;
 `;
 

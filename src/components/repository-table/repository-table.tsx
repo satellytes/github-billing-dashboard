@@ -13,7 +13,7 @@ const TableLink = styled.a`
   display: block;
   text-decoration: none;
   color: white;
-  margin: 1em 0;
+  margin-bottom: 8px;
 
   &:hover {
     text-decoration: underline;
@@ -24,7 +24,9 @@ const StyledTable = styled.div`
   margin-top: 24px;
 `;
 
-const TableEntry = styled.p``;
+const TableEntry = styled.p`
+  margin-bottom: 8px;
+`;
 
 export const RepositoryTable = ({
   csvData,
