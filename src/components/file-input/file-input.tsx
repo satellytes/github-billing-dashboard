@@ -8,6 +8,7 @@ import {
 import { UsageReportEntry } from "../../util/csv-reader";
 import { sampleData } from "./sampleData";
 import { LocalStorageEntry } from "../../util/local-storage";
+import { Subline } from "../style/typography";
 
 interface FileInputProp {
   onInput: (file: File, isDataFromDropzone: boolean) => void;
@@ -15,15 +16,7 @@ interface FileInputProp {
   activeFileName: string;
 }
 
-const Title = styled.h2`
-  font-style: normal;
-  font-weight: normal;
-  font-size: 32px;
-  line-height: 110%;
-  margin-top: 120px;
-`;
-
-const Subline = styled.p`
+const Text = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -124,12 +117,12 @@ export const FileInput = ({
   return (
     <>
       <GridItem md={7}>
-        <Title>Visualize your CSV file</Title>
-        <Subline>
+        <Subline>Visualize your CSV file</Subline>
+        <Text>
           You can add your own CSV file here or just drag it into the browsers
           window. There is also a sample CSV file that you can use if you just
           want to try out the dashboard.
-        </Subline>
+        </Text>
       </GridItem>
       <GridItem>
         <ButtonContainer>

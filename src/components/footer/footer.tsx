@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledHeader = styled.div`
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 20px 24px 14px 24px;
 `;
 
@@ -14,7 +14,7 @@ const Logo = styled.h1`
   line-height: 31px;
 `;
 
-export const Header = (): JSX.Element => {
+export const Footer = (): JSX.Element => {
   return (
     <StyledHeader>
       <Logo>Satellytes</Logo>
