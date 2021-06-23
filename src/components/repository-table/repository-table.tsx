@@ -1,13 +1,21 @@
 import React, { useContext } from "react";
 import { UsageReportEntry } from "../../util/csv-reader";
 import { getCostPerRepository } from "../../util/group-entries";
-import { Grid, GridItem } from "../grid/grid";
+import { Grid, GridItem, up } from "../grid/grid";
 import styled from "styled-components";
 import { WidgetContext } from "../context/widget-context";
 
 interface RepositoryTableProps {
   csvData: UsageReportEntry[];
 }
+
+const StyledTable = styled.div`
+  margin-top: 24px;
+`;
+
+const TableEntry = styled.p`
+  margin-bottom: 8px;
+`;
 
 const TableLink = styled.a`
   display: block;
@@ -20,12 +28,12 @@ const TableLink = styled.a`
   }
 `;
 
-const StyledTable = styled.div`
-  margin-top: 24px;
-`;
-
-const TableEntry = styled.p`
+const TableValue = styled.p`
   margin-bottom: 8px;
+  text-align: right;
+  ${`${up("sm")}{
+      text-align: left;
+   }`}
 `;
 
 export const RepositoryTable = ({
@@ -60,9 +68,9 @@ export const RepositoryTable = ({
           <GridItem xs={6}>
             {costPerRepository.map((repository, index) => {
               return (
-                <TableEntry key={index}>{`${
+                <TableValue key={index}>{`${
                   Math.round(repository.totalCost * 100) / 100
-                }$`}</TableEntry>
+                }$`}</TableValue>
               );
             })}
           </GridItem>
