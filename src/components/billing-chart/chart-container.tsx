@@ -39,6 +39,7 @@ const Button = styled.button`
   cursor: pointer;
   padding: 4px 8px;
   color: white;
+  font-size: 14px;
 `;
 
 const LeftToggleButton = styled(Button)`
