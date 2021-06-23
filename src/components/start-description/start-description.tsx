@@ -5,6 +5,8 @@ import GithubPersonalSettings from "../../assets/github-personal-1-settings.png"
 import GithubPersonalBillingAndPlans from "../../assets/github-personal-2-billing-and-plans.png";
 import GihtubPersonalGetUsageReport from "../../assets/github-personal-3-get-usage-report.png";
 import { Subline, Paragraph } from "../style/typography";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 const FlowChartRectangle = styled(GridItem)`
   margin-bottom: 24px;
@@ -18,7 +20,6 @@ const FlowChartRectangle = styled(GridItem)`
     margin-right: 24px;
     margin-bottom: 0
    }`}
-
   &:last-child {
     clip-path: none;
     padding: 20px;
@@ -70,22 +71,29 @@ export const StartDescription = (): JSX.Element => {
           <FlowChartDescription>
             Go either to your personal or organization &quot;Settings&quot;
           </FlowChartDescription>
-          <FlowChartImage src={GithubPersonalSettings} alt="" />
+          <Zoom>
+            <FlowChartImage src={GithubPersonalSettings} alt="" />
+          </Zoom>
         </FlowChartRectangle>
         <FlowChartRectangle xs={12} sm={4}>
           <FlowChartHeadline>2</FlowChartHeadline>
           <FlowChartDescription>
             Click on &quot;Billing & plans&quot;.
           </FlowChartDescription>
-          <FlowChartImage src={GithubPersonalBillingAndPlans} alt="" />
+          <Zoom>
+            <FlowChartImage src={GithubPersonalBillingAndPlans} alt="" />
+          </Zoom>
         </FlowChartRectangle>
+
         <FlowChartRectangle xs={12} sm={4}>
           <FlowChartHeadline>3</FlowChartHeadline>
           <FlowChartDescription>
             Click on &quot;Get usage report&quot;. You will now receive an email
             with the CSV file that you can add here.
           </FlowChartDescription>
-          <FlowChartImage src={GihtubPersonalGetUsageReport} alt="" />
+          <Zoom>
+            <FlowChartImage src={GihtubPersonalGetUsageReport} alt="" />
+          </Zoom>
         </FlowChartRectangle>
       </Grid>
     </GridItem>
