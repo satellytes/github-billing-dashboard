@@ -57,6 +57,7 @@ export const RepositoryTable = ({
                 <TableLink
                   href={`https://github.com/${repository.repositoryName}`}
                   key={index}
+                  target={"_blank"}
                 >
                   {repository.repositoryName}
                 </TableLink>
