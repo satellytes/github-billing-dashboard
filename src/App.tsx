@@ -74,9 +74,9 @@ const App = (): JSX.Element => {
           />
           {csvData && (
             <>
-              <CurrentTimePeriode csvData={csvData} />
-              <RepositoryTable csvData={csvData} />
+              <CurrentTimePeriode />
               <MonthlyWidgetContainer csvData={csvData} />
+              <RepositoryTable csvData={csvData} />
               <ChartContainer csvData={csvData} />
             </>
           )}
