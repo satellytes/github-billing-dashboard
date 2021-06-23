@@ -24,9 +24,8 @@ const StyledFileInput = styled.input`
 
 const InputLabel = styled.label`
   display: inline-block;
-
-  margin-right: 4px;
-  margin-bottom: 4px;
+  margin-right: 16px;
+  margin-bottom: 16px;
   padding: 30px;
   background: rgba(122, 143, 204, 0.3);
   border: 1px solid rgba(122, 143, 204, 0.3);
@@ -40,8 +39,8 @@ const InputLabel = styled.label`
 `;
 const StyledButton = styled.div`
   display: inline-block;
-  margin-right: 4px;
-  margin-bottom: 4px;
+  margin-right: 16px;
+  margin-bottom: 16px;
 
   background: rgba(122, 143, 204, 0.3);
   border: 1px solid rgba(122, 143, 204, 0.3);
