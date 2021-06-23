@@ -13,6 +13,7 @@ import { CurrentTimePeriode } from "./components/headlines/current-time-periode"
 import { RepositoryTable } from "./components/repository-table/repository-table";
 import { MonthlyWidgetContainer } from "./components/monthly-widget-container/monthly-widget-container";
 import { ChartContainer } from "./components/billing-chart/chart-container";
+import { Footer } from "./components/footer/footer";
 
 const MainContent = styled(Grid)`
   max-width: 1280px;
@@ -82,6 +83,7 @@ const App = (): JSX.Element => {
           )}
         </WidgetContext.Provider>
       </MainContent>
+      <Footer />
     </Dropzone>
   );
 };

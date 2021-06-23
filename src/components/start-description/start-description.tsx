@@ -4,14 +4,7 @@ import { Grid, GridItem, up } from "../grid/grid";
 import GithubPersonalSettings from "../../assets/github-personal-1-settings.png";
 import GithubPersonalBillingAndPlans from "../../assets/github-personal-2-billing-and-plans.png";
 import GihtubPersonalGetUsageReport from "../../assets/github-personal-3-get-usage-report.png";
-
-const Subline = styled.h2`
-  font-style: normal;
-  font-weight: normal;
-  font-size: 32px;
-  line-height: 110%;
-  margin-top: 40px;
-`;
+import { Subline } from "../style/typography";
 
 const Text = styled.p`
   font-style: normal;
