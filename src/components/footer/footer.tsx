@@ -8,10 +8,14 @@ const StyledFooter = styled.div`
   text-align: center;
 `;
 
+const FooterText = styled(Paragraph)`
+  margin-bottom: 0;
+`;
+
 export const Footer = (): JSX.Element => {
   return (
     <StyledFooter>
-      <Paragraph>developed by satellytes</Paragraph>
+      <FooterText>developed by satellytes</FooterText>
     </StyledFooter>
   );
 };
