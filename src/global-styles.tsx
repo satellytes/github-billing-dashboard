@@ -34,6 +34,7 @@ export const GlobalStyles = createGlobalStyle`
   button {
     color: #FFF;
     font-size: 1em;
+    font-family: "Coco Gothic",sans-serif;
   }
   
   h1, h2, p, a {
