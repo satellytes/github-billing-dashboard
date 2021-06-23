@@ -20,6 +20,10 @@ const TableLink = styled.a`
   }
 `;
 
+const StyledTable = styled.div`
+  margin-top: 24px;
+`;
+
 const TableEntry = styled.p``;
 
 export const RepositoryTable = ({
@@ -31,35 +35,37 @@ export const RepositoryTable = ({
     : getCostPerRepository(csvData);
   return (
     <GridItem>
-      <Grid>
-        <GridItem xs={6}>
-          {costPerRepository.map((repository, index) => {
-            const isLink = !(
-              repository.repositoryName.includes(" ") ||
-              repository.repositoryName.includes("sample-repository-")
-            );
-            return isLink ? (
-              <TableLink
-                href={`https://github.com/${repository.repositoryName}`}
-                key={index}
-              >
-                {repository.repositoryName}
-              </TableLink>
-            ) : (
-              <TableEntry key={index}>{repository.repositoryName}</TableEntry>
-            );
-          })}
-        </GridItem>
-        <GridItem xs={6}>
-          {costPerRepository.map((repository, index) => {
-            return (
-              <TableEntry key={index}>{`${
-                Math.round(repository.totalCost * 100) / 100
-              }$`}</TableEntry>
-            );
-          })}
-        </GridItem>
-      </Grid>
+      <StyledTable>
+        <Grid>
+          <GridItem xs={6}>
+            {costPerRepository.map((repository, index) => {
+              const isLink = !(
+                repository.repositoryName.includes(" ") ||
+                repository.repositoryName.includes("sample-repository-")
+              );
+              return isLink ? (
+                <TableLink
+                  href={`https://github.com/${repository.repositoryName}`}
+                  key={index}
+                >
+                  {repository.repositoryName}
+                </TableLink>
+              ) : (
+                <TableEntry key={index}>{repository.repositoryName}</TableEntry>
+              );
+            })}
+          </GridItem>
+          <GridItem xs={6}>
+            {costPerRepository.map((repository, index) => {
+              return (
+                <TableEntry key={index}>{`${
+                  Math.round(repository.totalCost * 100) / 100
+                }$`}</TableEntry>
+              );
+            })}
+          </GridItem>
+        </Grid>
+      </StyledTable>
     </GridItem>
   );
 };

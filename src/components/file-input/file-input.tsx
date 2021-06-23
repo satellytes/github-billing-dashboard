@@ -17,9 +17,9 @@ interface FileInputProp {
 
 const Title = styled.h2`
   font-style: normal;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 32px;
-  line-height: 35px;
+  line-height: 110%;
   margin-top: 120px;
 `;
 
