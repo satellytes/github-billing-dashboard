@@ -30,7 +30,6 @@ const InputLabel = styled.label`
   border-radius: 4px;
   text-align: center;
   cursor: pointer;
-
   &:hover {
     border-color: white;
   }
@@ -67,7 +66,7 @@ const InnerButtonContent = styled.div`
 const ButtonText = styled.div``;
 
 const CloseFile = styled.div`
-  margin-left: 32px;
+  margin-left: 24px;
   &:hover {
     font-weight: 900;
   }
@@ -153,6 +152,7 @@ export const FileInput = ({
                         setFilesFromLocalStorage(
                           getBillingFilesFromLocalStorage()
                         );
+                        setHoverOverX(false);
                       }}
                       onMouseEnter={() => {
                         setHoverOverX(true);

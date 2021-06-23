@@ -12,10 +12,25 @@ const FooterText = styled(Paragraph)`
   margin-bottom: 0;
 `;
 
+const FooterLink = styled.a`
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 export const Footer = (): JSX.Element => {
   return (
     <StyledFooter>
-      <FooterText>developed by satellytes</FooterText>
+      <FooterText>
+        developed by{" "}
+        <FooterLink href="https://satellytes.com/" target="_blank">
+          satellytes
+        </FooterLink>
+      </FooterText>
     </StyledFooter>
   );
 };
