@@ -7,7 +7,7 @@ import GihtubPersonalGetUsageReport from "../../assets/github-personal-3-get-usa
 import { Subline, Paragraph } from "../style/typography";
 
 const FlowChartRectangle = styled(GridItem)`
-  margin: 0 24px 0 0;
+  margin-bottom: 24px;
   padding: 20px 20px 40px 20px;
   background: rgba(122, 143, 204, 0.3);
   clip-path: polygon(100% 0, 100% 94%, 50% 100%, 0 94%, 0 0);
@@ -15,11 +15,14 @@ const FlowChartRectangle = styled(GridItem)`
   ${`${up("sm")}{
     clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%); 
     padding: 20px 40px 20px 20px;
+    margin-right: 24px;
+    margin-bottom: 0
    }`}
 
   &:last-child {
     clip-path: none;
     padding: 20px;
+    margin-bottom: 0;
   }
 `;
 
@@ -62,21 +65,21 @@ export const StartDescription = (): JSX.Element => {
           <Subline>How to get your CSV file</Subline>
         </GridItem>
         <GridItem md={4} />
-        <FlowChartRectangle xs={11} sm={4}>
+        <FlowChartRectangle xs={12} sm={4}>
           <FlowChartHeadline>1</FlowChartHeadline>
           <FlowChartDescription>
             Go either to your personal or organization &quot;Settings&quot;
           </FlowChartDescription>
           <FlowChartImage src={GithubPersonalSettings} alt="" />
         </FlowChartRectangle>
-        <FlowChartRectangle xs={11} sm={4}>
+        <FlowChartRectangle xs={12} sm={4}>
           <FlowChartHeadline>2</FlowChartHeadline>
           <FlowChartDescription>
             Click on &quot;Billing & plans&quot;.
           </FlowChartDescription>
           <FlowChartImage src={GithubPersonalBillingAndPlans} alt="" />
         </FlowChartRectangle>
-        <FlowChartRectangle xs={11} sm={4}>
+        <FlowChartRectangle xs={12} sm={4}>
           <FlowChartHeadline>3</FlowChartHeadline>
           <FlowChartDescription>
             Click on &quot;Get usage report&quot;. You will now receive an email

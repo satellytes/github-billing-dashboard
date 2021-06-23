@@ -4,7 +4,7 @@ import { LineChart, Line, YAxis, ResponsiveContainer } from "recharts";
 import { groupEntriesPerDay } from "../../util/group-entries";
 import { WidgetContext } from "../context/widget-context";
 import styled from "styled-components";
-import { GridItem } from "../grid/grid";
+import { GridItem, up } from "../grid/grid";
 import { lightFormat } from "date-fns";
 
 interface MonthlyWidgetProps {
@@ -17,8 +17,7 @@ interface MonthlyWidgetProps {
 }
 
 const StyledWidget = styled.div`
-  margin-right: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   cursor: pointer;
   background: rgba(122, 143, 204, 0.3);
   padding: 16px;
@@ -30,6 +29,10 @@ const StyledWidget = styled.div`
   &:hover {
     border-color: white;
   }
+
+  ${`${up("sm")}{
+  margin-right: 16px;
+   }`}
 `;
 
 const WidgetMainContent = styled.div`
