@@ -31,6 +31,11 @@ export const GlobalStyles = createGlobalStyle`
     color: #FFF;
   }
   
+  button {
+    color: #FFF;
+    font-size: 1em;
+  }
+  
   h1, h2, p, a {
     margin: 0;
     padding: 0;
