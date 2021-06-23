@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UsageReportEntry } from "../../util/csv-reader";
 import { getCostPerRepository } from "../../util/group-entries";
 import { Grid, GridItem, up } from "../grid/grid";
@@ -36,6 +36,14 @@ const TableValue = styled.p`
    }`}
 `;
 
+const Checkbox = styled.input`
+  display: inline-block;
+`;
+
+const CheckboxDiv = styled.div`
+  display: flex;
+`;
+
 export const RepositoryTable = ({
   csvData,
 }: RepositoryTableProps): JSX.Element => {
@@ -43,6 +51,11 @@ export const RepositoryTable = ({
   const costPerRepository = activeMonth.monthName
     ? getCostPerRepository(activeMonth.data)
     : getCostPerRepository(csvData);
+
+  const [activeRepositories, setActiveRepositories] = useState<boolean[]>(
+    costPerRepository.map(() => false)
+  );
+
   return (
     <GridItem>
       <StyledTable>
@@ -53,16 +66,36 @@ export const RepositoryTable = ({
                 repository.repositoryName.includes(" ") ||
                 repository.repositoryName.includes("sample-repository-")
               );
-              return isLink ? (
-                <TableLink
-                  href={`https://github.com/${repository.repositoryName}`}
-                  key={index}
-                  target={"_blank"}
-                >
-                  {repository.repositoryName}
-                </TableLink>
-              ) : (
-                <TableEntry key={index}>{repository.repositoryName}</TableEntry>
+              return (
+                <CheckboxDiv key={index}>
+                  <Checkbox
+                    type="checkbox"
+                    id="scales"
+                    name="scales"
+                    // TODO: add active repositories to context
+                    checked={activeRepositories[index]}
+                    onChange={() =>
+                      setActiveRepositories(
+                        activeRepositories.map((item, position) =>
+                          index === position ? !item : item
+                        )
+                      )
+                    }
+                  />
+                  {isLink ? (
+                    <TableLink
+                      href={`https://github.com/${repository.repositoryName}`}
+                      key={index}
+                      target={"_blank"}
+                    >
+                      {repository.repositoryName}
+                    </TableLink>
+                  ) : (
+                    <TableEntry key={index}>
+                      {repository.repositoryName}
+                    </TableEntry>
+                  )}
+                </CheckboxDiv>
               );
             })}
           </GridItem>
