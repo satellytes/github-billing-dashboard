@@ -72,10 +72,14 @@ const App = (): JSX.Element => {
             handleInputFromLocalStorage={handleInputFromLocalStorage}
             activeFileName={activeFileName}
           />
-          {csvData && <CurrentTimePeriode csvData={csvData} />}
-          {csvData && <RepositoryTable csvData={csvData} />}
-          {csvData && <MonthlyWidgetContainer csvData={csvData} />}
-          {csvData && <ChartContainer csvData={csvData} />}
+          {csvData && (
+            <>
+              <CurrentTimePeriode csvData={csvData} />
+              <RepositoryTable csvData={csvData} />
+              <MonthlyWidgetContainer csvData={csvData} />
+              <ChartContainer csvData={csvData} />
+            </>
+          )}
         </WidgetContext.Provider>
       </MainContent>
     </Dropzone>
