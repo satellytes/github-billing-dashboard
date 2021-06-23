@@ -31,7 +31,8 @@ export const GlobalStyles = createGlobalStyle`
     color: #FFF;
   }
   
-  h1, h2 {
+  h1, h2, p, a {
     margin: 0;
+    padding: 0;
   }
 `;

@@ -4,19 +4,10 @@ import { Grid, GridItem, up } from "../grid/grid";
 import GithubPersonalSettings from "../../assets/github-personal-1-settings.png";
 import GithubPersonalBillingAndPlans from "../../assets/github-personal-2-billing-and-plans.png";
 import GihtubPersonalGetUsageReport from "../../assets/github-personal-3-get-usage-report.png";
-import { Subline } from "../style/typography";
-
-const Text = styled.p`
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 150%;
-  margin-top: 32px;
-  margin-bottom: 32px;
-`;
+import { Subline, Paragraph } from "../style/typography";
 
 const FlowChartRectangle = styled(GridItem)`
-  margin: 40px 24px 0 0;
+  margin: 0 24px 0 0;
   padding: 20px 20px 40px 20px;
   background: rgba(122, 143, 204, 0.3);
   clip-path: polygon(100% 0, 100% 94%, 50% 100%, 0 94%, 0 0);
@@ -58,16 +49,16 @@ export const StartDescription = (): JSX.Element => {
     <GridItem>
       <Grid>
         <GridItem md={7}>
-          <Text>
+          <Paragraph>
             Github provides a CSV file with detailed information about your
             costs. Reading and analyzing this CSV can be cumbersome, which is
             why we created this dashboard. Just add you CSV file and see the
             cost nicely visualized and aggregated.
-          </Text>
-          <Text>
+          </Paragraph>
+          <Paragraph>
             No data gets uploaded to any servers. The CSV file is just stored in
             your browser which only you can access.
-          </Text>
+          </Paragraph>
           <Subline>How to get your CSV file</Subline>
         </GridItem>
         <GridItem md={4} />
