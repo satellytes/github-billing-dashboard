@@ -20,13 +20,19 @@ import {
 import { getDay, lightFormat } from "date-fns";
 import { dayOfWeek, isStringDateValue } from "../../util/date-util";
 import styled from "styled-components";
+import { UsageReportEntry } from "../../util/csv-reader";
 
 const removeZeroDollarEntries = (
   value: number,
   name: string,
-  props: { value: number }
+  props: { value: number; payload: { entries: UsageReportEntry[] } },
+  firstRepository: string
 ): [string | null, string | null, { value: number } | null] => {
+  //TODO: fix bug: "no expenses, yeah" doesn't show up sometimes
   if (props.value === 0) {
+    if (props.payload.entries.length === 0 && name === firstRepository) {
+      return ["no expenses, yeah", null, null];
+    }
     return [null, null, null];
   } else {
     return [`${value}$`, name, props];
@@ -76,8 +82,9 @@ export const BillingChart = ({
   diagrammType,
 }: BillingChartProps): JSX.Element => {
   const [activeRepository, setActiveRepository] = useState("");
-  const [currentData, setCurrentData] =
-    useState<UsageReportDay[] | UsageReportWeek[]>();
+  const [currentData, setCurrentData] = useState<
+    UsageReportDay[] | UsageReportWeek[]
+  >();
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -88,6 +95,7 @@ export const BillingChart = ({
     } else {
       setCurrentData(entriesGroupedPerWeek);
     }
+    //setTimeout prevents chart legend overlapping
     setTimeout(() => {
       setLoaded(true);
     }, 0);
@@ -139,9 +147,11 @@ export const BillingChart = ({
   );
   const sharedTooltip = (
     <CustomTooltip
-      formatter={(value: number, name: string, props: { value: number }) =>
-        removeZeroDollarEntries(value, name, props)
-      }
+      formatter={(
+        value: number,
+        name: string,
+        props: { value: number; payload: { entries: UsageReportEntry[] } }
+      ) => removeZeroDollarEntries(value, name, props, repositoryNames[0])}
       labelFormatter={(label) =>
         isStringDateValue(label)
           ? `${dayOfWeek[getDay(new Date(label))]}, ${lightFormat(
