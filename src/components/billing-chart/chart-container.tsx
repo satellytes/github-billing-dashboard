@@ -23,7 +23,6 @@ const ChartDiv = styled.div`
   );
   border-radius: 4px;
   margin-top: 24px;
-  margin-bottom: 437px;
   padding-right: 24px;
 `;
 

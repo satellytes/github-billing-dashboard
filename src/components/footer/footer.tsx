@@ -1,23 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { Paragraph } from "../style/typography";
 
-const StyledHeader = styled.div`
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+const StyledFooter = styled.div`
   padding: 20px 24px 14px 24px;
-`;
-
-const Logo = styled.h1`
-  margin-left: 24px;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 31px;
+  margin-top: 188px;
+  text-align: center;
 `;
 
 export const Footer = (): JSX.Element => {
   return (
-    <StyledHeader>
-      <Logo>Satellytes</Logo>
-    </StyledHeader>
+    <StyledFooter>
+      <Paragraph>developed by satellytes</Paragraph>
+    </StyledFooter>
   );
 };
