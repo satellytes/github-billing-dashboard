@@ -28,7 +28,7 @@ export const Footer = (): JSX.Element => {
       <FooterText>
         developed by{" "}
         <FooterLink href="https://satellytes.com/" target="_blank">
-          satellytes
+          Satellytes
         </FooterLink>
       </FooterText>
     </StyledFooter>
