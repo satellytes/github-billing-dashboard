@@ -184,6 +184,7 @@ export const BillingChart = ({
                 fill={colors[index]}
                 key={index}
                 name={repositoryName}
+                isAnimationActive={false}
               />
             );
           })}
@@ -206,6 +207,7 @@ export const BillingChart = ({
                 name={repositoryName}
                 strokeWidth={4}
                 dot={false}
+                isAnimationActive={false}
               />
             );
           })}
