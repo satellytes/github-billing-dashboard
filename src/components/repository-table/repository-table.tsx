@@ -1,9 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UsageReportEntry } from "../../util/csv-reader";
-import { getCostPerRepository } from "../../util/group-entries";
+import {
+  filterEntriesByRepositoryName,
+  getCostPerRepository,
+} from "../../util/group-entries";
 import { Grid, GridItem, up } from "../grid/grid";
 import styled from "styled-components";
 import { WidgetContext } from "../context/widget-context";
+import { RepositoryTableContext } from "../context/repository-table-context";
 
 interface RepositoryTableProps {
   csvData: UsageReportEntry[];
@@ -48,13 +52,29 @@ export const RepositoryTable = ({
   csvData,
 }: RepositoryTableProps): JSX.Element => {
   const { activeMonth } = useContext(WidgetContext);
+  const { setActiveRepositories } = useContext(RepositoryTableContext);
   const costPerRepository = activeMonth.monthName
     ? getCostPerRepository(activeMonth.data)
     : getCostPerRepository(csvData);
 
-  const [activeRepositories, setActiveRepositories] = useState<boolean[]>(
-    costPerRepository.map(() => false)
+  const [checkedRepositories, setCheckedRepositories] = useState<boolean[]>(
+    costPerRepository.map(() => true)
   );
+
+  useEffect(() => {
+    setCheckedRepositories(costPerRepository.map(() => true));
+  }, [csvData, activeMonth]);
+
+  useEffect(() => {
+    const currentActiveRepositories: any[] = [];
+    checkedRepositories.forEach((isChecked, index) => {
+      if (isChecked) {
+        currentActiveRepositories.push(costPerRepository[index].repositoryName);
+      }
+    });
+    setActiveRepositories(currentActiveRepositories);
+    console.log(currentActiveRepositories);
+  }, [checkedRepositories]);
 
   return (
     <GridItem>
@@ -72,15 +92,14 @@ export const RepositoryTable = ({
                     type="checkbox"
                     id="scales"
                     name="scales"
-                    // TODO: add active repositories to context
-                    checked={activeRepositories[index]}
-                    onChange={() =>
-                      setActiveRepositories(
-                        activeRepositories.map((item, position) =>
+                    checked={checkedRepositories[index]}
+                    onChange={() => {
+                      setCheckedRepositories(
+                        checkedRepositories.map((item, position) =>
                           index === position ? !item : item
                         )
-                      )
-                    }
+                      );
+                    }}
                   />
                   {isLink ? (
                     <TableLink

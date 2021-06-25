@@ -14,6 +14,7 @@ import { RepositoryTable } from "./components/repository-table/repository-table"
 import { MonthlyWidgetContainer } from "./components/monthly-widget-container/monthly-widget-container";
 import { ChartContainer } from "./components/billing-chart/chart-container";
 import { Footer } from "./components/footer/footer";
+import { RepositoryTableContext } from "./components/context/repository-table-context";
 
 const MainContent = styled(Grid)`
   max-width: 1280px;
@@ -29,6 +30,22 @@ const App = (): JSX.Element => {
     data: UsageReportEntry[];
   }>({ monthName: "", data: [] });
 
+  const repositoryNames = (): string[] => {
+    if (csvData) {
+      const repositoryNamesWithDuplicates = csvData.map(
+        (entry) => entry.repositorySlug
+      );
+      return repositoryNamesWithDuplicates.filter(
+        (value, index) => repositoryNamesWithDuplicates.indexOf(value) === index
+      );
+    } else {
+      return [];
+    }
+  };
+
+  const [selectedRepositoriesFromTable, setSelectedRepositoriesFromTable] =
+    useState<any[]>([]);
+
   //deactivate active widget when new data is loaded
   useEffect(() => {
     setSelectedMonthFromWidget({ monthName: "", data: [] });
@@ -39,11 +56,16 @@ const App = (): JSX.Element => {
       setCsvData(res);
       setActiveFileName("");
       setActiveFileName(file.name);
+      setSelectedRepositoriesFromTable(repositoryNames());
+      console.log(selectedRepositoriesFromTable);
     });
   };
 
   const handleInputFromLocalStorage = (csvData: UsageReportEntry[]) => {
     setCsvData(csvData);
+    console.log(repositoryNames());
+    setSelectedRepositoriesFromTable(repositoryNames());
+    console.log(selectedRepositoriesFromTable);
   };
 
   const handleWidgetClick = (month: string, data: UsageReportEntry[]) => {
@@ -52,6 +74,10 @@ const App = (): JSX.Element => {
     } else {
       setSelectedMonthFromWidget({ monthName: month, data: data });
     }
+  };
+
+  const handleTableCheckboxClick = (repositories: any[]) => {
+    setSelectedRepositoriesFromTable(repositories);
   };
 
   return (
@@ -73,14 +99,25 @@ const App = (): JSX.Element => {
             handleInputFromLocalStorage={handleInputFromLocalStorage}
             activeFileName={activeFileName}
           />
-          {csvData && (
-            <>
-              <CurrentTimePeriode />
-              <MonthlyWidgetContainer csvData={csvData} />
-              <RepositoryTable csvData={csvData} />
-              <ChartContainer csvData={csvData} />
-            </>
-          )}
+          <RepositoryTableContext.Provider
+            value={{
+              activeRepositories: selectedRepositoriesFromTable,
+              setActiveRepositories: (repositories: any[]) =>
+                handleTableCheckboxClick(repositories),
+            }}
+          >
+            {csvData && (
+              <>
+                <CurrentTimePeriode />
+                <MonthlyWidgetContainer csvData={csvData} />
+                <RepositoryTable csvData={csvData} />
+                <ChartContainer
+                  csvData={csvData}
+                  repositoryNames={repositoryNames()}
+                />
+              </>
+            )}
+          </RepositoryTableContext.Provider>
         </WidgetContext.Provider>
       </MainContent>
       <Footer />
