@@ -83,16 +83,21 @@ export const RepositoryTable = ({
 
   useEffect(() => {
     setCheckedRepositories(costPerRepository.map(() => true));
+    setGlobalCheckbox(true);
   }, [csvData, activeMonth]);
 
   useEffect(() => {
-    const currentActiveRepositories: string[] = [];
-    checkedRepositories.forEach((isChecked, index) => {
-      if (isChecked) {
-        currentActiveRepositories.push(costPerRepository[index].repositoryName);
-      }
-    });
-    setActiveRepositories(currentActiveRepositories);
+    if (checkedRepositories.length === costPerRepository.length) {
+      const currentActiveRepositories: string[] = [];
+      checkedRepositories.forEach((isChecked, index) => {
+        if (isChecked) {
+          currentActiveRepositories.push(
+            costPerRepository[index].repositoryName
+          );
+        }
+      });
+      setActiveRepositories(currentActiveRepositories);
+    }
   }, [checkedRepositories]);
 
   const total = costPerRepository.reduce(
