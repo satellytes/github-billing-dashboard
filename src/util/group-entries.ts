@@ -157,18 +157,14 @@ export const groupEntriesPerMonth = (
 type UsageReportGeneralGrouped = UsageReportDay[] | UsageReportWeek[];
 export const filterEntriesByRepositoryName = (
   groupedEntries: UsageReportGeneralGrouped,
-  repositoryName: string
+  repositoryNames: string[]
 ): UsageReportGeneralGrouped => {
-  if (repositoryName === "") {
-    return groupedEntries;
-  }
   return <UsageReportGeneralGrouped>groupedEntries.map(
     (entry: { entries: UsageReportEntry[] }) => {
       return {
         ...entry,
-        entries: entry.entries.filter(
-          (usageReportEntry: UsageReportEntry) =>
-            usageReportEntry.repositorySlug === repositoryName
+        entries: entry.entries.filter((usageReportEntry: UsageReportEntry) =>
+          repositoryNames.includes(usageReportEntry.repositorySlug)
         ),
       };
     }

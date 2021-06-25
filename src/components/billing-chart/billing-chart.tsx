@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   BarChart,
   LineChart,
@@ -21,6 +21,7 @@ import { getDay, lightFormat } from "date-fns";
 import { dayOfWeek, isStringDateValue } from "../../util/date-util";
 import styled from "styled-components";
 import { UsageReportEntry } from "../../util/csv-reader";
+import { RepositoryTableContext } from "../context/repository-table-context";
 
 const removeZeroDollarEntries = (
   value: number,
@@ -81,19 +82,25 @@ export const BillingChart = ({
   entriesGroupedPerWeek,
   diagrammType,
 }: BillingChartProps): JSX.Element => {
-  const [activeRepository, setActiveRepository] = useState("");
+  const [checkedRepositories, setCheckedRepository] = useState("");
   const [currentData, setCurrentData] = useState<
     UsageReportDay[] | UsageReportWeek[]
   >();
   const [loaded, setLoaded] = useState(false);
 
+  const { activeRepositories } = useContext(RepositoryTableContext);
+  console.log("billingchart", activeRepositories);
+
   useEffect(() => {
     setLoaded(false);
-    setActiveRepository("");
     if (groupedBy === "daily") {
-      setCurrentData(entriesGroupedPerDay);
+      setCurrentData(
+        filterEntriesByRepositoryName(entriesGroupedPerDay, activeRepositories)
+      );
     } else {
-      setCurrentData(entriesGroupedPerWeek);
+      setCurrentData(
+        filterEntriesByRepositoryName(entriesGroupedPerWeek, activeRepositories)
+      );
     }
     //setTimeout prevents chart legend overlapping
     setTimeout(() => {
@@ -103,25 +110,15 @@ export const BillingChart = ({
 
   useEffect(() => {
     if (groupedBy === "daily") {
-      activeRepository === ""
-        ? setCurrentData(entriesGroupedPerDay)
-        : setCurrentData(
-            filterEntriesByRepositoryName(
-              entriesGroupedPerDay,
-              activeRepository
-            )
-          );
+      setCurrentData(
+        filterEntriesByRepositoryName(entriesGroupedPerDay, activeRepositories)
+      );
     } else {
-      activeRepository === ""
-        ? setCurrentData(entriesGroupedPerWeek)
-        : setCurrentData(
-            filterEntriesByRepositoryName(
-              entriesGroupedPerWeek,
-              activeRepository
-            )
-          );
+      setCurrentData(
+        filterEntriesByRepositoryName(entriesGroupedPerWeek, activeRepositories)
+      );
     }
-  }, [activeRepository]);
+  }, [activeRepositories]);
 
   const sharedXAxis = (
     <XAxis
@@ -190,15 +187,14 @@ export const BillingChart = ({
   const sharedLegend = (
     <Legend
       /* eslint-disable  @typescript-eslint/no-explicit-any */
-      onClick={(repository: any) => {
-        !activeRepository || activeRepository !== repository.value
-          ? setActiveRepository(repository.value)
-          : setActiveRepository("");
-      }}
+      // onClick={(repository: any) => {
+      //   !checkedRepositories || checkedRepositories !== repository.value
+      //     ? setCheckedRepository(repository.value)
+      //     : setCheckedRepository("");
+      // }}
       formatter={(repositoryName) => (
-        <LegendLabel isActive={activeRepository === repositoryName}>
-          {repositoryName}
-        </LegendLabel>
+        // TODO REMOVE PROPS
+        <LegendLabel isActive={false}>{repositoryName}</LegendLabel>
       )}
     />
   );
@@ -245,11 +241,7 @@ export const BillingChart = ({
                 return (
                   <Line
                     type="monotone"
-                    stroke={
-                      activeRepository === repositoryName
-                        ? "white"
-                        : colors[index]
-                    }
+                    stroke={colors[index]}
                     dataKey={(currentEntry) =>
                       getPriceByRepositoryName(
                         repositoryName,
