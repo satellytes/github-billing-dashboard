@@ -19,18 +19,6 @@ const TableEntry = styled.p`
   margin-left: 8px;
 `;
 
-const TableLink = styled.a`
-  display: block;
-  text-decoration: none;
-  color: white;
-  margin-bottom: 8px;
-  margin-left: 8px;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
 const TableValue = styled.p`
   margin-bottom: 8px;
   text-align: right;
@@ -130,10 +118,6 @@ export const RepositoryTable = ({
         <Grid>
           <GridItem xs={6}>
             {costPerRepository.map((repository, index) => {
-              const isLink = !(
-                repository.repositoryName.includes(" ") ||
-                repository.repositoryName.includes("sample-repository-")
-              );
               return (
                 <CheckboxDiv key={index}>
                   <label>
@@ -148,19 +132,9 @@ export const RepositoryTable = ({
                       }}
                     />
                   </label>
-                  {isLink ? (
-                    <TableLink
-                      href={`https://github.com/${repository.repositoryName}`}
-                      key={index}
-                      target={"_blank"}
-                    >
-                      {repository.repositoryName}
-                    </TableLink>
-                  ) : (
-                    <TableEntry key={index}>
-                      {repository.repositoryName}
-                    </TableEntry>
-                  )}
+                  <TableEntry key={index}>
+                    {repository.repositoryName}
+                  </TableEntry>
                 </CheckboxDiv>
               );
             })}
