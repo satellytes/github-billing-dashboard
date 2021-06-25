@@ -30,6 +30,7 @@ const removeZeroDollarEntries = (
 ): [string | null, string | null, { value: number } | null] => {
   //TODO: fix bug: "no expenses, yeah" doesn't show up sometimes
   if (props.value === 0) {
+    console.log(props);
     if (props.payload.entries.length === 0 && name === firstRepository) {
       return ["no expenses, yeah", null, null];
     }

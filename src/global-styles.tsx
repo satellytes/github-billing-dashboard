@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
-import CocoGothicRegularTFF from "./fonts/Coco-Gothic-Regular-TTF.ttf";
-import CocoGothicBoldTFF from "./fonts/Coco-Gothic-Bold-TTF.ttf";
-import CocoGothicHeavyTFF from "./fonts/Coco-Gothic-Heavy-TTF.ttf";
+import CocoGothicRegularTFF from "./assets/fonts/Coco-Gothic-Regular-TTF.ttf";
+import CocoGothicBoldTFF from "./assets/fonts/Coco-Gothic-Bold-TTF.ttf";
+import CocoGothicHeavyTFF from "./assets/fonts/Coco-Gothic-Heavy-TTF.ttf";
 
 export const GlobalStyles = createGlobalStyle`
   @font-face {
