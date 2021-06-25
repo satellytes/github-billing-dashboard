@@ -25,13 +25,12 @@ const InputLabel = styled.label`
   margin-right: 16px;
   margin-bottom: 16px;
   padding: 8px;
-  background: rgba(122, 143, 204, 0.3);
-  border: 1px solid rgba(122, 143, 204, 0.3);
+  background: linear-gradient(275.41deg, #543fd7 0%, #2756fd 100%);
   border-radius: 4px;
   text-align: center;
   cursor: pointer;
   &:hover {
-    border-color: white;
+    border: 1px solid white;
   }
 `;
 
@@ -43,19 +42,19 @@ const StyledButton = styled.button<{
   margin-right: 16px;
   margin-bottom: 16px;
   padding: 8px;
-  background: rgba(122, 143, 204, 0.3);
-  border: 1px solid rgba(122, 143, 204, 0.3);
+  background: linear-gradient(275.41deg, #543fd7 0%, #2756fd 100%);
+  border: none;
   border-radius: 4px;
 
   cursor: pointer;
 
   &:hover {
     ${(props: { isHoverOverX: boolean }) =>
-      !props.isHoverOverX ? "border-color: white" : ""};
+      !props.isHoverOverX ? "border: 1px solid white" : ""};
   }
 
   ${(props: { isActive: boolean }) =>
-    props.isActive ? "border-color: white" : ""};
+    props.isActive ? "border: 1px solid white" : ""};
 `;
 
 const InnerButtonContent = styled.div`
