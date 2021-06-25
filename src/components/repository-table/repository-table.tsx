@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UsageReportEntry } from "../../util/csv-reader";
-import {
-  filterEntriesByRepositoryName,
-  getCostPerRepository,
-} from "../../util/group-entries";
+import { getCostPerRepository } from "../../util/group-entries";
 import { Grid, GridItem, up } from "../grid/grid";
 import styled from "styled-components";
 import { WidgetContext } from "../context/widget-context";
@@ -66,14 +63,13 @@ export const RepositoryTable = ({
   }, [csvData, activeMonth]);
 
   useEffect(() => {
-    const currentActiveRepositories: any[] = [];
+    const currentActiveRepositories: string[] = [];
     checkedRepositories.forEach((isChecked, index) => {
       if (isChecked) {
         currentActiveRepositories.push(costPerRepository[index].repositoryName);
       }
     });
     setActiveRepositories(currentActiveRepositories);
-    console.log(currentActiveRepositories);
   }, [checkedRepositories]);
 
   return (
