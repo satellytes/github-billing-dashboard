@@ -144,7 +144,7 @@ export const RepositoryTable = ({
               return (
                 <TableValue key={index}>{`${
                   Math.round(repository.totalCost * 100) / 100
-                }$`}</TableValue>
+                } $`}</TableValue>
               );
             })}
           </GridItem>

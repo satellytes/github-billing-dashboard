@@ -35,7 +35,7 @@ const removeZeroDollarEntries = (
     }
     return [null, null, null];
   } else {
-    return [`${value}$`, name, props];
+    return [`${value} $`, name, props];
   }
 };
 
