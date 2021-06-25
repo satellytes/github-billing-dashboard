@@ -6,7 +6,6 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Legend,
   ResponsiveContainer,
   Line,
   Tooltip,
@@ -30,7 +29,6 @@ const removeZeroDollarEntries = (
 ): [string | null, string | null, { value: number } | null] => {
   //TODO: fix bug: "no expenses, yeah" doesn't show up sometimes
   if (props.value === 0) {
-    console.log(props);
     if (props.payload.entries.length === 0 && name === firstRepository) {
       return ["no expenses, yeah", null, null];
     }
@@ -76,12 +74,10 @@ export const BillingChart = ({
   const [currentData, setCurrentData] = useState<
     UsageReportDay[] | UsageReportWeek[]
   >();
-  const [loaded, setLoaded] = useState(false);
 
   const { activeRepositories } = useContext(RepositoryTableContext);
 
   useEffect(() => {
-    setLoaded(false);
     if (groupedBy === "daily") {
       setCurrentData(
         filterEntriesByRepositoryName(entriesGroupedPerDay, activeRepositories)
@@ -91,10 +87,6 @@ export const BillingChart = ({
         filterEntriesByRepositoryName(entriesGroupedPerWeek, activeRepositories)
       );
     }
-    //setTimeout prevents chart legend overlapping
-    setTimeout(() => {
-      setLoaded(true);
-    }, 0);
   }, [entriesGroupedPerDay, entriesGroupedPerWeek]);
 
   useEffect(() => {
@@ -175,65 +167,50 @@ export const BillingChart = ({
   );
 
   return (
-    <>
-      {loaded && (
-        <ResponsiveContainer width="100%" height={700}>
-          {diagrammType === "Bar" ? (
-            <BarChart data={currentData}>
-              <CartesianGrid
-                vertical={false}
-                stroke={"rgba(255, 255, 255, 0.1)"}
+    <ResponsiveContainer width="100%" height={700}>
+      {diagrammType === "Bar" ? (
+        <BarChart data={currentData}>
+          <CartesianGrid vertical={false} stroke={"rgba(255, 255, 255, 0.1)"} />
+          {sharedXAxis}
+          {sharedYAxis}
+          {sharedTooltip}
+          {repositoryNames.map((repositoryName, index) => {
+            return (
+              <Bar
+                dataKey={(currentEntry) =>
+                  getPriceByRepositoryName(repositoryName, currentEntry.entries)
+                }
+                stackId="a"
+                fill={colors[index]}
+                key={index}
+                name={repositoryName}
               />
-              {sharedXAxis}
-              {sharedYAxis}
-              {sharedTooltip}
-              <Legend />
-              {repositoryNames.map((repositoryName, index) => {
-                return (
-                  <Bar
-                    dataKey={(currentEntry) =>
-                      getPriceByRepositoryName(
-                        repositoryName,
-                        currentEntry.entries
-                      )
-                    }
-                    stackId="a"
-                    fill={colors[index]}
-                    key={index}
-                    name={repositoryName}
-                  />
-                );
-              })}
-            </BarChart>
-          ) : (
-            <LineChart data={currentData}>
-              <CartesianGrid stroke={"rgba(255, 255, 255, 0.1)"} />
-              {sharedXAxis}
-              {sharedYAxis}
-              {sharedTooltip}
-              <Legend />
-              {repositoryNames.map((repositoryName, index) => {
-                return (
-                  <Line
-                    type="monotone"
-                    stroke={colors[index]}
-                    dataKey={(currentEntry) =>
-                      getPriceByRepositoryName(
-                        repositoryName,
-                        currentEntry.entries
-                      )
-                    }
-                    key={index}
-                    name={repositoryName}
-                    strokeWidth={4}
-                    dot={false}
-                  />
-                );
-              })}
-            </LineChart>
-          )}
-        </ResponsiveContainer>
+            );
+          })}
+        </BarChart>
+      ) : (
+        <LineChart data={currentData}>
+          <CartesianGrid stroke={"rgba(255, 255, 255, 0.1)"} />
+          {sharedXAxis}
+          {sharedYAxis}
+          {sharedTooltip}
+          {repositoryNames.map((repositoryName, index) => {
+            return (
+              <Line
+                type="monotone"
+                stroke={colors[index]}
+                dataKey={(currentEntry) =>
+                  getPriceByRepositoryName(repositoryName, currentEntry.entries)
+                }
+                key={index}
+                name={repositoryName}
+                strokeWidth={4}
+                dot={false}
+              />
+            );
+          })}
+        </LineChart>
       )}
-    </>
+    </ResponsiveContainer>
   );
 };

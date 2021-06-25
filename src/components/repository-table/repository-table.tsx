@@ -126,10 +126,14 @@ export const RepositoryTable = ({
       }
     });
 
-    setCheckedRepositories(
-      checkedRepositories.map(() => !isEveryCheckboxActive)
-    );
-    setGlobalCheckbox(!isEveryCheckboxActive);
+    if (isEveryCheckboxActive && !globalCheckbox) {
+      setGlobalCheckbox(!globalCheckbox);
+    } else {
+      setCheckedRepositories(
+        checkedRepositories.map(() => !isEveryCheckboxActive)
+      );
+      setGlobalCheckbox(!isEveryCheckboxActive);
+    }
   };
 
   return (
