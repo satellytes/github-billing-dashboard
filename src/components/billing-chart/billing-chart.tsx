@@ -19,7 +19,6 @@ import {
 } from "../../util/group-entries";
 import { getDay, lightFormat } from "date-fns";
 import { dayOfWeek, isStringDateValue } from "../../util/date-util";
-import styled from "styled-components";
 import { UsageReportEntry } from "../../util/csv-reader";
 import { RepositoryTableContext } from "../context/repository-table-context";
 
@@ -56,15 +55,6 @@ const colors = [
   "#3D5EB3",
 ];
 
-const LegendLabel = styled.span<{ isActive: boolean }>`
-  cursor: pointer;
-  text-decoration: ${(props) => (props.isActive ? "underline" : "none")};
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
 interface BillingChartProps {
   groupedBy: "daily" | "weekly";
   maxValueOfYAxis: number;
@@ -82,14 +72,12 @@ export const BillingChart = ({
   entriesGroupedPerWeek,
   diagrammType,
 }: BillingChartProps): JSX.Element => {
-  const [checkedRepositories, setCheckedRepository] = useState("");
   const [currentData, setCurrentData] = useState<
     UsageReportDay[] | UsageReportWeek[]
   >();
   const [loaded, setLoaded] = useState(false);
 
   const { activeRepositories } = useContext(RepositoryTableContext);
-  console.log("billingchart", activeRepositories);
 
   useEffect(() => {
     setLoaded(false);
@@ -184,20 +172,6 @@ export const BillingChart = ({
       cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
     />
   );
-  const sharedLegend = (
-    <Legend
-      /* eslint-disable  @typescript-eslint/no-explicit-any */
-      // onClick={(repository: any) => {
-      //   !checkedRepositories || checkedRepositories !== repository.value
-      //     ? setCheckedRepository(repository.value)
-      //     : setCheckedRepository("");
-      // }}
-      formatter={(repositoryName) => (
-        // TODO REMOVE PROPS
-        <LegendLabel isActive={false}>{repositoryName}</LegendLabel>
-      )}
-    />
-  );
 
   return (
     <>
@@ -212,7 +186,7 @@ export const BillingChart = ({
               {sharedXAxis}
               {sharedYAxis}
               {sharedTooltip}
-              {sharedLegend}
+              <Legend />
               {repositoryNames.map((repositoryName, index) => {
                 return (
                   <Bar
@@ -236,7 +210,7 @@ export const BillingChart = ({
               {sharedXAxis}
               {sharedYAxis}
               {sharedTooltip}
-              {sharedLegend}
+              <Legend />
               {repositoryNames.map((repositoryName, index) => {
                 return (
                   <Line

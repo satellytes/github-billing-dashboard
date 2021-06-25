@@ -1,9 +1,8 @@
 import { createContext } from "react";
 
-//TODO REMOVE ANY
 interface RepositoryTableType {
-  activeRepositories: any[];
-  setActiveRepositories: (activeRepositories: any[]) => void;
+  activeRepositories: string[];
+  setActiveRepositories: (activeRepositories: string[]) => void;
 }
 
 export const RepositoryTableContext = createContext<RepositoryTableType>({

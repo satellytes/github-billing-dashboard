@@ -29,22 +29,8 @@ const App = (): JSX.Element => {
     monthName: string;
     data: UsageReportEntry[];
   }>({ monthName: "", data: [] });
-
-  const repositoryNames = (): string[] => {
-    if (csvData) {
-      const repositoryNamesWithDuplicates = csvData.map(
-        (entry) => entry.repositorySlug
-      );
-      return repositoryNamesWithDuplicates.filter(
-        (value, index) => repositoryNamesWithDuplicates.indexOf(value) === index
-      );
-    } else {
-      return [];
-    }
-  };
-
   const [selectedRepositoriesFromTable, setSelectedRepositoriesFromTable] =
-    useState<any[]>([]);
+    useState<string[]>([]);
 
   //deactivate active widget when new data is loaded
   useEffect(() => {
@@ -56,16 +42,11 @@ const App = (): JSX.Element => {
       setCsvData(res);
       setActiveFileName("");
       setActiveFileName(file.name);
-      setSelectedRepositoriesFromTable(repositoryNames());
-      console.log(selectedRepositoriesFromTable);
     });
   };
 
   const handleInputFromLocalStorage = (csvData: UsageReportEntry[]) => {
     setCsvData(csvData);
-    console.log(repositoryNames());
-    setSelectedRepositoriesFromTable(repositoryNames());
-    console.log(selectedRepositoriesFromTable);
   };
 
   const handleWidgetClick = (month: string, data: UsageReportEntry[]) => {
@@ -76,7 +57,7 @@ const App = (): JSX.Element => {
     }
   };
 
-  const handleTableCheckboxClick = (repositories: any[]) => {
+  const handleTableCheckboxClick = (repositories: string[]) => {
     setSelectedRepositoriesFromTable(repositories);
   };
 
@@ -102,7 +83,7 @@ const App = (): JSX.Element => {
           <RepositoryTableContext.Provider
             value={{
               activeRepositories: selectedRepositoriesFromTable,
-              setActiveRepositories: (repositories: any[]) =>
+              setActiveRepositories: (repositories: string[]) =>
                 handleTableCheckboxClick(repositories),
             }}
           >
@@ -111,10 +92,7 @@ const App = (): JSX.Element => {
                 <CurrentTimePeriode />
                 <MonthlyWidgetContainer csvData={csvData} />
                 <RepositoryTable csvData={csvData} />
-                <ChartContainer
-                  csvData={csvData}
-                  repositoryNames={repositoryNames()}
-                />
+                <ChartContainer csvData={csvData} />
               </>
             )}
           </RepositoryTableContext.Provider>
