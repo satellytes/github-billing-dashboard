@@ -79,6 +79,7 @@ export const RepositoryTable = ({
   const [checkedRepositories, setCheckedRepositories] = useState<boolean[]>(
     costPerRepository.map(() => true)
   );
+  const [globalCheckbox, setGlobalCheckbox] = useState<boolean>(true);
 
   useEffect(() => {
     setCheckedRepositories(costPerRepository.map(() => true));
@@ -93,6 +94,11 @@ export const RepositoryTable = ({
     });
     setActiveRepositories(currentActiveRepositories);
   }, [checkedRepositories]);
+
+  const total = costPerRepository.reduce(
+    (acc, repository2) => acc + repository2.totalCost,
+    0
+  );
 
   const Checkbox = ({
     checked,
@@ -112,6 +118,20 @@ export const RepositoryTable = ({
     </CheckboxContainer>
   );
 
+  const handleGlobalCheckboxClick = () => {
+    let isEveryCheckboxActive = true;
+    checkedRepositories.forEach((repository) => {
+      if (!repository) {
+        isEveryCheckboxActive = false;
+      }
+    });
+
+    setCheckedRepositories(
+      checkedRepositories.map(() => !isEveryCheckboxActive)
+    );
+    setGlobalCheckbox(!isEveryCheckboxActive);
+  };
+
   return (
     <GridItem>
       <StyledTable>
@@ -124,11 +144,25 @@ export const RepositoryTable = ({
                     <Checkbox
                       checked={checkedRepositories[index]}
                       onChange={() => {
+                        let isOneCheckBoxInactive = false;
                         setCheckedRepositories(
-                          checkedRepositories.map((item, position) =>
-                            index === position ? !item : item
-                          )
+                          checkedRepositories.map((item, position) => {
+                            if (!item) {
+                              isOneCheckBoxInactive = true;
+                            }
+                            if (index === position) {
+                              if (item) {
+                                isOneCheckBoxInactive = true;
+                              }
+                              return !item;
+                            } else {
+                              return item;
+                            }
+                          })
                         );
+                        if (isOneCheckBoxInactive) {
+                          setGlobalCheckbox(false);
+                        }
                       }}
                     />
                   </label>
@@ -138,6 +172,15 @@ export const RepositoryTable = ({
                 </CheckboxDiv>
               );
             })}
+            <CheckboxDiv>
+              <label>
+                <Checkbox
+                  checked={globalCheckbox}
+                  onChange={() => handleGlobalCheckboxClick()}
+                />
+              </label>
+              <TableEntry>Total:</TableEntry>
+            </CheckboxDiv>
           </GridItem>
           <GridItem xs={6}>
             {costPerRepository.map((repository, index) => {
@@ -147,6 +190,7 @@ export const RepositoryTable = ({
                 } $`}</TableValue>
               );
             })}
+            <TableValue>{Math.round(total * 100) / 100} $</TableValue>
           </GridItem>
         </Grid>
       </StyledTable>
