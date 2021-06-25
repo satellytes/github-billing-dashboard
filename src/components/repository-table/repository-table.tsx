@@ -16,6 +16,7 @@ const StyledTable = styled.div`
 
 const TableEntry = styled.p`
   margin-bottom: 8px;
+  margin-left: 8px;
 `;
 
 const TableLink = styled.a`
@@ -23,6 +24,7 @@ const TableLink = styled.a`
   text-decoration: none;
   color: white;
   margin-bottom: 8px;
+  margin-left: 8px;
 
   &:hover {
     text-decoration: underline;
@@ -37,8 +39,40 @@ const TableValue = styled.p`
    }`}
 `;
 
-const Checkbox = styled.input`
+//https://medium.com/@colebemis/building-a-checkbox-component-with-react-and-styled-components-8d3aa1d826dd
+const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
+  // Hide checkbox visually but remain accessible to screen readers.
+  // Source: https://polished.js.org/docs/#hidevisually
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`;
+const Icon = styled.svg`
+  fill: none;
+  stroke: white;
+  stroke-width: 2px;
+`;
+const StyledCheckbox = styled.div<{ checked: boolean }>`
   display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: rgba(122, 143, 204, 0.3);
+  border-radius: 3px;
+  transition: all 150ms;
+
+  ${Icon} {
+    visibility: ${(props) => (props.checked ? "visible" : "hidden")};
+  }
+`;
+const CheckboxContainer = styled.div`
+  display: inline-block;
+  vertical-align: middle;
 `;
 
 const CheckboxDiv = styled.div`
@@ -72,6 +106,24 @@ export const RepositoryTable = ({
     setActiveRepositories(currentActiveRepositories);
   }, [checkedRepositories]);
 
+  const Checkbox = ({
+    checked,
+    onChange,
+    ...props
+  }: {
+    checked: boolean;
+    onChange: () => void;
+  }) => (
+    <CheckboxContainer>
+      <HiddenCheckbox checked={checked} onChange={onChange} {...props} />
+      <StyledCheckbox checked={checked}>
+        <Icon viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12" />
+        </Icon>
+      </StyledCheckbox>
+    </CheckboxContainer>
+  );
+
   return (
     <GridItem>
       <StyledTable>
@@ -84,19 +136,18 @@ export const RepositoryTable = ({
               );
               return (
                 <CheckboxDiv key={index}>
-                  <Checkbox
-                    type="checkbox"
-                    id="scales"
-                    name="scales"
-                    checked={checkedRepositories[index]}
-                    onChange={() => {
-                      setCheckedRepositories(
-                        checkedRepositories.map((item, position) =>
-                          index === position ? !item : item
-                        )
-                      );
-                    }}
-                  />
+                  <label>
+                    <Checkbox
+                      checked={checkedRepositories[index]}
+                      onChange={() => {
+                        setCheckedRepositories(
+                          checkedRepositories.map((item, position) =>
+                            index === position ? !item : item
+                          )
+                        );
+                      }}
+                    />
+                  </label>
                   {isLink ? (
                     <TableLink
                       href={`https://github.com/${repository.repositoryName}`}
