@@ -48,6 +48,11 @@ const FlowChartImage = styled.img`
   width: 100%;
 `;
 
+const imageZoomProps = {
+  overlayBgColorEnd: "rgba(255, 255, 255, 0.3)",
+  zoomMargin: 100,
+};
+
 export const StartDescription = (): JSX.Element => {
   return (
     <GridItem>
@@ -71,7 +76,7 @@ export const StartDescription = (): JSX.Element => {
           <FlowChartDescription>
             Go either to your personal or organization &quot;Settings&quot;
           </FlowChartDescription>
-          <Zoom>
+          <Zoom {...imageZoomProps}>
             <FlowChartImage src={GithubPersonalSettings} alt="" />
           </Zoom>
         </FlowChartRectangle>
@@ -80,7 +85,7 @@ export const StartDescription = (): JSX.Element => {
           <FlowChartDescription>
             Click on &quot;Billing & plans&quot;.
           </FlowChartDescription>
-          <Zoom>
+          <Zoom {...imageZoomProps}>
             <FlowChartImage src={GithubPersonalBillingAndPlans} alt="" />
           </Zoom>
         </FlowChartRectangle>
@@ -91,7 +96,7 @@ export const StartDescription = (): JSX.Element => {
             Click on &quot;Get usage report&quot;. You will now receive an email
             with the CSV file that you can add here.
           </FlowChartDescription>
-          <Zoom>
+          <Zoom {...imageZoomProps}>
             <FlowChartImage src={GihtubPersonalGetUsageReport} alt="" />
           </Zoom>
         </FlowChartRectangle>
