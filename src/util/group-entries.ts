@@ -24,12 +24,10 @@ export interface UsageReportDay {
 export const groupEntriesPerDay = (
   csvData: UsageReportEntry[]
 ): UsageReportDay[] => {
-  console.log("dates", getAllDatesOfTimePeriod(csvData));
   return csvData.reduce(
     (acc: UsageReportDay[], obj) => {
       let indexOfEntryForCurrentDate = 0;
       const currentDate = new Date(obj.date);
-
       // Is the current date already in acc?
       if (
         !acc.find((objectsInAcc: UsageReportDay, index) => {
@@ -58,14 +56,15 @@ export const groupEntriesPerDay = (
 };
 
 const getAllDatesOfTimePeriod = (csvData: UsageReportEntry[]) => {
-  console.log("Start");
   const dates = [];
   const firstDay = new Date(csvData[0].date);
   const lastDay = new Date(csvData[csvData.length - 1].date);
   const currentday = firstDay;
-  while (!isSameDay(currentday, lastDay)) {
-    dates.push(currentday.toISOString());
-    currentday.setDate(currentday.getDate() + 1);
+  if (firstDay <= lastDay) {
+    while (!isSameDay(currentday, lastDay)) {
+      dates.push(currentday.toISOString());
+      currentday.setDate(currentday.getDate() + 1);
+    }
   }
   return dates;
 };
