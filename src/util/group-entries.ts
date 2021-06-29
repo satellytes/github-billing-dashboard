@@ -11,6 +11,8 @@ import {
   getYear,
   isSameMonth,
 } from "date-fns";
+import { RepositoryColorType } from "../components/context/repository-color-context";
+import { chartColors } from "../components/style/colors";
 
 export interface UsageReportDay {
   day: string; // iso date
@@ -169,6 +171,46 @@ export const filterEntriesByRepositoryName = (
       };
     }
   );
+};
+
+export const getRepositoryNames = (csvData: UsageReportEntry[]): string[] => {
+  if (csvData) {
+    const repositoryNamesWithDuplicates = csvData.map(
+      (entry) => entry.repositorySlug
+    );
+    return repositoryNamesWithDuplicates.filter(
+      (value, index) => repositoryNamesWithDuplicates.indexOf(value) === index
+    );
+  } else {
+    return [];
+  }
+};
+
+export const getChartColors = (
+  repositoryNames: string[]
+): RepositoryColorType[] => {
+  return repositoryNames.map((repositoryName, index) => {
+    return {
+      repositoryName: repositoryName,
+      color:
+        chartColors[
+          index < chartColors.length ? index : index % chartColors.length
+        ],
+    };
+  });
+};
+
+export const getColorFromRepositoryName = (
+  repositoryName: string,
+  colorContext: RepositoryColorType[]
+): string => {
+  let color = "#FFF";
+  colorContext.forEach((colorContextEntry) => {
+    if (colorContextEntry.repositoryName === repositoryName) {
+      color = colorContextEntry.color;
+    }
+  });
+  return color;
 };
 
 export interface CostPerRepository {

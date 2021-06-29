@@ -15,6 +15,11 @@ import { MonthlyWidgetContainer } from "./components/monthly-widget-container/mo
 import { ChartContainer } from "./components/billing-chart/chart-container";
 import { Footer } from "./components/footer/footer";
 import { RepositoryTableContext } from "./components/context/repository-table-context";
+import {
+  RepositoryColorContext,
+  RepositoryColorType,
+} from "./components/context/repository-color-context";
+import { getChartColors, getRepositoryNames } from "./util/group-entries";
 
 const MainContent = styled(Grid)`
   max-width: 1280px;
@@ -31,11 +36,19 @@ const App = (): JSX.Element => {
   }>({ monthName: "", data: [] });
   const [selectedRepositoriesFromTable, setSelectedRepositoriesFromTable] =
     useState<string[]>([]);
-
+  const [repositoryColors, setRepositoryColors] = useState<
+    RepositoryColorType[]
+  >([]);
+  const [repositoryNames, setRepositoryNames] = useState<string[]>([]);
   //deactivate active widget when new data is loaded
   useEffect(() => {
     setSelectedMonthFromWidget({ monthName: "", data: [] });
+    setRepositoryNames(csvData ? getRepositoryNames(csvData) : []);
   }, [csvData]);
+
+  useEffect(() => {
+    setRepositoryColors(getChartColors(repositoryNames));
+  }, [repositoryNames]);
 
   const handleFileInput = (file: File) => {
     getCsvFile(file).then((res) => {
@@ -87,14 +100,19 @@ const App = (): JSX.Element => {
                 handleTableCheckboxClick(repositories),
             }}
           >
-            {csvData && (
-              <>
-                <CurrentTimePeriode />
-                <MonthlyWidgetContainer csvData={csvData} />
-                <RepositoryTable csvData={csvData} />
-                <ChartContainer csvData={csvData} />
-              </>
-            )}
+            <RepositoryColorContext.Provider value={repositoryColors}>
+              {csvData && (
+                <>
+                  <CurrentTimePeriode />
+                  <MonthlyWidgetContainer csvData={csvData} />
+                  <RepositoryTable csvData={csvData} />
+                  <ChartContainer
+                    csvData={csvData}
+                    repositoryNames={repositoryNames}
+                  />
+                </>
+              )}
+            </RepositoryColorContext.Provider>
           </RepositoryTableContext.Provider>
         </WidgetContext.Provider>
       </MainContent>

@@ -1,10 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UsageReportEntry } from "../../util/csv-reader";
-import { getCostPerRepository } from "../../util/group-entries";
+import {
+  getColorFromRepositoryName,
+  getCostPerRepository,
+} from "../../util/group-entries";
 import { Grid, GridItem, up } from "../grid/grid";
 import styled from "styled-components";
 import { WidgetContext } from "../context/widget-context";
 import { RepositoryTableContext } from "../context/repository-table-context";
+import {
+  RepositoryColorContext,
+  RepositoryColorType,
+} from "../context/repository-color-context";
 
 interface RepositoryTableProps {
   csvData: UsageReportEntry[];
@@ -27,6 +34,13 @@ const TableValue = styled.p`
    }`}
 `;
 
+const ColorIcon = styled.span<{
+  repositoryName: string;
+  colorContext: RepositoryColorType[];
+}>`
+  color: ${(props) =>
+    getColorFromRepositoryName(props.repositoryName, props.colorContext)}; ;
+`;
 //https://medium.com/@colebemis/building-a-checkbox-component-with-react-and-styled-components-8d3aa1d826dd
 const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   // Hide checkbox visually but remain accessible to screen readers.
@@ -72,6 +86,7 @@ export const RepositoryTable = ({
 }: RepositoryTableProps): JSX.Element => {
   const { activeMonth } = useContext(WidgetContext);
   const { setActiveRepositories } = useContext(RepositoryTableContext);
+  const colorsPerRepositoryName = useContext(RepositoryColorContext);
   const costPerRepository = activeMonth.monthName
     ? getCostPerRepository(activeMonth.data)
     : getCostPerRepository(csvData);
@@ -161,7 +176,7 @@ export const RepositoryTable = ({
               if (checkedRepositories.length === costPerRepository.length) {
                 return (
                   <LeftTableRow key={index}>
-                    <label key={index}>
+                    <label>
                       <Checkbox
                         checked={checkedRepositories[index].checked}
                         onChange={() => {
@@ -194,6 +209,12 @@ export const RepositoryTable = ({
                       />
                     </label>
                     <TableEntry key={index}>
+                      <ColorIcon
+                        repositoryName={repository.repositoryName}
+                        colorContext={colorsPerRepositoryName}
+                      >
+                        ⬤{" "}
+                      </ColorIcon>
                       {repository.repositoryName}
                     </TableEntry>
                   </LeftTableRow>

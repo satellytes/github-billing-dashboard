@@ -13,6 +13,7 @@ import { BillingChart } from "./billing-chart";
 
 interface ChartContainerProps {
   csvData: UsageReportEntry[];
+  repositoryNames: string[];
 }
 
 const ChartDiv = styled.div`
@@ -54,6 +55,7 @@ const RightToggleButton = styled(Button)`
 
 export const ChartContainer = ({
   csvData,
+  repositoryNames,
 }: ChartContainerProps): JSX.Element => {
   const [diagramType, setDiagramType] = useState<"Bar" | "Line">("Bar");
   const [groupedBy, setGroupedBy] = useState<"daily" | "weekly">("daily");
@@ -75,19 +77,6 @@ export const ChartContainer = ({
     currentData,
     isDataFromWidget
   );
-
-  const repositoryNames = (): string[] => {
-    if (csvData) {
-      const repositoryNamesWithDuplicates = csvData.map(
-        (entry) => entry.repositorySlug
-      );
-      return repositoryNamesWithDuplicates.filter(
-        (value, index) => repositoryNamesWithDuplicates.indexOf(value) === index
-      );
-    } else {
-      return [];
-    }
-  };
 
   return (
     <>
@@ -127,7 +116,7 @@ export const ChartContainer = ({
           <BillingChart
             maxValueOfYAxis={currentMaxValueOfYAxis}
             groupedBy={groupedBy}
-            repositoryNames={repositoryNames()}
+            repositoryNames={repositoryNames}
             entriesGroupedPerDay={entriesGroupedPerDay}
             entriesGroupedPerWeek={entriesGroupedPerWeek}
             diagrammType={diagramType}
