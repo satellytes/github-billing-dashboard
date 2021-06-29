@@ -4,8 +4,8 @@ import { WidgetContext } from "../context/widget-context";
 import {
   getMaximumTotalPriceOfAllDays,
   getMaximumTotalPriceOfAllWeeks,
-  groupEntriesPerDay,
   groupEntriesPerWeek,
+  UsageReportDay,
 } from "../../util/group-entries";
 import styled from "styled-components";
 import { GridItem } from "../grid/grid";
@@ -14,6 +14,7 @@ import { BillingChart } from "./billing-chart";
 interface ChartContainerProps {
   csvData: UsageReportEntry[];
   repositoryNames: string[];
+  entriesGroupedPerDay: UsageReportDay[];
 }
 
 const ChartDiv = styled.div`
@@ -56,6 +57,7 @@ const RightToggleButton = styled(Button)`
 export const ChartContainer = ({
   csvData,
   repositoryNames,
+  entriesGroupedPerDay,
 }: ChartContainerProps): JSX.Element => {
   const [diagramType, setDiagramType] = useState<"Bar" | "Line">("Bar");
   const [groupedBy, setGroupedBy] = useState<"daily" | "weekly">("daily");
@@ -63,7 +65,8 @@ export const ChartContainer = ({
   // Selected month from mini-widgets
   const { activeMonth } = useContext(WidgetContext);
 
-  const maxDailyValueOfYAxis = getMaximumTotalPriceOfAllDays(csvData);
+  const maxDailyValueOfYAxis =
+    getMaximumTotalPriceOfAllDays(entriesGroupedPerDay);
   const maxWeeklyValueOfYAxis = getMaximumTotalPriceOfAllWeeks(csvData);
   const currentMaxValueOfYAxis =
     groupedBy === "daily" ? maxDailyValueOfYAxis : maxWeeklyValueOfYAxis;
@@ -72,7 +75,6 @@ export const ChartContainer = ({
   const isDataFromWidget = !(activeMonth.monthName === "");
   const currentData = isDataFromWidget ? activeMonth.data : csvData;
 
-  const entriesGroupedPerDay = groupEntriesPerDay(currentData);
   const entriesGroupedPerWeek = groupEntriesPerWeek(
     currentData,
     isDataFromWidget

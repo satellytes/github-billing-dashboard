@@ -69,6 +69,29 @@ const getAllDatesOfTimePeriod = (csvData: UsageReportEntry[]) => {
   return dates;
 };
 
+export const groupDailyEntriesPerMonth = (
+  dailyEntries: UsageReportDay[]
+): { month: number; entries: UsageReportDay[] }[] => {
+  const entiresGroupedPerMonth: { month: number; entries: UsageReportDay[] }[] =
+    [];
+  dailyEntries.forEach((entry) => {
+    const currentMonth = getMonth(new Date(entry.day));
+    let currentIndex = 0;
+    if (
+      entiresGroupedPerMonth.find((monthlyEntry, index) => {
+        currentIndex = index;
+        return monthlyEntry.month === currentMonth;
+      })
+    ) {
+      entiresGroupedPerMonth[currentIndex].entries.push(entry);
+    } else {
+      entiresGroupedPerMonth.push({ month: currentMonth, entries: [entry] });
+    }
+  });
+
+  return entiresGroupedPerMonth;
+};
+
 export interface UsageReportWeek {
   week: string; // a.e.: "12.5. - 19.5."
   from: string; // iso date
@@ -282,9 +305,8 @@ export const getPriceByRepositoryName = (
 };
 
 export const getMaximumTotalPriceOfAllDays = (
-  data: UsageReportEntry[]
+  entriesGroupedPerDay: UsageReportDay[]
 ): number => {
-  const entriesGroupedPerDay = groupEntriesPerDay(data);
   return Math.ceil(
     Math.max(...entriesGroupedPerDay.map((entry) => entry.totalPrice))
   );
@@ -300,8 +322,7 @@ export const getMaximumTotalPriceOfAllWeeks = (
 };
 
 export const getAmountOfDays = (
-  usageReportEntries: UsageReportEntry[]
+  entriesGroupedPerDay: UsageReportDay[]
 ): number => {
-  const entriesGroupedPerDay = groupEntriesPerDay(usageReportEntries);
   return entriesGroupedPerDay.length;
 };

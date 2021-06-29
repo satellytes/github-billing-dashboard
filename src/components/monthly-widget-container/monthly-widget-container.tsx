@@ -4,13 +4,17 @@ import { MonthlyWidget } from "../monthly-widget/monthly-widget";
 import {
   getAmountOfDays,
   getMaximumTotalPriceOfAllDays,
+  groupDailyEntriesPerMonth,
   groupEntriesPerMonth,
+  UsageReportDay,
 } from "../../util/group-entries";
 import styled from "styled-components";
 import { Grid, GridItem } from "../grid/grid";
+import { getMonth } from "date-fns";
 
 interface MonthlyWidgetProps {
   csvData: UsageReportEntry[];
+  entriesGroupedPerDay: UsageReportDay[];
 }
 
 let averageCostsPerDayOfPreviousMonth = 0;
@@ -28,9 +32,12 @@ const Annotation = styled.p`
 
 export const MonthlyWidgetContainer = ({
   csvData,
+  entriesGroupedPerDay,
 }: MonthlyWidgetProps): JSX.Element => {
-  const maxValueOfYAxis = getMaximumTotalPriceOfAllDays(csvData);
+  const maxValueOfYAxis = getMaximumTotalPriceOfAllDays(entriesGroupedPerDay);
   const entriesGroupedPerMonth = groupEntriesPerMonth(csvData);
+  const dailyEntriesGroupedPerMonth =
+    groupDailyEntriesPerMonth(entriesGroupedPerDay);
   const getPercentageDifference = (value1: number, value2: number) =>
     value1 !== 0 ? ((value2 - value1) / value1) * 100 : 0;
 
@@ -38,11 +45,18 @@ export const MonthlyWidgetContainer = ({
     <GridItem>
       <StyledContainer>
         {entriesGroupedPerMonth.map((monthlyEntry, index) => {
+          const currentMonth = getMonth(new Date(monthlyEntry.entries[0].date));
+          let dailyEntries: UsageReportDay[] = [];
+          dailyEntriesGroupedPerMonth.forEach((month) => {
+            if (month.month === currentMonth) {
+              dailyEntries = month.entries;
+            }
+          });
           let isMoreExpensiveThanPreviousMonth = true;
           const isFirstMonth = index == 0;
           const isLastMonth = index == entriesGroupedPerMonth.length - 1;
           const averageCostsPerDay =
-            monthlyEntry.totalPrice / getAmountOfDays(monthlyEntry.entries);
+            monthlyEntry.totalPrice / getAmountOfDays(dailyEntries);
           if (
             index === 0 ||
             averageCostsPerDayOfPreviousMonth > averageCostsPerDay
@@ -73,6 +87,7 @@ export const MonthlyWidgetContainer = ({
               }
               isFirstMonth={isFirstMonth}
               isLastMonth={isLastMonth}
+              entriesGroupedPerDay={dailyEntries}
             />
           );
         })}

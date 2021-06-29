@@ -19,7 +19,12 @@ import {
   RepositoryColorContext,
   RepositoryColorType,
 } from "./components/context/repository-color-context";
-import { getChartColors, getRepositoryNames } from "./util/group-entries";
+import {
+  getChartColors,
+  getRepositoryNames,
+  groupEntriesPerDay,
+  UsageReportDay,
+} from "./util/group-entries";
 
 const MainContent = styled(Grid)`
   max-width: 1280px;
@@ -30,6 +35,9 @@ const MainContent = styled(Grid)`
 const App = (): JSX.Element => {
   const [activeFileName, setActiveFileName] = useState<string>("");
   const [csvData, setCsvData] = useState<UsageReportEntry[] | null>(null);
+  const [entriesGroupedPerDay, setEntriesGroupedPerDay] = useState<
+    UsageReportDay[]
+  >([]);
   const [selectedMonthFromWidget, setSelectedMonthFromWidget] = useState<{
     monthName: string;
     data: UsageReportEntry[];
@@ -44,6 +52,7 @@ const App = (): JSX.Element => {
   useEffect(() => {
     setSelectedMonthFromWidget({ monthName: "", data: [] });
     setRepositoryNames(csvData ? getRepositoryNames(csvData) : []);
+    setEntriesGroupedPerDay(csvData ? groupEntriesPerDay(csvData) : []);
   }, [csvData]);
 
   useEffect(() => {
@@ -104,11 +113,15 @@ const App = (): JSX.Element => {
               {csvData && (
                 <>
                   <CurrentTimePeriode />
-                  <MonthlyWidgetContainer csvData={csvData} />
+                  <MonthlyWidgetContainer
+                    csvData={csvData}
+                    entriesGroupedPerDay={entriesGroupedPerDay}
+                  />
                   <RepositoryTable csvData={csvData} />
                   <ChartContainer
                     csvData={csvData}
                     repositoryNames={repositoryNames}
+                    entriesGroupedPerDay={entriesGroupedPerDay}
                   />
                 </>
               )}
