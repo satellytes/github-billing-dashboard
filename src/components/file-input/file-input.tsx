@@ -30,7 +30,7 @@ const InputLabel = styled.label`
   text-align: center;
   cursor: pointer;
   &:hover {
-    border: 1px solid white;
+    background: #668cff;
   }
 `;
 
@@ -50,11 +50,11 @@ const StyledButton = styled.button<{
 
   &:hover {
     ${(props: { isHoverOverX: boolean }) =>
-      !props.isHoverOverX ? "border: 1px solid white" : ""};
+      !props.isHoverOverX ? "background: #668CFF" : ""};
   }
 
   ${(props: { isActive: boolean }) =>
-    props.isActive ? "border: 1px solid white" : ""};
+    props.isActive ? "background: #668CFF" : ""};
 `;
 
 const InnerButtonContent = styled.div`
