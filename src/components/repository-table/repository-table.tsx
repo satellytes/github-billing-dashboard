@@ -76,24 +76,30 @@ export const RepositoryTable = ({
     ? getCostPerRepository(activeMonth.data)
     : getCostPerRepository(csvData);
 
-  const [checkedRepositories, setCheckedRepositories] = useState<boolean[]>(
-    costPerRepository.map(() => true)
+  const [checkedRepositories, setCheckedRepositories] = useState<
+    { repositoryName: string; checked: boolean }[]
+  >(
+    costPerRepository.map((repository) => {
+      return { repositoryName: repository.repositoryName, checked: true };
+    })
   );
   const [globalCheckbox, setGlobalCheckbox] = useState<boolean>(true);
 
   useEffect(() => {
-    setCheckedRepositories(costPerRepository.map(() => true));
+    setCheckedRepositories(
+      costPerRepository.map((repository) => {
+        return { repositoryName: repository.repositoryName, checked: true };
+      })
+    );
     setGlobalCheckbox(true);
   }, [csvData, activeMonth]);
 
   useEffect(() => {
     if (checkedRepositories.length === costPerRepository.length) {
       const currentActiveRepositories: string[] = [];
-      checkedRepositories.forEach((isChecked, index) => {
-        if (isChecked) {
-          currentActiveRepositories.push(
-            costPerRepository[index].repositoryName
-          );
+      checkedRepositories.forEach((repository) => {
+        if (repository.checked) {
+          currentActiveRepositories.push(repository.repositoryName);
         }
       });
       setActiveRepositories(currentActiveRepositories);
@@ -126,7 +132,7 @@ export const RepositoryTable = ({
   const handleGlobalCheckboxClick = () => {
     let isEveryCheckboxActive = true;
     checkedRepositories.forEach((repository) => {
-      if (!repository) {
+      if (!repository.checked) {
         isEveryCheckboxActive = false;
       }
     });
@@ -135,7 +141,12 @@ export const RepositoryTable = ({
       setGlobalCheckbox(!globalCheckbox);
     } else {
       setCheckedRepositories(
-        checkedRepositories.map(() => !isEveryCheckboxActive)
+        checkedRepositories.map((repository) => {
+          return {
+            repositoryName: repository.repositoryName,
+            checked: !isEveryCheckboxActive,
+          };
+        })
       );
       setGlobalCheckbox(!isEveryCheckboxActive);
     }
@@ -147,39 +158,47 @@ export const RepositoryTable = ({
         <Grid>
           <GridItem xs={6}>
             {costPerRepository.map((repository, index) => {
-              return (
-                <CheckboxDiv key={index}>
-                  <label>
-                    <Checkbox
-                      checked={checkedRepositories[index]}
-                      onChange={() => {
-                        let isOneCheckBoxInactive = false;
-                        setCheckedRepositories(
-                          checkedRepositories.map((item, position) => {
-                            if (!item) {
-                              isOneCheckBoxInactive = true;
-                            }
-                            if (index === position) {
-                              if (item) {
+              if (checkedRepositories.length === costPerRepository.length) {
+                return (
+                  <CheckboxDiv key={index}>
+                    <label>
+                      <Checkbox
+                        checked={checkedRepositories[index].checked}
+                        onChange={() => {
+                          let isOneCheckBoxInactive = false;
+                          setCheckedRepositories(
+                            checkedRepositories.map((item, position) => {
+                              let isItemChecked;
+                              if (!item.checked) {
                                 isOneCheckBoxInactive = true;
                               }
-                              return !item;
-                            } else {
-                              return item;
-                            }
-                          })
-                        );
-                        if (isOneCheckBoxInactive) {
-                          setGlobalCheckbox(false);
-                        }
-                      }}
-                    />
-                  </label>
-                  <TableEntry key={index}>
-                    {repository.repositoryName}
-                  </TableEntry>
-                </CheckboxDiv>
-              );
+                              if (index === position) {
+                                if (item.checked) {
+                                  isOneCheckBoxInactive = true;
+                                }
+                                isItemChecked = !item.checked;
+                              } else {
+                                isItemChecked = item.checked;
+                              }
+
+                              return {
+                                checked: isItemChecked,
+                                repositoryName: item.repositoryName,
+                              };
+                            })
+                          );
+                          if (isOneCheckBoxInactive) {
+                            setGlobalCheckbox(false);
+                          }
+                        }}
+                      />
+                    </label>
+                    <TableEntry key={index}>
+                      {repository.repositoryName}
+                    </TableEntry>
+                  </CheckboxDiv>
+                );
+              }
             })}
             <CheckboxDiv>
               <label>
