@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import {
   filterEntriesByRepositoryName,
+  getColorFromRepositoryName,
   getPriceByRepositoryName,
   UsageReportDay,
   UsageReportWeek,
@@ -20,6 +21,7 @@ import { getDay, lightFormat } from "date-fns";
 import { dayOfWeek, isStringDateValue } from "../../util/date-util";
 import { UsageReportEntry } from "../../util/csv-reader";
 import { RepositoryTableContext } from "../context/repository-table-context";
+import { RepositoryColorContext } from "../context/repository-color-context";
 
 const removeZeroDollarEntries = (
   value: number,
@@ -40,19 +42,6 @@ const removeZeroDollarEntries = (
 
 //Setting the generics for Tooltip
 class CustomTooltip extends Tooltip<number, string> {}
-
-const colors = [
-  "#233666",
-  "#96ADEA",
-  "#4F79E6",
-  "#414C66",
-  "#3D5EB3",
-  "#233666",
-  "#96ADEA",
-  "#4F79E6",
-  "#414C66",
-  "#3D5EB3",
-];
 
 interface BillingChartProps {
   groupedBy: "daily" | "weekly";
@@ -76,6 +65,7 @@ export const BillingChart = ({
   >();
 
   const { activeRepositories } = useContext(RepositoryTableContext);
+  const colorsPerRepositoryName = useContext(RepositoryColorContext);
 
   useEffect(() => {
     if (groupedBy === "daily") {
@@ -181,7 +171,10 @@ export const BillingChart = ({
                   getPriceByRepositoryName(repositoryName, currentEntry.entries)
                 }
                 stackId="a"
-                fill={colors[index]}
+                fill={getColorFromRepositoryName(
+                  repositoryName,
+                  colorsPerRepositoryName
+                )}
                 key={index}
                 name={repositoryName}
                 isAnimationActive={false}
@@ -199,7 +192,10 @@ export const BillingChart = ({
             return (
               <Line
                 type="monotone"
-                stroke={colors[index]}
+                stroke={getColorFromRepositoryName(
+                  repositoryName,
+                  colorsPerRepositoryName
+                )}
                 dataKey={(currentEntry) =>
                   getPriceByRepositoryName(repositoryName, currentEntry.entries)
                 }
