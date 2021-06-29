@@ -117,12 +117,13 @@ const App = (): JSX.Element => {
                     csvData={csvData}
                     entriesGroupedPerDay={entriesGroupedPerDay}
                   />
-                  <RepositoryTable csvData={csvData} />
+
                   <ChartContainer
                     csvData={csvData}
                     repositoryNames={repositoryNames}
                     entriesGroupedPerDay={entriesGroupedPerDay}
                   />
+                  <RepositoryTable csvData={csvData} />
                 </>
               )}
             </RepositoryColorContext.Provider>
