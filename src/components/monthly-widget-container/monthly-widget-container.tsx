@@ -35,7 +35,7 @@ export const MonthlyWidgetContainer = ({
   entriesGroupedPerDay,
 }: MonthlyWidgetProps): JSX.Element => {
   const maxValueOfYAxis = getMaximumTotalPriceOfAllDays(entriesGroupedPerDay);
-  const entriesGroupedPerMonth = groupEntriesPerMonth(csvData);
+  const usageReportMonthEntries = groupEntriesPerMonth(csvData);
   const dailyEntriesGroupedPerMonth =
     groupDailyEntriesPerMonth(entriesGroupedPerDay);
   const getPercentageDifference = (value1: number, value2: number) =>
@@ -44,26 +44,29 @@ export const MonthlyWidgetContainer = ({
   return (
     <GridItem>
       <StyledContainer>
-        {entriesGroupedPerMonth.map((monthlyEntry, index) => {
-          const currentMonth = getMonth(new Date(monthlyEntry.entries[0].date));
-          let dailyEntries: UsageReportDay[] = [];
+        {usageReportMonthEntries.map((monthlyEntry, index) => {
+          const numberOfActiveMonth = getMonth(
+            new Date(monthlyEntry.entries[0].date)
+          );
+          let dailyEntriesOfActiveMonth: UsageReportDay[] = [];
           dailyEntriesGroupedPerMonth.forEach((month) => {
-            if (month.month === currentMonth) {
-              dailyEntries = month.entries;
+            if (month.month === numberOfActiveMonth) {
+              dailyEntriesOfActiveMonth = month.entries;
             }
           });
+
           let isMoreExpensiveThanPreviousMonth = true;
           const isFirstMonth = index == 0;
-          const isLastMonth = index == entriesGroupedPerMonth.length - 1;
+          const isLastMonth = index == usageReportMonthEntries.length - 1;
           const averageCostsPerDay =
-            monthlyEntry.totalPrice / getAmountOfDays(dailyEntries);
+            monthlyEntry.totalPrice /
+            getAmountOfDays(dailyEntriesOfActiveMonth);
           if (
             index === 0 ||
             averageCostsPerDayOfPreviousMonth > averageCostsPerDay
           ) {
             isMoreExpensiveThanPreviousMonth = false;
           }
-
           const percentageDifferenceToPreviousMonth =
             index === 0
               ? 0
@@ -71,7 +74,6 @@ export const MonthlyWidgetContainer = ({
                   averageCostsPerDayOfPreviousMonth,
                   averageCostsPerDay
                 );
-
           averageCostsPerDayOfPreviousMonth = averageCostsPerDay;
 
           return (
@@ -87,7 +89,7 @@ export const MonthlyWidgetContainer = ({
               }
               isFirstMonth={isFirstMonth}
               isLastMonth={isLastMonth}
-              entriesGroupedPerDay={dailyEntries}
+              entriesGroupedPerDay={dailyEntriesOfActiveMonth}
             />
           );
         })}
