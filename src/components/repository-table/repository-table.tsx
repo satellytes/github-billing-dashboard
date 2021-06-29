@@ -63,7 +63,7 @@ const CheckboxContainer = styled.div`
   vertical-align: middle;
 `;
 
-const CheckboxDiv = styled.div`
+const LeftTableRow = styled.div`
   display: flex;
 `;
 
@@ -160,8 +160,8 @@ export const RepositoryTable = ({
             {costPerRepository.map((repository, index) => {
               if (checkedRepositories.length === costPerRepository.length) {
                 return (
-                  <CheckboxDiv key={index}>
-                    <label>
+                  <LeftTableRow key={index}>
+                    <label key={index}>
                       <Checkbox
                         checked={checkedRepositories[index].checked}
                         onChange={() => {
@@ -196,11 +196,11 @@ export const RepositoryTable = ({
                     <TableEntry key={index}>
                       {repository.repositoryName}
                     </TableEntry>
-                  </CheckboxDiv>
+                  </LeftTableRow>
                 );
               }
             })}
-            <CheckboxDiv>
+            <LeftTableRow>
               <label>
                 <Checkbox
                   checked={globalCheckbox}
@@ -208,7 +208,7 @@ export const RepositoryTable = ({
                 />
               </label>
               <TableEntry>Total:</TableEntry>
-            </CheckboxDiv>
+            </LeftTableRow>
           </GridItem>
           <GridItem xs={6}>
             {costPerRepository.map((repository, index) => {
