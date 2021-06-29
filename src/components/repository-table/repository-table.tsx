@@ -170,11 +170,11 @@ export const RepositoryTable = ({
   return (
     <GridItem>
       <StyledTable>
-        <Grid>
-          <GridItem xs={6}>
-            {costPerRepository.map((repository, index) => {
-              if (checkedRepositories.length === costPerRepository.length) {
-                return (
+        {costPerRepository.map((repository, index) => {
+          if (checkedRepositories.length === costPerRepository.length) {
+            return (
+              <Grid>
+                <GridItem xs={6}>
                   <LeftTableRow key={index}>
                     <label>
                       <Checkbox
@@ -214,9 +214,18 @@ export const RepositoryTable = ({
                       {repository.repositoryName}
                     </TableEntry>
                   </LeftTableRow>
-                );
-              }
-            })}
+                </GridItem>
+                <GridItem xs={6}>
+                  <TableValue key={index}>{`${
+                    Math.round(repository.totalCost * 100) / 100
+                  } $`}</TableValue>
+                </GridItem>
+              </Grid>
+            );
+          }
+        })}
+        <Grid>
+          <GridItem xs={6}>
             <LeftTableRow>
               <label>
                 <Checkbox
@@ -228,13 +237,6 @@ export const RepositoryTable = ({
             </LeftTableRow>
           </GridItem>
           <GridItem xs={6}>
-            {costPerRepository.map((repository, index) => {
-              return (
-                <TableValue key={index}>{`${
-                  Math.round(repository.totalCost * 100) / 100
-                } $`}</TableValue>
-              );
-            })}
             <TableValue>{Math.round(total * 100) / 100} $</TableValue>
           </GridItem>
         </Grid>
