@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import { UsageReportMonth } from "../../util/group-entries";
+import { UsageReportDay, UsageReportMonth } from "../../util/group-entries";
 import { LineChart, Line, YAxis, ResponsiveContainer } from "recharts";
-import { groupEntriesPerDay } from "../../util/group-entries";
 import { WidgetContext } from "../context/widget-context";
 import styled from "styled-components";
 import { GridItem, up } from "../grid/grid";
@@ -14,6 +13,7 @@ interface MonthlyWidgetProps {
   percentageDifferenceToPreviousMonth: number;
   isFirstMonth: boolean;
   isLastMonth: boolean;
+  entriesGroupedPerDay: UsageReportDay[];
 }
 
 const StyledWidget = styled.div`
@@ -72,9 +72,9 @@ export const MonthlyWidget = ({
   percentageDifferenceToPreviousMonth,
   isLastMonth,
   isFirstMonth,
+  entriesGroupedPerDay,
 }: MonthlyWidgetProps): JSX.Element => {
   const { activeMonth, setActiveMonth } = useContext(WidgetContext);
-  const entriesGroupedPerDay = groupEntriesPerDay(monthlyEntry.entries);
   const formattedDifferenceToPreviousMonth = `${
     percentageDifferenceToPreviousMonth >= 0 ? "+" : ""
   }${Math.round(percentageDifferenceToPreviousMonth * 100) / 100}%`;
