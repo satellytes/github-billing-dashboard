@@ -184,18 +184,14 @@ export const RepositoryTable = ({
                           setCheckedRepositories(
                             checkedRepositories.map((item, position) => {
                               let isItemChecked;
-                              if (!item.checked) {
-                                isOneCheckBoxInactive = true;
-                              }
                               if (index === position) {
-                                if (item.checked) {
-                                  isOneCheckBoxInactive = true;
-                                }
                                 isItemChecked = !item.checked;
                               } else {
                                 isItemChecked = item.checked;
                               }
-
+                              if (!isItemChecked) {
+                                isOneCheckBoxInactive = true;
+                              }
                               return {
                                 checked: isItemChecked,
                                 repositoryName: item.repositoryName,
