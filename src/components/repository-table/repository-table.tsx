@@ -173,9 +173,9 @@ export const RepositoryTable = ({
         {costPerRepository.map((repository, index) => {
           if (checkedRepositories.length === costPerRepository.length) {
             return (
-              <Grid>
+              <Grid key={index}>
                 <GridItem xs={6}>
-                  <LeftTableRow key={index}>
+                  <LeftTableRow>
                     <label>
                       <Checkbox
                         checked={checkedRepositories[index].checked}
@@ -204,7 +204,7 @@ export const RepositoryTable = ({
                         }}
                       />
                     </label>
-                    <TableEntry key={index}>
+                    <TableEntry>
                       <ColorIcon
                         repositoryName={repository.repositoryName}
                         colorContext={colorsPerRepositoryName}
@@ -216,7 +216,7 @@ export const RepositoryTable = ({
                   </LeftTableRow>
                 </GridItem>
                 <GridItem xs={6}>
-                  <TableValue key={index}>{`${
+                  <TableValue>{`${
                     Math.round(repository.totalCost * 100) / 100
                   } $`}</TableValue>
                 </GridItem>
