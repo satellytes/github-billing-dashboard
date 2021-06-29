@@ -20,11 +20,6 @@ const FlowChartRectangle = styled(GridItem)`
     margin-right: 24px;
     margin-bottom: 0
    }`}
-  &:last-child {
-    clip-path: none;
-    padding: 20px;
-    margin-bottom: 0;
-  }
 `;
 
 const FlowChartHeadline = styled.h1`
