@@ -4,6 +4,7 @@ import { WidgetContext } from "../context/widget-context";
 import {
   getMaximumTotalPriceOfAllDays,
   getMaximumTotalPriceOfAllWeeks,
+  groupEntriesPerDay,
   groupEntriesPerWeek,
   UsageReportDay,
 } from "../../util/group-entries";
@@ -119,7 +120,11 @@ export const ChartContainer = ({
             maxValueOfYAxis={currentMaxValueOfYAxis}
             groupedBy={groupedBy}
             repositoryNames={repositoryNames}
-            entriesGroupedPerDay={entriesGroupedPerDay}
+            entriesGroupedPerDay={
+              isDataFromWidget
+                ? groupEntriesPerDay(activeMonth.data)
+                : entriesGroupedPerDay
+            }
             entriesGroupedPerWeek={entriesGroupedPerWeek}
             diagrammType={diagramType}
           />
