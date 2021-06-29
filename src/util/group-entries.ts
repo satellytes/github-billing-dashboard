@@ -10,6 +10,7 @@ import {
   startOfMonth,
   getYear,
   isSameMonth,
+  isSameDay,
 } from "date-fns";
 import { RepositoryColorType } from "../components/context/repository-color-context";
 import { chartColors } from "../components/style/colors";
@@ -23,30 +24,50 @@ export interface UsageReportDay {
 export const groupEntriesPerDay = (
   csvData: UsageReportEntry[]
 ): UsageReportDay[] => {
-  return csvData.reduce((acc: UsageReportDay[], obj) => {
-    let indexOfEntryForCurrentDate = 0;
-    const currentDate = new Date(obj.date).toISOString();
+  console.log("dates", getAllDatesOfTimePeriod(csvData));
+  return csvData.reduce(
+    (acc: UsageReportDay[], obj) => {
+      let indexOfEntryForCurrentDate = 0;
+      const currentDate = new Date(obj.date);
 
-    //Is the current date already in acc?
-    if (
-      !acc.find((objectsInAcc: UsageReportDay, index) => {
-        indexOfEntryForCurrentDate = index;
-        return objectsInAcc.day === currentDate;
-      })
-    ) {
-      const newEntry: UsageReportDay = {
-        day: currentDate,
-        totalPrice: obj.totalPrice,
-        entries: [obj],
-      };
-      acc.push(newEntry);
-    } else {
-      acc[indexOfEntryForCurrentDate].entries.push(obj);
-      acc[indexOfEntryForCurrentDate].totalPrice =
-        acc[indexOfEntryForCurrentDate].totalPrice + obj.totalPrice;
-    }
-    return acc;
-  }, []);
+      // Is the current date already in acc?
+      if (
+        !acc.find((objectsInAcc: UsageReportDay, index) => {
+          indexOfEntryForCurrentDate = index;
+          return isSameDay(new Date(objectsInAcc.day), currentDate);
+          //return objectsInAcc.day === currentDate;
+        })
+      ) {
+        const newEntry: UsageReportDay = {
+          day: currentDate.toISOString(),
+          totalPrice: obj.totalPrice,
+          entries: [obj],
+        };
+        acc.push(newEntry);
+      } else {
+        acc[indexOfEntryForCurrentDate].entries.push(obj);
+        acc[indexOfEntryForCurrentDate].totalPrice =
+          acc[indexOfEntryForCurrentDate].totalPrice + obj.totalPrice;
+      }
+      return acc;
+    },
+    getAllDatesOfTimePeriod(csvData).map((date) => {
+      return { day: date, totalPrice: 0, entries: [] };
+    })
+  );
+};
+
+const getAllDatesOfTimePeriod = (csvData: UsageReportEntry[]) => {
+  console.log("Start");
+  const dates = [];
+  const firstDay = new Date(csvData[0].date);
+  const lastDay = new Date(csvData[csvData.length - 1].date);
+  const currentday = firstDay;
+  while (!isSameDay(currentday, lastDay)) {
+    dates.push(currentday.toISOString());
+    currentday.setDate(currentday.getDate() + 1);
+  }
+  return dates;
 };
 
 export interface UsageReportWeek {
