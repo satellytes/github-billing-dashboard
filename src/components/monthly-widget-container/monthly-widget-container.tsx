@@ -41,6 +41,18 @@ export const MonthlyWidgetContainer = ({
   const getPercentageDifference = (value1: number, value2: number) =>
     value1 !== 0 ? ((value2 - value1) / value1) * 100 : 0;
 
+  const getDailyEntriesForCurrentMonth = (
+    numberOfActiveMonth: number
+  ): UsageReportDay[] => {
+    let dailyEntriesOfActiveMonth: UsageReportDay[] = [];
+    dailyEntriesGroupedPerMonth.forEach((month) => {
+      if (month.month === numberOfActiveMonth) {
+        dailyEntriesOfActiveMonth = month.entries;
+      }
+    });
+    return dailyEntriesOfActiveMonth;
+  };
+
   return (
     <GridItem>
       <StyledContainer>
@@ -48,12 +60,8 @@ export const MonthlyWidgetContainer = ({
           const numberOfActiveMonth = getMonth(
             new Date(monthlyEntry.entries[0].date)
           );
-          let dailyEntriesOfActiveMonth: UsageReportDay[] = [];
-          dailyEntriesGroupedPerMonth.forEach((month) => {
-            if (month.month === numberOfActiveMonth) {
-              dailyEntriesOfActiveMonth = month.entries;
-            }
-          });
+          const dailyEntriesOfActiveMonth: UsageReportDay[] =
+            getDailyEntriesForCurrentMonth(numberOfActiveMonth);
 
           let isMoreExpensiveThanPreviousMonth = true;
           const isFirstMonth = index == 0;
