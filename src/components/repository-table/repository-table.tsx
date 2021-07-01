@@ -21,6 +21,10 @@ const StyledTable = styled.div`
   margin-top: 24px;
 `;
 
+const LeftTableRow = styled.div`
+  display: flex;
+`;
+
 const TableEntry = styled.p`
   margin-bottom: 8px;
   margin-left: 8px;
@@ -41,6 +45,7 @@ const ColorIcon = styled.span<{
   color: ${(props) =>
     getColorFromRepositoryName(props.repositoryName, props.colorContext)}; ;
 `;
+
 //https://medium.com/@colebemis/building-a-checkbox-component-with-react-and-styled-components-8d3aa1d826dd
 const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   // Hide checkbox visually but remain accessible to screen readers.
@@ -55,11 +60,13 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   white-space: nowrap;
   width: 1px;
 `;
+
 const Icon = styled.svg`
   fill: none;
   stroke: white;
   stroke-width: 2px;
 `;
+
 const StyledCheckbox = styled.div<{ checked: boolean }>`
   display: inline-block;
   width: 16px;
@@ -72,13 +79,10 @@ const StyledCheckbox = styled.div<{ checked: boolean }>`
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
   }
 `;
+
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
-`;
-
-const LeftTableRow = styled.div`
-  display: flex;
 `;
 
 export const RepositoryTable = ({

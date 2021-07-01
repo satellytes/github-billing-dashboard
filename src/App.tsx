@@ -56,11 +56,11 @@ const App = (): JSX.Element => {
     setSelectedMonthFromWidget({ monthName: "", data: [] });
     setRepositoryNames(csvData ? getRepositoryNames(csvData) : []);
     setEntriesGroupedPerDay(csvData ? groupEntriesPerDay(csvData) : []);
+    executeScrollToChart();
   }, [csvData]);
 
   useEffect(() => {
     setRepositoryColors(getChartColors(repositoryNames));
-    executeScrollToChart();
   }, [repositoryNames]);
 
   const handleFileInput = (file: File) => {
