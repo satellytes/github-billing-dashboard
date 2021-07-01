@@ -32,15 +32,16 @@ const ChartDiv = styled.div`
 const ButtonDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 24px;
+  margin-top: 48px;
 `;
 
 const Button = styled.button`
   background: ${(props: { isActive: boolean }) =>
     props.isActive ? "#668cff" : "rgba(255, 255, 255, 0.1)"};
   border: none;
+  font-weight: bold;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 8px 12px;
   color: white;
   font-size: 14px;
 `;

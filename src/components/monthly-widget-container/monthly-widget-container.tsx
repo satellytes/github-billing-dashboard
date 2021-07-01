@@ -22,7 +22,7 @@ const StyledContainer = styled(Grid)`
 `;
 
 const Annotation = styled.p`
-  margin: 0;
+  margin-top: -8px;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;

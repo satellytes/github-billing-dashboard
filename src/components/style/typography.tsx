@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const Subline = styled.h1`
+export const Subheading = styled.h1`
   font-style: normal;
-  font-weight: normal;
+  font-weight: bold;
   font-size: 32px;
-  line-height: 110%;
-  margin-top: 80px;
+  line-height: 42px;
+  margin-top: 160px;
   margin-bottom: 24px;
 `;
 

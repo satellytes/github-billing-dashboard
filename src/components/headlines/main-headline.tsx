@@ -9,7 +9,7 @@ const HeadlineText = styled.h1`
   font-size: 56px;
   line-height: 79px;
   margin-top: 0;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
   ${() => `
     ${up("md")} {
       font-size: 72px
@@ -31,15 +31,24 @@ const HeadlineSwoosh = styled(Swoosh)`
   `};
 `;
 
+const Subtitle = styled.h2`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 110%;
+  margin-bottom: 32px;
+`;
+
 export const MainHeadline = (): JSX.Element => {
   return (
-    <>
-      <GridItem>
-        <div>
-          <HeadlineSwoosh />
-          <HeadlineText>GitHub CSV Billing Dashboard</HeadlineText>
-        </div>
-      </GridItem>
-    </>
+    <GridItem md={7}>
+      <div>
+        <HeadlineSwoosh />
+        <HeadlineText>GitHub CSV Billing Dashboard</HeadlineText>
+      </div>
+      <Subtitle>
+        Github provides a CSV file with detailed information about your costs.{" "}
+      </Subtitle>
+    </GridItem>
   );
 };

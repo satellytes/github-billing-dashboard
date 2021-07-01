@@ -8,7 +8,7 @@ import {
 import { UsageReportEntry } from "../../util/csv-reader";
 import { sampleData } from "./sampleData";
 import { LocalStorageEntry } from "../../util/local-storage";
-import { Subline, Paragraph } from "../style/typography";
+import { Subheading, Paragraph } from "../style/typography";
 
 interface FileInputProp {
   onInput: (file: File, isDataFromDropzone: boolean) => void;
@@ -20,15 +20,30 @@ const StyledFileInput = styled.input`
   display: none;
 `;
 
+const StyledSubheading = styled.h3`
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 110%;
+  margin-top: 80px;
+`;
+
+const StyledParagraph = styled(Paragraph)`
+  margin-bottom: 16px;
+`;
+
 const InputLabel = styled.label`
   display: inline-block;
   margin-right: 16px;
   margin-bottom: 16px;
-  padding: 8px;
+  padding: 11px 16px;
   background: linear-gradient(275.41deg, #543fd7 0%, #2756fd 100%);
-  border-radius: 4px;
+  border-radius: 40px;
   text-align: center;
   cursor: pointer;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
   &:hover {
     background: #668cff;
   }
@@ -41,20 +56,23 @@ const StyledButton = styled.button<{
   display: inline-block;
   margin-right: 16px;
   margin-bottom: 16px;
-  padding: 8px;
-  background: linear-gradient(275.41deg, #543fd7 0%, #2756fd 100%);
+  padding: 11px 16px;
+  background: rgba(122, 143, 204, 0.15);
   border: none;
-  border-radius: 4px;
-
+  border-radius: 40px;
+  fill-opacity: 0.5;
   cursor: pointer;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
 
   &:hover {
     ${(props: { isHoverOverX: boolean }) =>
-      !props.isHoverOverX ? "background: #668CFF" : ""};
+      !props.isHoverOverX ? "background: rgba(122, 143, 204, 0.3)" : ""};
   }
 
   ${(props: { isActive: boolean }) =>
-    props.isActive ? "background: #668CFF" : ""};
+    props.isActive ? "background: rgba(122, 143, 204, 0.3)" : ""};
 `;
 
 const InnerButtonContent = styled.div`
@@ -67,7 +85,7 @@ const ButtonText = styled.div``;
 const CloseFile = styled.div`
   margin-left: 24px;
   &:hover {
-    font-weight: 900;
+    //TODO: Verena fragen was hier passieren soll
   }
 `;
 
@@ -80,6 +98,7 @@ export const FileInput = ({
   const [filesFromLocalStorage, setFilesFromLocalStorage] = useState(
     getBillingFilesFromLocalStorage()
   );
+  console.log(filesFromLocalStorage);
   const [activeButton, setActiveButton] = useState<string>();
   const [hoverOverX, setHoverOverX] = useState<boolean>(false);
 
@@ -106,7 +125,7 @@ export const FileInput = ({
   return (
     <>
       <GridItem md={7}>
-        <Subline>Visualize your CSV file</Subline>
+        <Subheading>Visualize your CSV file</Subheading>
         <Paragraph>
           You can add your own CSV file here or just drag it into the browsers
           window. There is also a sample CSV file that you can use if you just
@@ -130,7 +149,18 @@ export const FileInput = ({
         >
           <ButtonText>Use Sample CSV File</ButtonText>
         </StyledButton>
-        {filesFromLocalStorage
+      </GridItem>
+      {filesFromLocalStorage.length !== 0 && (
+        <GridItem md={7}>
+          <StyledSubheading>Uploaded Files</StyledSubheading>
+          <StyledParagraph>
+            Here is an overview of your uploaded files.
+          </StyledParagraph>
+        </GridItem>
+      )}
+
+      <GridItem>
+        {filesFromLocalStorage.length !== 0
           ? filesFromLocalStorage.map((entry: LocalStorageEntry) => {
               return (
                 <StyledButton

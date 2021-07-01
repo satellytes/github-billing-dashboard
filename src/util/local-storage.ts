@@ -17,9 +17,7 @@ export const saveFileInLocalStorage = (
   );
 };
 
-export const getBillingFilesFromLocalStorage = ():
-  | LocalStorageEntry[]
-  | null => {
+export const getBillingFilesFromLocalStorage = (): LocalStorageEntry[] => {
   const allLocalStorageEntries = Object.entries(localStorage);
   return allLocalStorageEntries.map((entry) => {
     if (entry[0].startsWith(LOCAL_STORAGE_ENTRY_KEY_NAME)) {
