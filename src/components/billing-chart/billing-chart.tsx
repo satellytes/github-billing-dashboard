@@ -132,7 +132,7 @@ export const BillingChart = ({
         repositoryGroupedByDay.value ? repositoryGroupedByDay.value * -1 : 0
       }
       labelStyle={{
-        color: "black",
+        color: "white",
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: "12px",
@@ -149,8 +149,9 @@ export const BillingChart = ({
       }}
       contentStyle={{
         borderRadius: "4px",
-        borderBlockColor: "white",
+        border: "none",
         padding: "12px",
+        background: "#202840",
       }}
       cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
     />
