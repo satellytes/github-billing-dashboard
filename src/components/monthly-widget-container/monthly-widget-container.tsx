@@ -17,8 +17,6 @@ interface MonthlyWidgetProps {
   entriesGroupedPerDay: UsageReportDay[];
 }
 
-let averageCostsPerDayOfPreviousMonth = 0;
-
 const StyledContainer = styled(Grid)`
   grid-auto-rows: 1fr;
 `;
@@ -34,6 +32,7 @@ export const MonthlyWidgetContainer = ({
   csvData,
   entriesGroupedPerDay,
 }: MonthlyWidgetProps): JSX.Element => {
+  let averageCostsPerDayOfPreviousMonth = 0;
   const maxValueOfYAxis = getMaximumTotalPriceOfAllDays(entriesGroupedPerDay);
   const usageReportMonthEntries = groupEntriesPerMonth(csvData);
   const dailyEntriesGroupedPerMonth =

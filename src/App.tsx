@@ -9,7 +9,7 @@ import { Dropzone } from "./components/dropzone/dropzone";
 import { MainHeadline } from "./components/headlines/main-headline";
 import { StartDescription } from "./components/start-description/start-description";
 import { FileInput } from "./components/file-input/file-input";
-import { CurrentTimePeriode } from "./components/headlines/current-time-periode";
+import { ChartContentHeadline } from "./components/headlines/chart-content-headline";
 import { RepositoryTable } from "./components/repository-table/repository-table";
 import { MonthlyWidgetContainer } from "./components/monthly-widget-container/monthly-widget-container";
 import { ChartContainer } from "./components/billing-chart/chart-container";
@@ -33,7 +33,8 @@ const MainContent = styled(Grid)`
 `;
 
 const App = (): JSX.Element => {
-  const [activeFileName, setActiveFileName] = useState<string>("");
+  const [nameOfCurrentlySelectedFile, setNameOfCurrentlySelectedFile] =
+    useState<string>("");
   const [csvData, setCsvData] = useState<UsageReportEntry[] | null>(null);
   const [entriesGroupedPerDay, setEntriesGroupedPerDay] = useState<
     UsageReportDay[]
@@ -48,8 +49,9 @@ const App = (): JSX.Element => {
     RepositoryColorType[]
   >([]);
   const [repositoryNames, setRepositoryNames] = useState<string[]>([]);
-  //deactivate active widget when new data is loaded
-  const currentTimePeriodeRef = useRef<HTMLHeadingElement>(null);
+
+  const chartContentHeadlineRef = useRef<HTMLHeadingElement>(null);
+
   useEffect(() => {
     setSelectedMonthFromWidget({ monthName: "", data: [] });
     setRepositoryNames(csvData ? getRepositoryNames(csvData) : []);
@@ -58,14 +60,14 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     setRepositoryColors(getChartColors(repositoryNames));
-    executeScroll();
+    executeScrollToChart();
   }, [repositoryNames]);
 
   const handleFileInput = (file: File) => {
     getCsvFile(file).then((res) => {
       setCsvData(res);
-      setActiveFileName("");
-      setActiveFileName(file.name);
+      setNameOfCurrentlySelectedFile("");
+      setNameOfCurrentlySelectedFile(file.name);
     });
   };
 
@@ -85,12 +87,12 @@ const App = (): JSX.Element => {
     setSelectedRepositoriesFromTable(repositories);
   };
 
-  const executeScroll = () => {
+  const executeScrollToChart = () => {
     if (
-      currentTimePeriodeRef !== null &&
-      currentTimePeriodeRef.current !== null
+      chartContentHeadlineRef !== null &&
+      chartContentHeadlineRef.current !== null
     ) {
-      currentTimePeriodeRef.current.scrollIntoView();
+      chartContentHeadlineRef.current.scrollIntoView();
     }
   };
 
@@ -111,7 +113,7 @@ const App = (): JSX.Element => {
           <FileInput
             onInput={handleFileInput}
             handleInputFromLocalStorage={handleInputFromLocalStorage}
-            activeFileName={activeFileName}
+            activeFileName={nameOfCurrentlySelectedFile}
           />
           <RepositoryTableContext.Provider
             value={{
@@ -123,7 +125,7 @@ const App = (): JSX.Element => {
             <RepositoryColorContext.Provider value={repositoryColors}>
               {csvData && (
                 <>
-                  <CurrentTimePeriode refProp={currentTimePeriodeRef} />
+                  <ChartContentHeadline refProp={chartContentHeadlineRef} />
                   <MonthlyWidgetContainer
                     csvData={csvData}
                     entriesGroupedPerDay={entriesGroupedPerDay}

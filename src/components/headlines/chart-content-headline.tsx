@@ -2,13 +2,13 @@ import React, { RefObject } from "react";
 import { GridItem } from "../grid/grid";
 import { Subline } from "../style/typography";
 
-interface CurrentTimePeriodeProps {
+interface ChartContentHeadlineProps {
   refProp: RefObject<HTMLHeadingElement>;
 }
 
-export const CurrentTimePeriode = ({
+export const ChartContentHeadline = ({
   refProp,
-}: CurrentTimePeriodeProps): JSX.Element => {
+}: ChartContentHeadlineProps): JSX.Element => {
   return (
     <GridItem>
       <Subline ref={refProp}>Overview</Subline>
