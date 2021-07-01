@@ -27,7 +27,7 @@ import {
 } from "./util/group-entries";
 
 const MainContent = styled(Grid)`
-  max-width: 1280px;
+  max-width: 1232px;
   margin: 0 auto;
   padding: 0 24px;
 `;
