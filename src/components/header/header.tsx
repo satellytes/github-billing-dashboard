@@ -27,7 +27,7 @@ const HeaderSwoosh = styled(Swoosh)`
 `;
 
 const GithubLogo = styled.img`
-  width: 32px;
+  width: 20px;
   cursor: pointer;
 `;
 

@@ -5,6 +5,8 @@ import { WidgetContext } from "../context/widget-context";
 import styled from "styled-components";
 import { GridItem, up } from "../grid/grid";
 import { lightFormat } from "date-fns";
+import ArrowUp from "../../assets/arrow-up-icon.svg";
+import ArrowDown from "../../assets/arrow-down-icon.svg";
 
 interface MonthlyWidgetProps {
   monthlyEntry: UsageReportMonth;
@@ -17,21 +19,23 @@ interface MonthlyWidgetProps {
 }
 
 const StyledWidget = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   cursor: pointer;
-  background: rgba(122, 143, 204, 0.3);
+  background: ${(props: { isActive: boolean }) =>
+    props.isActive ? "rgba(122, 143, 204, 0.3)" : "rgba(122, 143, 204, 0.15)"};
   padding: 16px;
-  border: ${(props: { isActive: boolean }) =>
-    props.isActive ? "1px solid white" : "1px solid rgba(122, 143, 204, 0.3)"};
+  border: none;
+  box-shadow: ${(props: { isActive: boolean }) =>
+    props.isActive ? "inset 0px -3px 0px #668CFF" : "none"};
 
   border-radius: 4px;
 
   &:hover {
-    border-color: white;
+    background: rgba(122, 143, 204, 0.3);
   }
 
   ${`${up("sm")}{
-  margin-right: 16px;
+  margin-right: 24px;
    }`}
 `;
 
@@ -60,9 +64,10 @@ const WidgetValue = styled.p`
   font-size: ${(props: { fontSize: number }) => `${props.fontSize}px`};
 `;
 
-const Arrow = styled.span`
-  color: ${(props: { isMoreExpensiveThanPreviousMonth: boolean }) =>
-    props.isMoreExpensiveThanPreviousMonth ? "#DC052D" : "#75F0C7"};
+const Arrow = styled.img`
+  width: 14px;
+  margin-bottom: -3px;
+  margin-left: 6px;
 `;
 
 export const MonthlyWidget = ({
@@ -78,8 +83,6 @@ export const MonthlyWidget = ({
   const formattedDifferenceToPreviousMonth = `${
     percentageDifferenceToPreviousMonth >= 0 ? "+" : ""
   }${Math.round(percentageDifferenceToPreviousMonth * 100) / 100}%`;
-  //"\u2191" = Arrow-Up-Symbol, "\u2193" = Arrow-Down-Symbol
-  const arrowSymbol = isMoreExpensiveThanPreviousMonth ? " \u2191" : " \u2193";
   const firstDayOfMonth = monthlyEntry.entries[0].date;
   const lastDayOfMonth =
     monthlyEntry.entries[monthlyEntry.entries.length - 1].date;
@@ -113,12 +116,8 @@ export const MonthlyWidget = ({
               <WidgetValue title={tooltipValue} fontSize={12}>
                 {formattedDifferenceToPreviousMonth} ¹
                 <Arrow
-                  isMoreExpensiveThanPreviousMonth={
-                    isMoreExpensiveThanPreviousMonth
-                  }
-                >
-                  {arrowSymbol}
-                </Arrow>
+                  src={isMoreExpensiveThanPreviousMonth ? ArrowUp : ArrowDown}
+                ></Arrow>
               </WidgetValue>
             )}
           </WidgetDescription>
