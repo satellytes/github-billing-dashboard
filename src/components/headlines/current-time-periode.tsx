@@ -1,11 +1,17 @@
-import React from "react";
+import React, { RefObject } from "react";
 import { GridItem } from "../grid/grid";
 import { Subline } from "../style/typography";
 
-export const CurrentTimePeriode = (): JSX.Element => {
+interface CurrentTimePeriodeProps {
+  refProp: RefObject<HTMLHeadingElement>;
+}
+
+export const CurrentTimePeriode = ({
+  refProp,
+}: CurrentTimePeriodeProps): JSX.Element => {
   return (
     <GridItem>
-      <Subline>Overview</Subline>
+      <Subline ref={refProp}>Overview</Subline>
     </GridItem>
   );
 };

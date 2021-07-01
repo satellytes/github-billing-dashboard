@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getCsvFile, UsageReportEntry } from "./util/csv-reader";
 import { WidgetContext } from "./components/context/widget-context";
 import { Grid } from "./components/grid/grid";
@@ -49,6 +49,7 @@ const App = (): JSX.Element => {
   >([]);
   const [repositoryNames, setRepositoryNames] = useState<string[]>([]);
   //deactivate active widget when new data is loaded
+  const currentTimePeriodeRef = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     setSelectedMonthFromWidget({ monthName: "", data: [] });
     setRepositoryNames(csvData ? getRepositoryNames(csvData) : []);
@@ -57,6 +58,7 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     setRepositoryColors(getChartColors(repositoryNames));
+    executeScroll();
   }, [repositoryNames]);
 
   const handleFileInput = (file: File) => {
@@ -81,6 +83,15 @@ const App = (): JSX.Element => {
 
   const handleTableCheckboxClick = (repositories: string[]) => {
     setSelectedRepositoriesFromTable(repositories);
+  };
+
+  const executeScroll = () => {
+    if (
+      currentTimePeriodeRef !== null &&
+      currentTimePeriodeRef.current !== null
+    ) {
+      currentTimePeriodeRef.current.scrollIntoView();
+    }
   };
 
   return (
@@ -112,7 +123,7 @@ const App = (): JSX.Element => {
             <RepositoryColorContext.Provider value={repositoryColors}>
               {csvData && (
                 <>
-                  <CurrentTimePeriode />
+                  <CurrentTimePeriode refProp={currentTimePeriodeRef} />
                   <MonthlyWidgetContainer
                     csvData={csvData}
                     entriesGroupedPerDay={entriesGroupedPerDay}
