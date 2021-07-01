@@ -13,12 +13,20 @@ const FlowChartRectangle = styled(GridItem)`
   padding: 20px 20px 40px 20px;
   background: rgba(122, 143, 204, 0.3);
   clip-path: polygon(100% 0, 100% 94%, 50% 100%, 0 94%, 0 0);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   ${`${up("sm")}{
     clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%); 
     padding: 20px 40px 20px 20px;
     margin-right: 24px;
-    margin-bottom: 0
+    margin-bottom: 0;
+    height: 300px;
+   }`}
+
+  ${`${up("md")}{
+    height: 372px;
    }`}
 `;
 
@@ -38,6 +46,8 @@ const FlowChartDescription = styled.p`
   font-size: 14px;
   line-height: 150%;
 `;
+
+const FlowChartTextContent = styled.div``;
 
 const FlowChartImage = styled.img`
   width: 100%;
@@ -67,30 +77,36 @@ export const StartDescription = (): JSX.Element => {
         </GridItem>
         <GridItem md={4} />
         <FlowChartRectangle xs={12} sm={4}>
-          <FlowChartHeadline>1</FlowChartHeadline>
-          <FlowChartDescription>
-            Go either to your personal or organization &quot;Settings&quot;
-          </FlowChartDescription>
+          <FlowChartTextContent>
+            <FlowChartHeadline>1</FlowChartHeadline>
+            <FlowChartDescription>
+              Go either to your personal or organization &quot;Settings&quot;
+            </FlowChartDescription>
+          </FlowChartTextContent>
           <Zoom {...imageZoomProps}>
             <FlowChartImage src={GithubPersonalSettings} alt="" />
           </Zoom>
         </FlowChartRectangle>
         <FlowChartRectangle xs={12} sm={4}>
-          <FlowChartHeadline>2</FlowChartHeadline>
-          <FlowChartDescription>
-            Click on &quot;Billing & plans&quot;.
-          </FlowChartDescription>
+          <FlowChartTextContent>
+            <FlowChartHeadline>2</FlowChartHeadline>
+            <FlowChartDescription>
+              Click on &quot;Billing & plans&quot;.
+            </FlowChartDescription>
+          </FlowChartTextContent>
           <Zoom {...imageZoomProps}>
             <FlowChartImage src={GithubPersonalBillingAndPlans} alt="" />
           </Zoom>
         </FlowChartRectangle>
 
         <FlowChartRectangle xs={12} sm={4}>
-          <FlowChartHeadline>3</FlowChartHeadline>
-          <FlowChartDescription>
-            Click on &quot;Get usage report&quot;. You will now receive an email
-            with the CSV file that you can add here.
-          </FlowChartDescription>
+          <FlowChartTextContent>
+            <FlowChartHeadline>3</FlowChartHeadline>
+            <FlowChartDescription>
+              Click on &quot;Get usage report&quot;. You will now receive an
+              email with the CSV file that you can add here.
+            </FlowChartDescription>
+          </FlowChartTextContent>
           <Zoom {...imageZoomProps}>
             <FlowChartImage src={GihtubPersonalGetUsageReport} alt="" />
           </Zoom>
