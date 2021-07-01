@@ -22,13 +22,14 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: 900;
   }
   
-  body {
+  body, html {
     margin: 0;
     font-family: "Coco Gothic",sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: #202840;
     color: #FFF;
+    scroll-behavior: smooth;
   }
   
   button {
