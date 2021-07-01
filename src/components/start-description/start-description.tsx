@@ -30,6 +30,8 @@ const FlowChartRectangle = styled(GridItem)`
    }`}
 `;
 
+const FlowChartTextContent = styled.div``;
+
 const FlowChartHeadline = styled.h1`
   margin-bottom: 8px;
   font-style: normal;
@@ -46,8 +48,6 @@ const FlowChartDescription = styled.p`
   font-size: 14px;
   line-height: 150%;
 `;
-
-const FlowChartTextContent = styled.div``;
 
 const FlowChartImage = styled.img`
   width: 100%;

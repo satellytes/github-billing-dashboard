@@ -20,15 +20,15 @@ const SatellytesLogoText = styled.h1`
   line-height: 31px;
 `;
 
-const GithubLogo = styled.img`
-  width: 32px;
-  cursor: pointer;
-`;
-
 const HeaderSwoosh = styled(Swoosh)`
   position: absolute;
   width: 14px;
   margin-bottom: -7px;
+`;
+
+const GithubLogo = styled.img`
+  width: 32px;
+  cursor: pointer;
 `;
 
 export const Header = (): JSX.Element => {
