@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.js": "/github-billing-dashboard/static/js/main.868279f9.chunk.js",
-    "main.js.map": "/github-billing-dashboard/static/js/main.868279f9.chunk.js.map",
+    "main.js": "/github-billing-dashboard/static/js/main.233d414c.chunk.js",
+    "main.js.map": "/github-billing-dashboard/static/js/main.233d414c.chunk.js.map",
     "runtime-main.js": "/github-billing-dashboard/static/js/runtime-main.78e55d83.js",
     "runtime-main.js.map": "/github-billing-dashboard/static/js/runtime-main.78e55d83.js.map",
     "static/css/2.8ca226e3.chunk.css": "/github-billing-dashboard/static/css/2.8ca226e3.chunk.css",
-    "static/js/2.79568fc0.chunk.js": "/github-billing-dashboard/static/js/2.79568fc0.chunk.js",
-    "static/js/2.79568fc0.chunk.js.map": "/github-billing-dashboard/static/js/2.79568fc0.chunk.js.map",
+    "static/js/2.cfe22af7.chunk.js": "/github-billing-dashboard/static/js/2.cfe22af7.chunk.js",
+    "static/js/2.cfe22af7.chunk.js.map": "/github-billing-dashboard/static/js/2.cfe22af7.chunk.js.map",
     "index.html": "/github-billing-dashboard/index.html",
     "static/css/2.8ca226e3.chunk.css.map": "/github-billing-dashboard/static/css/2.8ca226e3.chunk.css.map",
-    "static/js/2.79568fc0.chunk.js.LICENSE.txt": "/github-billing-dashboard/static/js/2.79568fc0.chunk.js.LICENSE.txt",
+    "static/js/2.cfe22af7.chunk.js.LICENSE.txt": "/github-billing-dashboard/static/js/2.cfe22af7.chunk.js.LICENSE.txt",
     "static/media/Coco-Gothic-Bold-TTF.ee8e9b6a.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Bold-TTF.ee8e9b6a.ttf",
     "static/media/Coco-Gothic-Heavy-TTF.d8ca8344.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Heavy-TTF.d8ca8344.ttf",
     "static/media/Coco-Gothic-Regular-TTF.76afad7d.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Regular-TTF.76afad7d.ttf",
+    "static/media/arrow-down-icon.c37e906d.svg": "/github-billing-dashboard/static/media/arrow-down-icon.c37e906d.svg",
+    "static/media/arrow-up-icon.1070637d.svg": "/github-billing-dashboard/static/media/arrow-up-icon.1070637d.svg",
     "static/media/github-personal-1-settings.b4acdf88.png": "/github-billing-dashboard/static/media/github-personal-1-settings.b4acdf88.png",
     "static/media/github-personal-2-billing-and-plans.f1322e35.png": "/github-billing-dashboard/static/media/github-personal-2-billing-and-plans.f1322e35.png",
     "static/media/github-personal-3-get-usage-report.40b9173f.png": "/github-billing-dashboard/static/media/github-personal-3-get-usage-report.40b9173f.png"
@@ -20,7 +22,7 @@
   "entrypoints": [
     "static/js/runtime-main.78e55d83.js",
     "static/css/2.8ca226e3.chunk.css",
-    "static/js/2.79568fc0.chunk.js",
-    "static/js/main.868279f9.chunk.js"
+    "static/js/2.cfe22af7.chunk.js",
+    "static/js/main.233d414c.chunk.js"
   ]
 }
