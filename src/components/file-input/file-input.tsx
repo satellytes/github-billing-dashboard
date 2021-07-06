@@ -100,7 +100,6 @@ export const FileInput = ({
   const [filesFromLocalStorage, setFilesFromLocalStorage] = useState(
     getBillingFilesFromLocalStorage()
   );
-  console.log(filesFromLocalStorage);
   const [activeButton, setActiveButton] = useState<string>();
   const [hoverOverX, setHoverOverX] = useState<boolean>(false);
 
