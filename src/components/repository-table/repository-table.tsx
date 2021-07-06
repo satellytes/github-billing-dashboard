@@ -180,6 +180,22 @@ export const RepositoryTable = ({
   return (
     <GridItem>
       <StyledTable>
+        <Grid>
+          <GridItem xs={6}>
+            <LeftTableRow>
+              <label>
+                <Checkbox
+                  checked={globalCheckbox}
+                  onChange={() => handleGlobalCheckboxClick()}
+                />
+              </label>
+              <TableEntry>Total:</TableEntry>
+            </LeftTableRow>
+          </GridItem>
+          <GridItem xs={6}>
+            <TableValue>{Math.round(total * 100) / 100} $</TableValue>
+          </GridItem>
+        </Grid>
         {costPerRepository.map((repository, index) => {
           if (checkedRepositories.length === costPerRepository.length) {
             return (
@@ -234,22 +250,6 @@ export const RepositoryTable = ({
             );
           }
         })}
-        <Grid>
-          <GridItem xs={6}>
-            <LeftTableRow>
-              <label>
-                <Checkbox
-                  checked={globalCheckbox}
-                  onChange={() => handleGlobalCheckboxClick()}
-                />
-              </label>
-              <TableEntry>Total:</TableEntry>
-            </LeftTableRow>
-          </GridItem>
-          <GridItem xs={6}>
-            <TableValue>{Math.round(total * 100) / 100} $</TableValue>
-          </GridItem>
-        </Grid>
       </StyledTable>
     </GridItem>
   );
