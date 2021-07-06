@@ -33,8 +33,7 @@ const MainContent = styled(Grid)`
 `;
 
 const App = (): JSX.Element => {
-  const [nameOfCurrentlySelectedFile, setNameOfCurrentlySelectedFile] =
-    useState<string>("");
+  const [selectedFileName, setSelectedFileName] = useState<string>("");
   const [csvData, setCsvData] = useState<UsageReportEntry[] | null>(null);
   const [entriesGroupedPerDay, setEntriesGroupedPerDay] = useState<
     UsageReportDay[]
@@ -66,8 +65,8 @@ const App = (): JSX.Element => {
   const handleFileInput = (file: File) => {
     getCsvFile(file).then((res) => {
       setCsvData(res);
-      setNameOfCurrentlySelectedFile("");
-      setNameOfCurrentlySelectedFile(file.name);
+      setSelectedFileName("");
+      setSelectedFileName(file.name);
     });
   };
 
@@ -113,7 +112,7 @@ const App = (): JSX.Element => {
           <FileInput
             onInput={handleFileInput}
             handleInputFromLocalStorage={handleInputFromLocalStorage}
-            activeFileName={nameOfCurrentlySelectedFile}
+            activeFileName={selectedFileName}
           />
           <RepositoryTableContext.Provider
             value={{

@@ -27,21 +27,26 @@ const LeftTableRow = styled.div`
 
 const TableEntry = styled.p`
   margin-bottom: 8px;
-  margin-left: 8px;
+  margin-left: 12px;
+  font-size: 14px;
 `;
 
 const TableValue = styled.p`
-  margin-bottom: 8px;
+  margin-bottom: 21px;
   text-align: right;
   ${`${up("sm")}{
       text-align: left;
    }`}
+  font-size: 14px;
 `;
 
 const ColorIcon = styled.span<{
   repositoryName: string;
   colorContext: RepositoryColorType[];
 }>`
+  margin-left: 6px;
+  font-size: 8px;
+  vertical-align: 3px;
   color: ${(props) =>
     getColorFromRepositoryName(props.repositoryName, props.colorContext)}; ;
 `;
@@ -69,11 +74,12 @@ const Icon = styled.svg`
 
 const StyledCheckbox = styled.div<{ checked: boolean }>`
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   background: rgba(122, 143, 204, 0.3);
-  border-radius: 3px;
+  border-radius: 4px;
   transition: all 150ms;
+  cursor: pointer;
 
   ${Icon} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
@@ -209,13 +215,13 @@ export const RepositoryTable = ({
                       />
                     </label>
                     <TableEntry>
+                      {repository.repositoryName}
                       <ColorIcon
                         repositoryName={repository.repositoryName}
                         colorContext={colorsPerRepositoryName}
                       >
                         ⬤{" "}
                       </ColorIcon>
-                      {repository.repositoryName}
                     </TableEntry>
                   </LeftTableRow>
                 </GridItem>
