@@ -66,11 +66,11 @@ const App = (): JSX.Element => {
     if (file) {
       getCsvFile(file).then((res) => {
         setCsvData(res);
-        setSelectedFileName("");
         setSelectedFileName(file.name);
       });
     } else {
       setCsvData(null);
+      setSelectedFileName("");
     }
   };
 
