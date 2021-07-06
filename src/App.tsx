@@ -62,12 +62,16 @@ const App = (): JSX.Element => {
     executeScrollToChart();
   }, [repositoryNames]);
 
-  const handleFileInput = (file: File) => {
-    getCsvFile(file).then((res) => {
-      setCsvData(res);
-      setSelectedFileName("");
-      setSelectedFileName(file.name);
-    });
+  const handleFileInput = (file: File | null) => {
+    if (file) {
+      getCsvFile(file).then((res) => {
+        setCsvData(res);
+        setSelectedFileName("");
+        setSelectedFileName(file.name);
+      });
+    } else {
+      setCsvData(null);
+    }
   };
 
   const handleInputFromLocalStorage = (csvData: UsageReportEntry[]) => {

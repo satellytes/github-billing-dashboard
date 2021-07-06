@@ -11,7 +11,7 @@ import { LocalStorageEntry } from "../../util/local-storage";
 import { Subheading, Paragraph } from "../style/typography";
 
 interface FileInputProp {
-  onInput: (file: File, isDataFromDropzone: boolean) => void;
+  onInput: (file: File | null, isDataFromDropzone: boolean) => void;
   handleInputFromLocalStorage: (csvData: UsageReportEntry[]) => void;
   activeFileName: string;
 }
@@ -138,7 +138,10 @@ export const FileInput = ({
             type="file"
             accept=".csv"
             ref={fileInput}
-            onInput={handleInput}
+            onChange={handleInput}
+            onClick={(event) => {
+              (event.target as HTMLInputElement).value = "";
+            }}
           />
         </InputLabel>
         <StyledButton
@@ -177,10 +180,12 @@ export const FileInput = ({
                     <CloseFile
                       onClick={() => {
                         removeFileFromLocalStorage(entry.filename);
+                        onInput(null, false);
                         setFilesFromLocalStorage(
                           getBillingFilesFromLocalStorage()
                         );
                         setHoverOverX(false);
+                        setActiveButton(undefined);
                       }}
                       onMouseEnter={() => {
                         setHoverOverX(true);
