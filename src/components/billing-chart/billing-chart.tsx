@@ -101,6 +101,7 @@ export const BillingChart = ({
         isStringDateValue(tick) ? lightFormat(new Date(tick), "dd.MM.") : tick
       }
       minTickGap={10}
+      dy={8}
     />
   );
   const sharedYAxis = (
@@ -160,7 +161,7 @@ export const BillingChart = ({
   return (
     <ResponsiveContainer width="100%" height={700}>
       {diagrammType === "Bar" ? (
-        <BarChart data={currentData}>
+        <BarChart data={currentData} margin={{ bottom: 20 }}>
           <CartesianGrid vertical={false} stroke={"rgba(255, 255, 255, 0.1)"} />
           {sharedXAxis}
           {sharedYAxis}
@@ -184,7 +185,7 @@ export const BillingChart = ({
           })}
         </BarChart>
       ) : (
-        <LineChart data={currentData}>
+        <LineChart data={currentData} margin={{ bottom: 20 }}>
           <CartesianGrid stroke={"rgba(255, 255, 255, 0.1)"} />
           {sharedXAxis}
           {sharedYAxis}
