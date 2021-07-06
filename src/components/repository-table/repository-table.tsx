@@ -28,6 +28,7 @@ const LeftTableRow = styled.div`
 const TableEntry = styled.p`
   margin-bottom: 8px;
   margin-left: 12px;
+  margin-top: 3px;
   font-size: 14px;
 `;
 
@@ -44,8 +45,8 @@ const ColorIcon = styled.span<{
   repositoryName: string;
   colorContext: RepositoryColorType[];
 }>`
-  margin-left: 6px;
   font-size: 8px;
+  margin-right: 6px;
   vertical-align: 3px;
   color: ${(props) =>
     getColorFromRepositoryName(props.repositoryName, props.colorContext)}; ;
@@ -246,13 +247,13 @@ export const RepositoryTable = ({
                       />
                     </label>
                     <TableEntry>
-                      {repository.repositoryName}
                       <ColorIcon
                         repositoryName={repository.repositoryName}
                         colorContext={colorsPerRepositoryName}
                       >
-                        ⬤{" "}
+                        ⬤
                       </ColorIcon>
+                      {repository.repositoryName}
                     </TableEntry>
                   </LeftTableRow>
                 </GridItem>
