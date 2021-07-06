@@ -51,14 +51,23 @@ const WidgetMonth = styled.h2`
   text-transform: uppercase;
 `;
 
-const WidgetValue = styled.p<{ fontSize: number; isFirstMonth?: boolean }>`
+const WidgetValue = styled.p<{
+  fontSize: "large" | "small";
+  isFirstMonth?: boolean;
+}>`
   font-style: normal;
   font-weight: normal;
   margin-top: 8px;
   margin-bottom: ${(props: { isFirstMonth?: boolean }) =>
     props.isFirstMonth ? "24px" : "0px"};
-  font-size: ${(props: { fontSize: number }) => `${props.fontSize}px`};
+  font-size: ${(props: { fontSize: "large" | "small" }) =>
+    `${fontSizes[props.fontSize]}px`};
 `;
+
+const fontSizes = {
+  large: 14,
+  small: 12,
+};
 
 const Arrow = styled.img`
   width: 14px;
@@ -105,11 +114,11 @@ export const MonthlyWidget = ({
         </WidgetMonth>
         <WidgetMainContent>
           <WidgetDescription>
-            <WidgetValue fontSize={14} isFirstMonth={isFirstMonth}>{`${
+            <WidgetValue fontSize={"large"} isFirstMonth={isFirstMonth}>{`${
               Math.round(monthlyEntry.totalPrice * 100) / 100
             } $`}</WidgetValue>
             {!isFirstMonth && (
-              <WidgetValue title={tooltipValue} fontSize={12}>
+              <WidgetValue title={tooltipValue} fontSize={"small"}>
                 {formattedDifferenceToPreviousMonth} ¹
                 <Arrow
                   src={isMoreExpensiveThanPreviousMonth ? ArrowUp : ArrowDown}
