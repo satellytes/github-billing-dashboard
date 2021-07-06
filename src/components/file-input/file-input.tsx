@@ -44,6 +44,7 @@ const InputLabel = styled.label`
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
+
   &:hover {
     background: #668cff;
   }
@@ -84,6 +85,7 @@ const ButtonText = styled.div``;
 
 const CloseFile = styled.div`
   margin-left: 24px;
+
   &:hover {
     color: #4d79ff;
   }
@@ -180,7 +182,10 @@ export const FileInput = ({
                     <CloseFile
                       onClick={() => {
                         removeFileFromLocalStorage(entry.filename);
-                        onInput(null, false);
+                        //Set current data to null when closed file is selected
+                        if (entry.filename === activeButton) {
+                          onInput(null, false);
+                        }
                         setFilesFromLocalStorage(
                           getBillingFilesFromLocalStorage()
                         );
