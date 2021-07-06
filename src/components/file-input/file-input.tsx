@@ -85,9 +85,7 @@ const ButtonText = styled.div``;
 const CloseFile = styled.div`
   margin-left: 24px;
   &:hover {
-    background: -webkit-linear-gradient(275.41deg, #543fd7 0%, #2756fd 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #4d79ff;
   }
 `;
 
