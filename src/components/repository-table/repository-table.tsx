@@ -80,6 +80,10 @@ const StyledCheckbox = styled.div<{ checked: boolean }>`
   border-radius: 4px;
   transition: all 150ms;
   cursor: pointer;
+  &:hover {
+    background: rgba(122, 143, 204, 0.5);
+  }
+  text-align: center;
 
   ${Icon} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
@@ -147,8 +151,19 @@ export const RepositoryTable = ({
     <CheckboxContainer>
       <HiddenCheckbox checked={checked} onChange={onChange} {...props} />
       <StyledCheckbox checked={checked}>
-        <Icon viewBox="0 0 24 24">
-          <polyline points="20 6 9 17 4 12" />
+        <Icon
+          width="10"
+          height="11"
+          viewBox="0 0 10 11"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 6.33333L3.46154 9L9 1"
+            stroke="white"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
         </Icon>
       </StyledCheckbox>
     </CheckboxContainer>
