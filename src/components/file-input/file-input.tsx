@@ -190,7 +190,6 @@ export const FileInput = ({
                           getBillingFilesFromLocalStorage()
                         );
                         setHoverOverX(false);
-                        setActiveButton(undefined);
                       }}
                       onMouseEnter={() => {
                         setHoverOverX(true);
