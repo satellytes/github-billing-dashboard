@@ -85,7 +85,9 @@ const ButtonText = styled.div``;
 const CloseFile = styled.div`
   margin-left: 24px;
   &:hover {
-    //TODO: Verena fragen was hier passieren soll
+    background: -webkit-linear-gradient(275.41deg, #543fd7 0%, #2756fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 `;
 
