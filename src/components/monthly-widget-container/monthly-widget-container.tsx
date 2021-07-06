@@ -19,6 +19,7 @@ interface MonthlyWidgetProps {
 
 const StyledContainer = styled(Grid)`
   grid-auto-rows: 1fr;
+  grid-gap: 0 24px;
 `;
 
 const Annotation = styled.p`

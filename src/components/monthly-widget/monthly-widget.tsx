@@ -3,7 +3,7 @@ import { UsageReportDay, UsageReportMonth } from "../../util/group-entries";
 import { LineChart, Line, YAxis, ResponsiveContainer } from "recharts";
 import { WidgetContext } from "../context/widget-context";
 import styled from "styled-components";
-import { GridItem, up } from "../grid/grid";
+import { GridItem } from "../grid/grid";
 import { lightFormat } from "date-fns";
 import ArrowUp from "../../assets/arrow-up-icon.svg";
 import ArrowDown from "../../assets/arrow-down-icon.svg";
@@ -29,14 +29,9 @@ const StyledWidget = styled.div`
     props.isActive ? "inset 0px -3px 0px #668CFF" : "none"};
 
   border-radius: 4px;
-
   &:hover {
     background: rgba(122, 143, 204, 0.3);
   }
-
-  ${`${up("sm")}{
-  margin-right: 24px;
-   }`}
 `;
 
 const WidgetMainContent = styled.div`
