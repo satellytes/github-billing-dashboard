@@ -34,6 +34,7 @@ const TableEntry = styled.p`
 
 const TableValue = styled.p`
   margin-bottom: 21px;
+  margin-left: 16px;
   text-align: right;
   ${`${up("sm")}{
       text-align: left;
@@ -197,7 +198,7 @@ export const RepositoryTable = ({
     <GridItem>
       <StyledTable>
         <Grid>
-          <GridItem xs={6}>
+          <GridItem xs={5} md={4}>
             <LeftTableRow>
               <label>
                 <Checkbox
@@ -208,7 +209,7 @@ export const RepositoryTable = ({
               <TableEntry>Total:</TableEntry>
             </LeftTableRow>
           </GridItem>
-          <GridItem xs={6}>
+          <GridItem xs={7} md={8}>
             <TableValue>{Math.round(total * 100) / 100} $</TableValue>
           </GridItem>
         </Grid>
@@ -216,7 +217,7 @@ export const RepositoryTable = ({
           if (checkedRepositories.length === costPerRepository.length) {
             return (
               <Grid key={index}>
-                <GridItem xs={6}>
+                <GridItem xs={5} md={4}>
                   <LeftTableRow>
                     <label>
                       <Checkbox
@@ -257,7 +258,7 @@ export const RepositoryTable = ({
                     </TableEntry>
                   </LeftTableRow>
                 </GridItem>
-                <GridItem xs={6}>
+                <GridItem xs={7} md={8}>
                   <TableValue>{`${
                     Math.round(repository.totalCost * 100) / 100
                   } $`}</TableValue>
