@@ -21,7 +21,7 @@ const StyledFileInput = styled.input`
 `;
 
 const StyledSubheading = styled(Subheading)`
-  margin-top: 118px;
+  margin-top: 0;
   margin-bottom: 10px;
 `;
 
@@ -53,6 +53,14 @@ const InputLabel = styled.label`
   &:hover {
     background: #668cff;
   }
+`;
+
+const AddFileContainer = styled.div`
+  margin-bottom: 118px;
+`;
+
+const RecentlyUsedFiles = styled.div`
+  margin-bottom: 64px;
 `;
 
 const StyledButton = styled.button<{
@@ -139,31 +147,32 @@ export const FileInput = ({
         </Paragraph>
       </GridItem>
       <GridItem>
-        <InputLabel>
-          Add CSV File
-          <StyledFileInput
-            type="file"
-            accept=".csv"
-            ref={fileInput}
-            onChange={handleInput}
-            onClick={(event) => {
-              (event.target as HTMLInputElement).value = "";
-            }}
-          />
-        </InputLabel>
-        <StyledButton
-          isActive={"sampleBtn" === activeButton}
-          isHoverOverX={false}
-          onClick={() => useRecentFiles(sampleData, "sampleBtn")}
-        >
-          <ButtonText>Use Sample CSV File</ButtonText>
-        </StyledButton>
+        <AddFileContainer>
+          <InputLabel>
+            Add CSV File
+            <StyledFileInput
+              type="file"
+              accept=".csv"
+              ref={fileInput}
+              onChange={handleInput}
+              onClick={(event) => {
+                (event.target as HTMLInputElement).value = "";
+              }}
+            />
+          </InputLabel>
+          <StyledButton
+            isActive={"sampleBtn" === activeButton}
+            isHoverOverX={false}
+            onClick={() => useRecentFiles(sampleData, "sampleBtn")}
+          >
+            <ButtonText>Use Sample CSV File</ButtonText>
+          </StyledButton>
+          {(activeButton || filesFromLocalStorage.length != 0) && (
+            <DividingLine />
+          )}
+        </AddFileContainer>
       </GridItem>
-      {(activeButton || filesFromLocalStorage.length != 0) && (
-        <GridItem>
-          <DividingLine />
-        </GridItem>
-      )}
+
       {filesFromLocalStorage.length !== 0 && (
         <GridItem md={7}>
           <StyledSubheading>Billing Dashboard</StyledSubheading>
@@ -173,8 +182,9 @@ export const FileInput = ({
         </GridItem>
       )}
       <GridItem>
-        {filesFromLocalStorage.length !== 0
-          ? filesFromLocalStorage.map((entry: LocalStorageEntry) => {
+        {filesFromLocalStorage.length !== 0 ? (
+          <RecentlyUsedFiles>
+            {filesFromLocalStorage.map((entry: LocalStorageEntry) => {
               return (
                 <StyledButton
                   key={entry.filename}
@@ -213,8 +223,9 @@ export const FileInput = ({
                   </InnerButtonContent>
                 </StyledButton>
               );
-            })
-          : null}
+            })}
+          </RecentlyUsedFiles>
+        ) : null}
       </GridItem>
     </>
   );
