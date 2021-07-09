@@ -20,18 +20,23 @@ const StyledFileInput = styled.input`
   display: none;
 `;
 
-const StyledSubheading = styled.h3`
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 110%;
-  margin-top: 80px;
+const StyledSubheading = styled(Subheading)`
+  margin-top: 118px;
+  margin-bottom: 10px;
 `;
 
 const StyledParagraph = styled(Paragraph)`
   margin-bottom: 16px;
 `;
 
+const DividingLine = styled.div`
+  position: absolute;
+  height: 6px;
+  left: 0;
+  margin-top: 32px;
+  width: 100%;
+  background: black;
+`;
 const InputLabel = styled.label`
   display: inline-block;
   margin-right: 16px;
@@ -154,15 +159,19 @@ export const FileInput = ({
           <ButtonText>Use Sample CSV File</ButtonText>
         </StyledButton>
       </GridItem>
+      {(activeButton || filesFromLocalStorage.length != 0) && (
+        <GridItem>
+          <DividingLine />
+        </GridItem>
+      )}
       {filesFromLocalStorage.length !== 0 && (
         <GridItem md={7}>
-          <StyledSubheading>Uploaded Files</StyledSubheading>
+          <StyledSubheading>Billing Dashboard</StyledSubheading>
           <StyledParagraph>
             Here is an overview of your uploaded files.
           </StyledParagraph>
         </GridItem>
       )}
-
       <GridItem>
         {filesFromLocalStorage.length !== 0
           ? filesFromLocalStorage.map((entry: LocalStorageEntry) => {
@@ -185,6 +194,7 @@ export const FileInput = ({
                         //Set current data to null when closed file is selected
                         if (entry.filename === activeButton) {
                           onInput(null, false);
+                          setActiveButton("");
                         }
                         setFilesFromLocalStorage(
                           getBillingFilesFromLocalStorage()
