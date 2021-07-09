@@ -17,6 +17,13 @@ interface RepositoryTableProps {
   csvData: UsageReportEntry[];
 }
 
+const StyledHeading = styled.h3`
+  font-weight: bold;
+  font-size: 24px;
+  margin-top: 88px;
+  margin-bottom: 32px;
+`;
+
 const StyledTable = styled.div`
   margin-top: 24px;
 `;
@@ -25,21 +32,33 @@ const LeftTableRow = styled.div`
   display: flex;
 `;
 
+const Separator = styled.div<{ isTotalEntry?: boolean }>`
+  border-top: ${(props: { isTotalEntry?: boolean }) =>
+    props.isTotalEntry
+      ? "1px solid rgba(255, 255, 255, 1);"
+      : "1px solid rgba(255, 255, 255, 0.1);"};
+
+  ${(props: { isTotalEntry?: boolean }) =>
+    props.isTotalEntry
+      ? "border-bottom: 1px solid rgba(255, 255, 255, 1)"
+      : ""};
+
+  padding: 18px 12px;
+`;
+
 const TableEntry = styled.p`
-  margin-bottom: 8px;
   margin-left: 12px;
-  margin-top: 3px;
   font-size: 14px;
+  margin-top: 2px;
 `;
 
 const TableValue = styled.p`
-  margin-bottom: 21px;
-  margin-left: 16px;
   text-align: right;
   ${`${up("sm")}{
       text-align: left;
    }`}
   font-size: 14px;
+  margin-top: 2px;
 `;
 
 const ColorIcon = styled.span<{
@@ -82,9 +101,11 @@ const StyledCheckbox = styled.div<{ checked: boolean }>`
   border-radius: 4px;
   transition: all 150ms;
   cursor: pointer;
+
   &:hover {
     background: rgba(122, 143, 204, 0.5);
   }
+
   text-align: center;
 
   ${Icon} {
@@ -196,77 +217,82 @@ export const RepositoryTable = ({
 
   return (
     <GridItem>
+      <StyledHeading>Segments</StyledHeading>
       <StyledTable>
-        <Grid>
-          <GridItem xs={5} md={4}>
-            <LeftTableRow>
-              <label>
-                <Checkbox
-                  checked={globalCheckbox}
-                  onChange={() => handleGlobalCheckboxClick()}
-                />
-              </label>
-              <TableEntry>Total:</TableEntry>
-            </LeftTableRow>
-          </GridItem>
-          <GridItem xs={7} md={8}>
-            <TableValue>{Math.round(total * 100) / 100} $</TableValue>
-          </GridItem>
-        </Grid>
         {costPerRepository.map((repository, index) => {
           if (checkedRepositories.length === costPerRepository.length) {
             return (
-              <Grid key={index}>
-                <GridItem xs={5} md={4}>
-                  <LeftTableRow>
-                    <label>
-                      <Checkbox
-                        checked={checkedRepositories[index].checked}
-                        onChange={() => {
-                          let isOneCheckBoxInactive = false;
-                          setCheckedRepositories(
-                            checkedRepositories.map((item, position) => {
-                              let isItemChecked;
-                              if (index === position) {
-                                isItemChecked = !item.checked;
-                              } else {
-                                isItemChecked = item.checked;
-                              }
-                              if (!isItemChecked) {
-                                isOneCheckBoxInactive = true;
-                              }
-                              return {
-                                checked: isItemChecked,
-                                repositoryName: item.repositoryName,
-                              };
-                            })
-                          );
-                          if (isOneCheckBoxInactive) {
-                            setGlobalCheckbox(false);
-                          }
-                        }}
-                      />
-                    </label>
-                    <TableEntry>
-                      <ColorIcon
-                        repositoryName={repository.repositoryName}
-                        colorContext={colorsPerRepositoryName}
-                      >
-                        ⬤
-                      </ColorIcon>
-                      {repository.repositoryName}
-                    </TableEntry>
-                  </LeftTableRow>
-                </GridItem>
-                <GridItem xs={7} md={8}>
-                  <TableValue>{`${
-                    Math.round(repository.totalCost * 100) / 100
-                  } $`}</TableValue>
-                </GridItem>
-              </Grid>
+              <Separator key={index}>
+                <Grid>
+                  <GridItem xs={5} md={4}>
+                    <LeftTableRow>
+                      <label>
+                        <Checkbox
+                          checked={checkedRepositories[index].checked}
+                          onChange={() => {
+                            let isOneCheckBoxInactive = false;
+                            setCheckedRepositories(
+                              checkedRepositories.map((item, position) => {
+                                let isItemChecked;
+                                if (index === position) {
+                                  isItemChecked = !item.checked;
+                                } else {
+                                  isItemChecked = item.checked;
+                                }
+                                if (!isItemChecked) {
+                                  isOneCheckBoxInactive = true;
+                                }
+                                return {
+                                  checked: isItemChecked,
+                                  repositoryName: item.repositoryName,
+                                };
+                              })
+                            );
+                            if (isOneCheckBoxInactive) {
+                              setGlobalCheckbox(false);
+                            }
+                          }}
+                        />
+                      </label>
+                      <TableEntry>
+                        <ColorIcon
+                          repositoryName={repository.repositoryName}
+                          colorContext={colorsPerRepositoryName}
+                        >
+                          ⬤
+                        </ColorIcon>
+                        {repository.repositoryName}
+                      </TableEntry>
+                    </LeftTableRow>
+                  </GridItem>
+                  <GridItem xs={7} md={8}>
+                    <TableValue>{`${
+                      Math.round(repository.totalCost * 100) / 100
+                    } $`}</TableValue>
+                  </GridItem>
+                </Grid>
+              </Separator>
             );
           }
         })}
+        <Separator isTotalEntry={true}>
+          <Grid>
+            <GridItem xs={6}>
+              <LeftTableRow>
+                <label>
+                  <Checkbox
+                    checked={globalCheckbox}
+                    onChange={() => handleGlobalCheckboxClick()}
+                  />
+                </label>
+                <TableEntry>Total:</TableEntry>
+              </LeftTableRow>
+            </GridItem>
+            <GridItem xs={6}>
+              <TableValue>{Math.round(total * 100) / 100} $</TableValue>
+            </GridItem>
+          </Grid>
+        </Separator>
       </StyledTable>
     </GridItem>
   );
