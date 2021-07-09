@@ -11,25 +11,24 @@ import "react-medium-image-zoom/dist/styles.css";
 const StyledSubheading = styled(Subheading)`
   margin-top: 120px;
 `;
-const FlowChartRectangle = styled(GridItem)`
+
+const FlowChartContainer = styled(Grid)`
+  column-gap: 24px;
+`;
+const FlowChartItem = styled(GridItem)`
   margin-bottom: 24px;
-  padding: 20px 20px 40px 20px;
+  padding: 20px;
   background: rgba(122, 143, 204, 0.3);
-  clip-path: polygon(100% 0, 100% 94%, 50% 100%, 0 94%, 0 0);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   ${`${up("sm")}{
-    clip-path: polygon(0% 0%, 94% 0, 100% 50%, 94% 100%, 0% 100%); 
-    padding: 20px 40px 20px 20px;
-    margin-right: 24px;
     margin-bottom: 0;
-    height: 300px;
+    height: 320px;
    }`}
 
   ${`${up("md")}{
-    height: 372px;
+    height: 400px;
    }`}
 `;
 
@@ -76,7 +75,9 @@ export const StartDescription = (): JSX.Element => {
           <StyledSubheading>How to get your CSV file</StyledSubheading>
         </GridItem>
         <GridItem md={4} />
-        <FlowChartRectangle xs={12} sm={4}>
+      </Grid>
+      <FlowChartContainer>
+        <FlowChartItem xs={12} sm={4}>
           <FlowChartTextContent>
             <FlowChartHeadline>1</FlowChartHeadline>
             <FlowChartDescription>
@@ -86,8 +87,8 @@ export const StartDescription = (): JSX.Element => {
           <Zoom {...imageZoomProps}>
             <FlowChartImage src={GithubPersonalSettings} alt="" />
           </Zoom>
-        </FlowChartRectangle>
-        <FlowChartRectangle xs={12} sm={4}>
+        </FlowChartItem>
+        <FlowChartItem xs={12} sm={4}>
           <FlowChartTextContent>
             <FlowChartHeadline>2</FlowChartHeadline>
             <FlowChartDescription>
@@ -97,9 +98,9 @@ export const StartDescription = (): JSX.Element => {
           <Zoom {...imageZoomProps}>
             <FlowChartImage src={GithubPersonalBillingAndPlans} alt="" />
           </Zoom>
-        </FlowChartRectangle>
+        </FlowChartItem>
 
-        <FlowChartRectangle xs={12} sm={4}>
+        <FlowChartItem xs={12} sm={4}>
           <FlowChartTextContent>
             <FlowChartHeadline>3</FlowChartHeadline>
             <FlowChartDescription>
@@ -110,8 +111,8 @@ export const StartDescription = (): JSX.Element => {
           <Zoom {...imageZoomProps}>
             <FlowChartImage src={GihtubPersonalGetUsageReport} alt="" />
           </Zoom>
-        </FlowChartRectangle>
-      </Grid>
+        </FlowChartItem>
+      </FlowChartContainer>
     </GridItem>
   );
 };
