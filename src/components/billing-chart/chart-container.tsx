@@ -44,6 +44,7 @@ const Button = styled.button`
   padding: 8px 12px;
   color: white;
   font-size: 14px;
+  margin: 0;
 `;
 
 const LeftToggleButton = styled(Button)`
