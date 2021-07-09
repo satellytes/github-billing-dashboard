@@ -98,9 +98,9 @@ const ButtonText = styled.div``;
 
 const CloseFile = styled.div`
   margin-left: 24px;
-  color: rgb(88, 95, 119);
+  opacity: 0.5;
   &:hover {
-    color: white;
+    opacity: 1;
   }
 `;
 
