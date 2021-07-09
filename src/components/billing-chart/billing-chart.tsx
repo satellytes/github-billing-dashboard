@@ -26,7 +26,12 @@ import { RepositoryColorContext } from "../context/repository-color-context";
 const removeZeroDollarEntries = (
   value: number,
   name: string,
-  props: { value: number; payload: { entries: UsageReportEntry[] } },
+  props: {
+    fill: string;
+    color: string;
+    value: number;
+    payload: { entries: UsageReportEntry[] };
+  },
   firstRepository: string
 ): [string | null, string | null, { value: number } | null] => {
   //TODO: fix bug: "no expenses, yeah" doesn't show up sometimes
@@ -36,7 +41,10 @@ const removeZeroDollarEntries = (
     }
     return [null, null, null];
   } else {
-    return [`${value} $`, name, props];
+    const newProps = props;
+    newProps.color = "black";
+    newProps.fill = "black";
+    return [`${value} $`, name, newProps];
   }
 };
 
@@ -119,7 +127,12 @@ export const BillingChart = ({
       formatter={(
         value: number,
         name: string,
-        props: { value: number; payload: { entries: UsageReportEntry[] } }
+        props: {
+          fill: string;
+          color: string;
+          value: number;
+          payload: { entries: UsageReportEntry[] };
+        }
       ) => removeZeroDollarEntries(value, name, props, repositoryNames[0])}
       labelFormatter={(label) =>
         isStringDateValue(label)
@@ -133,26 +146,26 @@ export const BillingChart = ({
         repositoryGroupedByDay.value ? repositoryGroupedByDay.value * -1 : 0
       }
       labelStyle={{
-        color: "white",
+        color: "black",
         fontStyle: "normal",
-        fontWeight: "normal",
+        fontWeight: 900,
         fontSize: "12px",
-        lineHeight: "13px",
-        marginBottom: "10px",
+        lineHeight: "18px",
+        marginBottom: "16px",
       }}
       itemStyle={{
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: "12px",
-        lineHeight: "13px",
-        marginBottom: "4px",
+        lineHeight: "14px",
+        marginBottom: "8px",
         padding: 0,
       }}
       contentStyle={{
         borderRadius: "4px",
         border: "none",
-        padding: "12px",
-        background: "#202840",
+        padding: "16px 16px 8px 16px",
+        background: "white",
       }}
       cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
     />
