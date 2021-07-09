@@ -27,6 +27,7 @@ const Annotation = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
+  opacity: 0.5;
 `;
 
 export const MonthlyWidgetContainer = ({
