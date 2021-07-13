@@ -4,7 +4,7 @@ import GithubLogoPNG from "../../assets/GitHub-Mark-Light-64px.png";
 import { Swoosh } from "../../assets/swoosh";
 import { up } from "../grid/grid";
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.header`
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 18px 16px 15px 16px;
   display: flex;
@@ -20,11 +20,14 @@ const StyledHeader = styled.div`
 
 const SatellytesLogo = styled.div``;
 
-const SatellytesLogoText = styled.h1`
+const SatellytesLogoText = styled.a`
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
   line-height: 31px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
 `;
 
 const HeaderSwoosh = styled(Swoosh)`
@@ -43,7 +46,9 @@ export const Header = (): JSX.Element => {
     <StyledHeader>
       <SatellytesLogo>
         <HeaderSwoosh />
-        <SatellytesLogoText>Satellytes</SatellytesLogoText>
+        <SatellytesLogoText href={"https://satellytes.com/"} target={"_blank"}>
+          Satellytes
+        </SatellytesLogoText>
       </SatellytesLogo>
       <a
         href={"https://github.com/satellytes/github-billing-dashboard"}
