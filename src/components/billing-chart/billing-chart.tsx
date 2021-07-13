@@ -206,7 +206,12 @@ export const BillingChart = ({
     />
   );
 
-  const sharedTooltip = <TypedTooltip content={<CustomTooltip />} />;
+  const sharedTooltip = (
+    <TypedTooltip
+      cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
+      content={<CustomTooltip />}
+    />
+  );
 
   return (
     <ResponsiveContainer width="100%" height={700}>

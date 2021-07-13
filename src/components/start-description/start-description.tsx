@@ -10,6 +10,7 @@ import "react-medium-image-zoom/dist/styles.css";
 
 const StyledSubheading = styled(Subheading)`
   margin-top: 120px;
+  margin-bottom: 32px;
 `;
 
 const FlowChartContainer = styled(Grid)`
@@ -37,7 +38,7 @@ const FlowChartTextContent = styled.div``;
 const FlowChartHeadline = styled.h1`
   margin-bottom: 8px;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 900;
   font-size: 32px;
   line-height: 110%;
 `;

@@ -5,7 +5,7 @@ export const Subheading = styled.h1`
   font-weight: bold;
   font-size: 32px;
   line-height: 42px;
-  margin-top: 160px;
+  margin-top: 80px;
   margin-bottom: 24px;
 `;
 
