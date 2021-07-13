@@ -1,39 +1,42 @@
 import React from "react";
 import styled from "styled-components";
-import { Paragraph } from "../style/typography";
+import { Swoosh } from "../../assets/swoosh";
 
 const StyledFooter = styled.div`
-  padding: 24px 24px 80px 24px;
+  padding: 400px 40px 40px 40px;
   margin-top: 160px;
   text-align: right;
   background: linear-gradient(275.41deg, #543fd7 0%, #2756fd 100%);
+  clip-path: polygon(
+    0 16vw /* left top */,
+    100% 0 /* right top */,
+    100% 100% /* right bottom */,
+    0% 100% /* left bottom */
+  );
 `;
 
-const FooterText = styled(Paragraph)`
-  margin: 0;
-  font-weight: bold;
-  font-size: 16px;
+const FooterSwoosh = styled(Swoosh)`
+  position: absolute;
+  width: 28px;
+  margin-bottom: -7px;
+  margin-left: 3px;
 `;
 
 const FooterLink = styled.a`
   text-decoration: none;
   color: white;
   cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  font-size: 48px;
+  font-weight: bold;
 `;
 
 export const Footer = (): JSX.Element => {
   return (
     <StyledFooter>
-      <FooterText>
-        developed by{" "}
-        <FooterLink href="https://satellytes.com/" target="_blank">
-          Satellytes.com
-        </FooterLink>
-      </FooterText>
+      <FooterSwoosh />
+      <FooterLink href="https://satellytes.com/" target="_blank">
+        Satellytes
+      </FooterLink>
     </StyledFooter>
   );
 };
