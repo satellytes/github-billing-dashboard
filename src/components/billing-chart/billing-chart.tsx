@@ -23,10 +23,7 @@ import { dayOfWeek, isStringDateValue } from "../../util/date-util";
 import { RepositoryTableContext } from "../context/repository-table-context";
 import { RepositoryColorContext } from "../context/repository-color-context";
 import styled from "styled-components";
-import {
-  NameType,
-  ValueType,
-} from "recharts/types/component/DefaultTooltipContent";
+import { Payload } from "recharts/types/component/DefaultTooltipContent";
 
 const tooltipLabelFormatter = (label: string) =>
   isStringDateValue(label)
@@ -95,7 +92,7 @@ const CustomTooltip = ({
   active,
   payload,
   label,
-}: TooltipProps<ValueType, NameType>) => {
+}: TooltipProps<number, string>) => {
   if (
     !payload ||
     payload.length === 0 ||
@@ -109,9 +106,8 @@ const CustomTooltip = ({
     );
   }
 
-  //TODO REMOVE ANY
   if (active && payload && payload.length) {
-    payload.sort((a: any, b: any) => {
+    payload.sort((a: Payload<number, string>, b: Payload<number, string>) => {
       if (a.value && b.value) {
         return b.value - a.value;
       } else {
