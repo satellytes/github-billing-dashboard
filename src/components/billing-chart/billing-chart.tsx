@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   Line,
   Tooltip,
+  TooltipProps,
 } from "recharts";
 import {
   filterEntriesByRepositoryName,
@@ -19,37 +20,24 @@ import {
 } from "../../util/group-entries";
 import { getDay, lightFormat } from "date-fns";
 import { dayOfWeek, isStringDateValue } from "../../util/date-util";
-import { UsageReportEntry } from "../../util/csv-reader";
 import { RepositoryTableContext } from "../context/repository-table-context";
 import { RepositoryColorContext } from "../context/repository-color-context";
+import styled from "styled-components";
+import {
+  NameType,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent";
 
-const removeZeroDollarEntries = (
-  value: number,
-  name: string,
-  props: {
-    fill: string;
-    color: string;
-    value: number;
-    payload: { entries: UsageReportEntry[] };
-  },
-  firstRepository: string
-): [string | null, string | null, { value: number } | null] => {
-  //TODO: fix bug: "no expenses, yeah" doesn't show up sometimes
-  if (props.value === 0) {
-    if (props.payload.entries.length === 0 && name === firstRepository) {
-      return ["no expenses, yeah 🎉", null, null];
-    }
-    return [null, null, null];
-  } else {
-    const newProps = props;
-    newProps.color = "black";
-    newProps.fill = "black";
-    return [`${value} $`, name, newProps];
-  }
-};
+const tooltipLabelFormatter = (label: string) =>
+  isStringDateValue(label)
+    ? `${dayOfWeek[getDay(new Date(label))]}, ${lightFormat(
+        new Date(label),
+        "dd.MM."
+      )}`
+    : label;
 
 //Setting the generics for Tooltip
-class CustomTooltip extends Tooltip<number, string> {}
+class TypedTooltip extends Tooltip<number, string> {}
 
 interface BillingChartProps {
   groupedBy: "daily" | "weekly";
@@ -59,6 +47,101 @@ interface BillingChartProps {
   entriesGroupedPerWeek: UsageReportWeek[];
   diagrammType: "Bar" | "Line";
 }
+
+const TooltipContainer = styled.div`
+  border-radius: 4px;
+  border: none;
+  background: white;
+  padding: 16px;
+`;
+
+const TooltipHeading = styled.h4`
+  font-style: normal;
+  font-weight: 900;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  color: #202840;
+`;
+
+const TooltipText = styled.p`
+  font-size: 14px;
+  color: #202840;
+`;
+
+const TooltipValue = styled.p`
+  font-weight: bold;
+  font-size: 14px;
+  color: #202840;
+  margin-left: 12px;
+`;
+
+const TooltipRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+`;
+
+const TooltipDot = styled.span<{ repositoryColor?: string }>`
+  ${(props: { repositoryColor?: string }) => `color: ${props.repositoryColor}`};
+  font-size: 8px;
+  vertical-align: 2px;
+  margin-right: 8px;
+`;
+
+const CustomTooltip = ({
+  active,
+  payload,
+  label,
+}: TooltipProps<ValueType, NameType>) => {
+  if (
+    !payload ||
+    payload.length === 0 ||
+    payload.every((tooltipEntry) => tooltipEntry.value === 0)
+  ) {
+    return (
+      <TooltipContainer>
+        <TooltipHeading>{tooltipLabelFormatter(label)}</TooltipHeading>
+        <TooltipText>no expenses, yeah 🎉</TooltipText>
+      </TooltipContainer>
+    );
+  }
+
+  //TODO REMOVE ANY
+  if (active && payload && payload.length) {
+    payload.sort((a: any, b: any) => {
+      if (a.value && b.value) {
+        return b.value - a.value;
+      } else {
+        return -1;
+      }
+    });
+
+    return (
+      <TooltipContainer>
+        <TooltipHeading>{tooltipLabelFormatter(label)}</TooltipHeading>
+        {payload.map((tooltipEntry, index) => {
+          if (tooltipEntry.value !== 0) {
+            return (
+              <TooltipRow key={index}>
+                <TooltipText>
+                  <TooltipDot repositoryColor={tooltipEntry.color}>
+                    ⬤
+                  </TooltipDot>
+                  {tooltipEntry.name}
+                </TooltipText>
+                <TooltipValue>{tooltipEntry.value} $</TooltipValue>
+              </TooltipRow>
+            );
+          }
+        })}
+      </TooltipContainer>
+    );
+  }
+  return null;
+};
 
 export const BillingChart = ({
   groupedBy,
@@ -122,54 +205,8 @@ export const BillingChart = ({
       tickLine={false}
     />
   );
-  const sharedTooltip = (
-    <CustomTooltip
-      formatter={(
-        value: number,
-        name: string,
-        props: {
-          fill: string;
-          color: string;
-          value: number;
-          payload: { entries: UsageReportEntry[] };
-        }
-      ) => removeZeroDollarEntries(value, name, props, repositoryNames[0])}
-      labelFormatter={(label) =>
-        isStringDateValue(label)
-          ? `${dayOfWeek[getDay(new Date(label))]}, ${lightFormat(
-              new Date(label),
-              "dd.MM."
-            )}`
-          : label
-      }
-      itemSorter={(repositoryGroupedByDay) =>
-        repositoryGroupedByDay.value ? repositoryGroupedByDay.value * -1 : 0
-      }
-      labelStyle={{
-        color: "black",
-        fontStyle: "normal",
-        fontWeight: 900,
-        fontSize: "12px",
-        lineHeight: "18px",
-        marginBottom: "16px",
-      }}
-      itemStyle={{
-        fontStyle: "normal",
-        fontWeight: "normal",
-        fontSize: "12px",
-        lineHeight: "14px",
-        marginBottom: "8px",
-        padding: 0,
-      }}
-      contentStyle={{
-        borderRadius: "4px",
-        border: "none",
-        padding: "16px 16px 8px 16px",
-        background: "white",
-      }}
-      cursor={{ fill: "rgba(122, 143, 204, 0.3)" }}
-    />
-  );
+
+  const sharedTooltip = <TypedTooltip content={<CustomTooltip />} />;
 
   return (
     <ResponsiveContainer width="100%" height={700}>
