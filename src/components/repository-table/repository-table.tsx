@@ -20,7 +20,7 @@ interface RepositoryTableProps {
 const StyledHeading = styled.h3`
   font-weight: bold;
   font-size: 24px;
-  margin-top: 88px;
+  margin-top: 80px;
   margin-bottom: 32px;
 `;
 
@@ -59,6 +59,7 @@ const TableValue = styled.p`
    }`}
   font-size: 14px;
   margin-top: 2px;
+  font-weight: bold;
 `;
 
 const ColorIcon = styled.span<{
