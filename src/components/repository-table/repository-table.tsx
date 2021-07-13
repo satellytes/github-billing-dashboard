@@ -46,10 +46,12 @@ const Separator = styled.div<{ isTotalEntry?: boolean }>`
   padding: 18px 12px;
 `;
 
-const TableEntry = styled.p`
+const TableEntry = styled.p<{ isTotal?: boolean }>`
   margin-left: 12px;
   font-size: 14px;
   margin-top: 2px;
+  ${(props: { isTotal?: boolean }) =>
+    props.isTotal ? "font-weight: bold" : ""};
 `;
 
 const TableValue = styled.p`
@@ -286,7 +288,7 @@ export const RepositoryTable = ({
                     onChange={() => handleGlobalCheckboxClick()}
                   />
                 </label>
-                <TableEntry>Total:</TableEntry>
+                <TableEntry isTotal={true}>Total:</TableEntry>
               </LeftTableRow>
             </GridItem>
             <GridItem xs={6}>
