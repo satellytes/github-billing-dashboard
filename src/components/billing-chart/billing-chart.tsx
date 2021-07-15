@@ -55,7 +55,7 @@ const TooltipContainer = styled.div`
   padding: 16px;
 `;
 
-const TooltipHeading = styled.h4`
+const TooltipHeading = styled.p`
   font-style: normal;
   font-weight: 900;
   font-size: 12px;

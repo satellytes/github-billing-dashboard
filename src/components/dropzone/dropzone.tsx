@@ -8,7 +8,7 @@ const StyledDropzone = styled.div<{ isDragActive: boolean }>`
   opacity: ${(props) => (props.isDragActive ? "0.5" : "1")};
 `;
 
-const DropzoneText = styled.h1<{ isDragActive: boolean }>`
+const DropzoneText = styled.p<{ isDragActive: boolean }>`
   position: fixed;
   top: 50%;
   left: 50%;

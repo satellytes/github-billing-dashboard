@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Subheading = styled.h1`
+export const Subheading = styled.h2`
   font-style: normal;
   font-weight: bold;
   font-size: 32px;

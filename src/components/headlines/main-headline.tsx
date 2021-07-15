@@ -31,7 +31,7 @@ const HeadlineSwoosh = styled(Swoosh)`
   `};
 `;
 
-const Subtitle = styled.h2`
+const Subtitle = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 32px;

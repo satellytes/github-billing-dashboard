@@ -1,13 +1,13 @@
 import React, { RefObject } from "react";
 import { GridItem } from "../grid/grid";
-import { Subheading } from "../style/typography";
 import styled from "styled-components";
 
-const StyledSubheading = styled(Subheading)`
+const StyledSubheading = styled.h3`
   margin-top: 0;
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
+  margin-bottom: 24px;
 `;
 
 interface ChartContentHeadlineProps {

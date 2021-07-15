@@ -35,7 +35,7 @@ const FlowChartItem = styled(GridItem)`
 
 const FlowChartTextContent = styled.div``;
 
-const FlowChartHeadline = styled.h1`
+const FlowChartHeadline = styled.p`
   margin-bottom: 8px;
   font-style: normal;
   font-weight: 900;
