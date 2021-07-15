@@ -32,7 +32,7 @@ const WidgetMainContent = styled.div`
 
 const WidgetDescription = styled.div``;
 
-const WidgetMonth = styled.h2`
+const WidgetMonth = styled.p`
   margin-bottom: 8px;
   font-style: normal;
   font-weight: 900;
