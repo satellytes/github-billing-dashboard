@@ -21,6 +21,8 @@ const StyledWidget = styled.div`
   border-radius: 4px;
   &:hover {
     background: rgba(122, 143, 204, 0.3);
+    transform: translateY(-3px);
+    box-shadow: inset 0px -3px 0px #668cff;
   }
 `;
 
