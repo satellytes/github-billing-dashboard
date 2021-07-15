@@ -73,7 +73,7 @@ const TooltipRow = styled.div`
 `;
 
 const TooltipDot = styled.span<{ repositoryColor?: string }>`
-  ${(props: { repositoryColor?: string }) => `color: ${props.repositoryColor}`};
+  color: ${(props: { repositoryColor?: string }) => `${props.repositoryColor}`};
   font-size: 8px;
   vertical-align: 2px;
   margin-right: 8px;
