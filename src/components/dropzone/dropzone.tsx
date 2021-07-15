@@ -2,11 +2,6 @@ import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 
-interface DropzoneProp {
-  onInput: (file: File, activeFileName: string) => void;
-  children: React.ReactNode;
-}
-
 const StyledDropzone = styled.div<{ isDragActive: boolean }>`
   margin: 0;
   padding: 0;
@@ -20,6 +15,12 @@ const DropzoneText = styled.h1<{ isDragActive: boolean }>`
   transform: translate(-50%, -50%);
   display: ${(props) => (props.isDragActive ? "flow" : "none")};
 `;
+
+interface DropzoneProp {
+  onInput: (file: File, activeFileName: string) => void;
+  children: React.ReactNode;
+}
+
 export const Dropzone = ({ onInput, children }: DropzoneProp): JSX.Element => {
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {

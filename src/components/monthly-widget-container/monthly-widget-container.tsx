@@ -12,11 +12,6 @@ import styled from "styled-components";
 import { Grid, GridItem } from "../grid/grid";
 import { getMonth } from "date-fns";
 
-interface MonthlyWidgetProps {
-  csvData: UsageReportEntry[];
-  entriesGroupedPerDay: UsageReportDay[];
-}
-
 const StyledContainer = styled(Grid)`
   grid-auto-rows: 1fr;
   grid-gap: 0 24px;
@@ -29,6 +24,11 @@ const Annotation = styled.p`
   font-size: 12px;
   opacity: 0.5;
 `;
+
+interface MonthlyWidgetProps {
+  csvData: UsageReportEntry[];
+  entriesGroupedPerDay: UsageReportDay[];
+}
 
 export const MonthlyWidgetContainer = ({
   csvData,

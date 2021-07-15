@@ -36,15 +36,6 @@ const tooltipLabelFormatter = (label: string) =>
 //Setting the generics for Tooltip
 class TypedTooltip extends Tooltip<number, string> {}
 
-interface BillingChartProps {
-  groupedBy: "daily" | "weekly";
-  maxValueOfYAxis: number;
-  repositoryNames: string[];
-  entriesGroupedPerDay: UsageReportDay[];
-  entriesGroupedPerWeek: UsageReportWeek[];
-  diagrammType: "Bar" | "Line";
-}
-
 const TooltipContainer = styled.div`
   border-radius: 4px;
   border: none;
@@ -138,6 +129,15 @@ const CustomTooltip = ({
   }
   return null;
 };
+
+interface BillingChartProps {
+  groupedBy: "daily" | "weekly";
+  maxValueOfYAxis: number;
+  repositoryNames: string[];
+  entriesGroupedPerDay: UsageReportDay[];
+  entriesGroupedPerWeek: UsageReportWeek[];
+  diagrammType: "Bar" | "Line";
+}
 
 export const BillingChart = ({
   groupedBy,

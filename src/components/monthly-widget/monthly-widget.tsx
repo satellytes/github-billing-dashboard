@@ -8,16 +8,6 @@ import { lightFormat } from "date-fns";
 import ArrowUp from "../../assets/arrow-up-icon.svg";
 import ArrowDown from "../../assets/arrow-down-icon.svg";
 
-interface MonthlyWidgetProps {
-  monthlyEntry: UsageReportMonth;
-  maxValueOfYAxis: number;
-  isMoreExpensiveThanPreviousMonth: boolean;
-  percentageDifferenceToPreviousMonth: number;
-  isFirstMonth: boolean;
-  isLastMonth: boolean;
-  entriesGroupedPerDay: UsageReportDay[];
-}
-
 const StyledWidget = styled.div`
   margin-bottom: 24px;
   cursor: pointer;
@@ -73,6 +63,16 @@ const Arrow = styled.img`
   margin-bottom: -3px;
   margin-left: 6px;
 `;
+
+interface MonthlyWidgetProps {
+  monthlyEntry: UsageReportMonth;
+  maxValueOfYAxis: number;
+  isMoreExpensiveThanPreviousMonth: boolean;
+  percentageDifferenceToPreviousMonth: number;
+  isFirstMonth: boolean;
+  isLastMonth: boolean;
+  entriesGroupedPerDay: UsageReportDay[];
+}
 
 export const MonthlyWidget = ({
   monthlyEntry,

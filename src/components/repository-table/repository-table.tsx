@@ -13,10 +13,6 @@ import {
   RepositoryColorType,
 } from "../context/repository-color-context";
 
-interface RepositoryTableProps {
-  csvData: UsageReportEntry[];
-}
-
 const StyledHeading = styled.h3`
   font-weight: bold;
   font-size: 24px;
@@ -120,6 +116,10 @@ const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
 `;
+
+interface RepositoryTableProps {
+  csvData: UsageReportEntry[];
+}
 
 export const RepositoryTable = ({
   csvData,
