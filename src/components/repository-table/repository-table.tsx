@@ -227,7 +227,7 @@ export const RepositoryTable = ({
             return (
               <Separator key={index}>
                 <Grid>
-                  <GridItem xs={5} md={4}>
+                  <GridItem xs={6}>
                     <LeftTableRow>
                       <label>
                         <Checkbox
@@ -268,7 +268,7 @@ export const RepositoryTable = ({
                       </TableEntry>
                     </LeftTableRow>
                   </GridItem>
-                  <GridItem xs={7} md={8}>
+                  <GridItem xs={6}>
                     <TableValue>{`${(
                       Math.round(repository.totalCost * 100) / 100
                     ).toFixed(2)} $`}</TableValue>
