@@ -38,8 +38,10 @@ export const Dropzone = ({ onInput, children }: DropzoneProp): JSX.Element => {
         Drop your CSV File here
       </DropzoneText>
       <StyledDropzone
-        isDragActive={isDragActive}
-        {...getRootProps({ onClick: (event) => event.stopPropagation() })}
+        {...getRootProps({
+          onClick: (event) => event.stopPropagation(),
+          isDragActive,
+        })}
       >
         <input {...getInputProps()} />
         {children}
