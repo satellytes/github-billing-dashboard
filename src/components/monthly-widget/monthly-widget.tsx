@@ -17,8 +17,10 @@ const StyledWidget = styled.div`
   border: none;
   box-shadow: ${(props: { isActive: boolean }) =>
     props.isActive ? "inset 0px -3px 0px #668CFF" : "none"};
-
   border-radius: 4px;
+
+  transition: transform 0.2s ease-in, box-shadow 0.2s ease-in;
+
   &:hover {
     background: rgba(122, 143, 204, 0.3);
     transform: translateY(-3px);
