@@ -12,12 +12,6 @@ import styled from "styled-components";
 import { GridItem } from "../grid/grid";
 import { BillingChart } from "./billing-chart";
 
-interface ChartContainerProps {
-  csvData: UsageReportEntry[];
-  repositoryNames: string[];
-  entriesGroupedPerDay: UsageReportDay[];
-}
-
 const ChartDiv = styled.div`
   background: linear-gradient(
     180deg,
@@ -56,6 +50,12 @@ const RightToggleButton = styled(Button)`
   border-bottom-right-radius: 4px;
   border-top-right-radius: 4px;
 `;
+
+interface ChartContainerProps {
+  csvData: UsageReportEntry[];
+  repositoryNames: string[];
+  entriesGroupedPerDay: UsageReportDay[];
+}
 
 export const ChartContainer = ({
   csvData,

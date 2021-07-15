@@ -2,14 +2,6 @@ import styled from "styled-components";
 
 type GridItemSize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
-interface GridItemProps {
-  xs?: GridItemSize;
-  sm?: GridItemSize;
-  md?: GridItemSize;
-  lg?: GridItemSize;
-  xl?: GridItemSize;
-}
-
 interface Breakpoints {
   xs: string;
   sm: string;
@@ -25,6 +17,14 @@ const breakpoints = {
   lg: "1280px",
   xl: "1920px",
 };
+
+interface GridItemProps {
+  xs?: GridItemSize;
+  sm?: GridItemSize;
+  md?: GridItemSize;
+  lg?: GridItemSize;
+  xl?: GridItemSize;
+}
 
 export const GridItem = styled.div<GridItemProps>`
   grid-column-start: span ${(props) => props.xs || 12};

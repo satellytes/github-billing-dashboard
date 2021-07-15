@@ -10,12 +10,6 @@ import { sampleData } from "./sampleData";
 import { LocalStorageEntry } from "../../util/local-storage";
 import { Subheading, Paragraph } from "../style/typography";
 
-interface FileInputProp {
-  onInput: (file: File | null, isDataFromDropzone: boolean) => void;
-  handleInputFromLocalStorage: (csvData: UsageReportEntry[]) => void;
-  activeFileName: string;
-}
-
 const StyledFileInput = styled.input`
   display: none;
 `;
@@ -103,6 +97,12 @@ const CloseFile = styled.div`
     opacity: 1;
   }
 `;
+
+interface FileInputProp {
+  onInput: (file: File | null, isDataFromDropzone: boolean) => void;
+  handleInputFromLocalStorage: (csvData: UsageReportEntry[]) => void;
+  activeFileName: string;
+}
 
 export const FileInput = ({
   onInput,
