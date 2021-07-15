@@ -34,16 +34,15 @@ const tooltipLabelFormatter = (label: string) =>
       )}`
     : label;
 
-const sortTooltipPayloadByPrice = (payload: Array<Payload<number, string>>) => {
-  return payload.sort(
-    (a: Payload<number, string>, b: Payload<number, string>) => {
-      if (a.value && b.value) {
-        return b.value - a.value;
-      } else {
-        return -1;
-      }
-    }
-  );
+const sortTooltipPayloadByPrice = (
+  a: Payload<number, string>,
+  b: Payload<number, string>
+): number => {
+  if (a.value !== undefined && b.value !== undefined) {
+    return b.value - a.value;
+  } else {
+    return -1;
+  }
 };
 
 //Setting the generics for Tooltip
@@ -85,7 +84,8 @@ const CustomTooltip = ({
   }
 
   if (active && payload && payload.length) {
-    const sortedPayload = sortTooltipPayloadByPrice(payload);
+    const sortedPayload = payload.sort(sortTooltipPayloadByPrice);
+
     return (
       <TooltipContainer>
         <TooltipHeading>{tooltipLabelFormatter(label)}</TooltipHeading>
