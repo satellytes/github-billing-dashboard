@@ -24,6 +24,7 @@ import { RepositoryTableContext } from "../context/repository-table-context";
 import { RepositoryColorContext } from "../context/repository-color-context";
 import styled from "styled-components";
 import { Payload } from "recharts/types/component/DefaultTooltipContent";
+import { TooltipEntry, TooltipText } from "./tooltip-entry";
 
 const tooltipLabelFormatter = (label: string) =>
   isStringDateValue(label)
@@ -65,32 +66,6 @@ const TooltipHeading = styled.h4`
   color: #202840;
 `;
 
-const TooltipText = styled.p`
-  font-size: 14px;
-  color: #202840;
-`;
-
-const TooltipValue = styled.p`
-  font-weight: bold;
-  font-size: 14px;
-  color: #202840;
-  margin-left: 12px;
-`;
-
-const TooltipRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 8px;
-`;
-
-const TooltipDot = styled.span<{ repositoryColor?: string }>`
-  color: ${(props: { repositoryColor?: string }) => `${props.repositoryColor}`};
-  font-size: 8px;
-  vertical-align: 2px;
-  margin-right: 8px;
-`;
-
 const CustomTooltip = ({
   active,
   payload,
@@ -114,18 +89,13 @@ const CustomTooltip = ({
     return (
       <TooltipContainer>
         <TooltipHeading>{tooltipLabelFormatter(label)}</TooltipHeading>
-        {sortedPayload.map((tooltipEntry, index) => {
+        {sortedPayload.map((tooltipEntry) => {
           if (tooltipEntry.value !== 0) {
             return (
-              <TooltipRow key={index}>
-                <TooltipText>
-                  <TooltipDot repositoryColor={tooltipEntry.color}>
-                    ⬤
-                  </TooltipDot>
-                  {tooltipEntry.name}
-                </TooltipText>
-                <TooltipValue>{tooltipEntry.value} $</TooltipValue>
-              </TooltipRow>
+              <TooltipEntry
+                tooltipEntry={tooltipEntry}
+                key={tooltipEntry.name}
+              />
             );
           }
         })}
