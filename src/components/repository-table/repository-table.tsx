@@ -269,9 +269,9 @@ export const RepositoryTable = ({
                     </LeftTableRow>
                   </GridItem>
                   <GridItem xs={7} md={8}>
-                    <TableValue>{`${
+                    <TableValue>{`${(
                       Math.round(repository.totalCost * 100) / 100
-                    } $`}</TableValue>
+                    ).toFixed(2)} $`}</TableValue>
                   </GridItem>
                 </Grid>
               </Separator>

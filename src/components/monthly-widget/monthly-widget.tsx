@@ -121,9 +121,9 @@ export const MonthlyWidget = ({
                 />
               </WidgetValue>
             )}
-            <WidgetValue fontSize={"large"} isFirstMonth={isFirstMonth}>{`${
+            <WidgetValue fontSize={"large"} isFirstMonth={isFirstMonth}>{`${(
               Math.round(monthlyEntry.totalPrice * 100) / 100
-            } $`}</WidgetValue>
+            ).toFixed(2)} $`}</WidgetValue>
           </WidgetDescription>
           <ResponsiveContainer width="55%" height={50}>
             <LineChart

@@ -41,7 +41,7 @@ export const TooltipEntry = ({
         <TooltipDot repositoryColor={tooltipEntry.color}>⬤</TooltipDot>
         {tooltipEntry.name}
       </TooltipText>
-      <TooltipValue>{tooltipEntry.value} $</TooltipValue>
+      <TooltipValue>{tooltipEntry.value?.toFixed(2)} $</TooltipValue>
     </TooltipRow>
   );
 };
