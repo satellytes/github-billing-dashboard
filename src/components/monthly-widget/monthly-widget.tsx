@@ -46,21 +46,14 @@ const WidgetMonth = styled.p`
 `;
 
 const WidgetValue = styled.p<{
-  fontSize: "large" | "small";
   isFirstMonth?: boolean;
 }>`
   font-style: normal;
   font-weight: normal;
   margin-top: ${(props: { isFirstMonth?: boolean }) =>
     props.isFirstMonth ? "31px" : "8px"};
-  font-size: ${(props: { fontSize: "large" | "small" }) =>
-    `${fontSizes[props.fontSize]}px`};
+  font-size: 12px;
 `;
-
-const fontSizes = {
-  large: 14,
-  small: 12,
-};
 
 const Arrow = styled.img`
   width: 14px;
@@ -118,14 +111,14 @@ export const MonthlyWidget = ({
         <WidgetMainContent>
           <WidgetDescription>
             {!isFirstMonth && (
-              <WidgetValue title={tooltipValue} fontSize={"small"}>
+              <WidgetValue title={tooltipValue}>
                 {formattedDifferenceToPreviousMonth} ¹
                 <Arrow
                   src={isMoreExpensiveThanPreviousMonth ? ArrowUp : ArrowDown}
                 />
               </WidgetValue>
             )}
-            <WidgetValue fontSize={"large"} isFirstMonth={isFirstMonth}>{`${(
+            <WidgetValue isFirstMonth={isFirstMonth}>{`${(
               Math.round(monthlyEntry.totalPrice * 100) / 100
             ).toFixed(2)} $`}</WidgetValue>
           </WidgetDescription>
