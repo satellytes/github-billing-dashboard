@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/github-billing-dashboard/static/js/main.f859c669.chunk.js",
-    "main.js.map": "/github-billing-dashboard/static/js/main.f859c669.chunk.js.map",
+    "main.js": "/github-billing-dashboard/static/js/main.85fd1243.chunk.js",
+    "main.js.map": "/github-billing-dashboard/static/js/main.85fd1243.chunk.js.map",
     "runtime-main.js": "/github-billing-dashboard/static/js/runtime-main.1a2200e5.js",
     "runtime-main.js.map": "/github-billing-dashboard/static/js/runtime-main.1a2200e5.js.map",
     "static/css/2.80937712.chunk.css": "/github-billing-dashboard/static/css/2.80937712.chunk.css",
@@ -23,6 +23,6 @@
     "static/js/runtime-main.1a2200e5.js",
     "static/css/2.80937712.chunk.css",
     "static/js/2.34c941a5.chunk.js",
-    "static/js/main.f859c669.chunk.js"
+    "static/js/main.85fd1243.chunk.js"
   ]
 }
