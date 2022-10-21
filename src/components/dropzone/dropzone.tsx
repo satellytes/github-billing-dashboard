@@ -22,14 +22,14 @@ interface DropzoneProp {
 }
 
 export const Dropzone = ({ onInput, children }: DropzoneProp): JSX.Element => {
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       onInput(acceptedFiles[0], acceptedFiles[0].name);
     }
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: ".csv",
+    accept: { "text/csv": [".csv"] },
   });
 
   return (
