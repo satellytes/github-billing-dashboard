@@ -98,16 +98,30 @@ const CloseFile = styled.div`
   }
 `;
 
+const ErrorMessage = styled.p`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 150%;
+  color: #ff0d35;
+`;
+
+const ErrorLink = styled.a`
+  color: #ff0d35;
+`;
+
 interface FileInputProp {
   onInput: (file: File | null, isDataFromDropzone: boolean) => void;
   handleInputFromLocalStorage: (csvData: UsageReportEntry[]) => void;
   activeFileName: string;
+  hasError: boolean;
 }
 
 export const FileInput = ({
   onInput,
   handleInputFromLocalStorage,
   activeFileName,
+  hasError,
 }: FileInputProp): JSX.Element => {
   const fileInput = useRef<HTMLInputElement>(null);
   const [filesFromLocalStorage, setFilesFromLocalStorage] = useState(
@@ -167,6 +181,20 @@ export const FileInput = ({
           >
             <ButtonText>Use Sample CSV File</ButtonText>
           </StyledButton>
+          {hasError && (
+            <ErrorMessage>
+              Please use only CSV files created directly from GitHub. See
+              &quot;How to get your CSV file&quot; for instructions on how to
+              get the file.
+              <br />
+              You used the right file and still get an error message? Then
+              contact us and{" "}
+              <ErrorLink href="https://github.com/satellytes/github-billing-dashboard/issues">
+                create an issue on GitHub
+              </ErrorLink>
+              .
+            </ErrorMessage>
+          )}
           {(activeButton || filesFromLocalStorage.length != 0) && (
             <DividingLine />
           )}

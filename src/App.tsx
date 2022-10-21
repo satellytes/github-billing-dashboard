@@ -35,6 +35,7 @@ const MainContent = styled(Grid)`
 const App = (): JSX.Element => {
   const [selectedFileName, setSelectedFileName] = useState<string>("");
   const [csvData, setCsvData] = useState<UsageReportEntry[] | null>(null);
+  const [csvError, setCsvError] = useState<boolean>(false);
   const [entriesGroupedPerDay, setEntriesGroupedPerDay] = useState<
     UsageReportDay[]
   >([]);
@@ -64,10 +65,13 @@ const App = (): JSX.Element => {
 
   const handleFileInput = (file: File | null) => {
     if (file) {
-      getCsvFile(file).then((res) => {
-        setCsvData(res);
-        setSelectedFileName(file.name);
-      });
+      getCsvFile(file)
+        .then((res) => {
+          setCsvError(false);
+          setCsvData(res);
+          setSelectedFileName(file.name);
+        })
+        .catch(() => setCsvError(true));
     } else {
       setCsvData(null);
       setSelectedFileName("");
@@ -117,6 +121,7 @@ const App = (): JSX.Element => {
             onInput={handleFileInput}
             handleInputFromLocalStorage={handleInputFromLocalStorage}
             activeFileName={selectedFileName}
+            hasError={csvError}
           />
           <RepositoryTableContext.Provider
             value={{
