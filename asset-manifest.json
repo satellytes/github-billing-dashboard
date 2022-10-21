@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/github-billing-dashboard/static/css/main.6d6cc831.css",
-    "main.js": "/github-billing-dashboard/static/js/main.10ee283e.js",
+    "main.js": "/github-billing-dashboard/static/js/main.7d92e7a4.js",
     "static/media/Coco-Gothic-Bold-TTF.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Bold-TTF.ee8e9b6a278c31f69fb9.ttf",
     "static/media/Coco-Gothic-Heavy-TTF.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Heavy-TTF.d8ca8344ebe5ddbbb765.ttf",
     "static/media/Coco-Gothic-Regular-TTF.ttf": "/github-billing-dashboard/static/media/Coco-Gothic-Regular-TTF.76afad7daabde8d0d636.ttf",
@@ -12,10 +12,10 @@
     "static/media/arrow-down-icon.svg": "/github-billing-dashboard/static/media/arrow-down-icon.c4d369e2f476fe087741bbcf420d1334.svg",
     "static/media/arrow-up-icon.svg": "/github-billing-dashboard/static/media/arrow-up-icon.c764bb8f3fbc60138b2ab029915b58e9.svg",
     "main.6d6cc831.css.map": "/github-billing-dashboard/static/css/main.6d6cc831.css.map",
-    "main.10ee283e.js.map": "/github-billing-dashboard/static/js/main.10ee283e.js.map"
+    "main.7d92e7a4.js.map": "/github-billing-dashboard/static/js/main.7d92e7a4.js.map"
   },
   "entrypoints": [
     "static/css/main.6d6cc831.css",
-    "static/js/main.10ee283e.js"
+    "static/js/main.7d92e7a4.js"
   ]
 }
