@@ -22,7 +22,7 @@ const camalize = (str: string): string => {
     .replace(/[^a-zA-Z0-0]+(.)/g, (m, chr) => chr.toUpperCase());
 };
 
-const hasCorrectCsvSchema = (parseResult: any) => {
+const hasCorrectCsvSchema = (parseResult: object) => {
   return (
     !Object.prototype.hasOwnProperty.call(parseResult, "date") ||
     !Object.prototype.hasOwnProperty.call(parseResult, "product") ||
