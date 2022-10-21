@@ -187,8 +187,8 @@ export const FileInput = ({
               &quot;How to get your CSV file&quot; for instructions on how to
               get the file.
               <br />
-              You used the right file and still get an error message? Then
-              contact us and{" "}
+              You used the right file and still get an error message? Feel free
+              to{" "}
               <ErrorLink href="https://github.com/satellytes/github-billing-dashboard/issues">
                 create an issue on GitHub
               </ErrorLink>
