@@ -27,8 +27,15 @@ export const getCsvFile = (file: File): Promise<UsageReportEntry[]> => {
       header: true,
       skipEmptyLines: true,
       transformHeader: (header: string): string => {
-        const headerWithoutUnit = header.replace(" ($)", "");
-        return camalize(headerWithoutUnit);
+        if (header.endsWith(" ($)")) {
+          const headerWithoutUnit = header.replace(" ($)", "");
+          return camalize(headerWithoutUnit);
+        }
+        if (header.endsWith(" (€)")) {
+          const headerWithoutUnit = header.replace(" (€)", "");
+          return camalize(headerWithoutUnit);
+        }
+        return camalize(header);
       },
       complete: (result) => {
         const githubBillingEntries: UsageReportEntry[] = result.data.map(
