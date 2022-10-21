@@ -1,6 +1,6 @@
-import React from "react";
+import React, { SVGAttributes } from "react";
 
-export const Swoosh: React.FC = (props: React.SVGAttributes<SVGElement>) => (
+export const Swoosh: React.FC = (props: SVGAttributes<SVGElement>) => (
   <svg
     className={props.className}
     viewBox="0 0 51 15"
